@@ -72,22 +72,25 @@ export const getNearWalletFromKeyPair = async (
   accountId: string;
   account: Account;
 }> => {
-  // Parse the ed25519 private key (format: "ed25519:BASE58...")
   const keyPair = KeyPair.fromString(privateKey as `ed25519:${string}`);
+
   const signer = new KeyPairSigner(keyPair);
 
-  // Derive the implicit account ID (hex-encoded public key, 64 chars)
   const address = Buffer.from(keyPair.getPublicKey().data).toString('hex');
 
-  // Create a NEAR Account instance connected to the RPC provider
-  const account = new Account(address, nearJsonRpcProvider as Provider, signer);
-
-  // Look up named accounts associated with this key (e.g. "alice.near")
-  // If found, use the named account; otherwise fall back to the implicit account
+  // Resolve the named account before creating Account.
   const accounts = await getAccountsForPublicKey(
     keyPair.getPublicKey().toString(),
   );
+
   const accountId = accounts.length > 0 ? accounts[0] : address;
+
+  // Use the resolved account ID here.
+  const account = new Account(
+    accountId,
+    nearJsonRpcProvider as Provider,
+    signer,
+  );
 
   return {
     keyPair,
