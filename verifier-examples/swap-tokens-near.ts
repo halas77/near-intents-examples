@@ -192,11 +192,13 @@ export const submitSwap = async ({
 };
 
 // ── Configuration ──────────────────────────────────────────────────────────────
-const fromTokenId =
-  'nep141:arb-0xaf88d065e77c8cc2239327c5edb3a432268e5831.omft.near'; // $USDC on Arbitrum
-const toTokenId = 'nep141:wrap.near'; // Native $NEAR
-const amount = '0.5'; // Human-readable amount of the source token
-const quoteOnly = false; // Set to true to preview quote without executing
+const fromTokenId = 'nep141:wrap.near';
+
+const toTokenId = 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g';
+
+const amount = '0.1';
+
+const quoteOnly = true;
 
 async function main() {
   console.log('Requesting swap quote...');
