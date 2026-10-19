@@ -107,10 +107,10 @@ export const submitWithdrawal = async ({
 // nep245:v2_1.omni.hot.tg:56_12zbnsg6xndDVj25QyL82YMPudb -- aster
 // nep245:v2_1.omni.hot.tg:56_11111111111111111111 -- bnb
 const tokenId = 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g'; // Token to withdraw (see get-tokens-list.ts for options)
-const amount = '2'; // Human-readable amount
+const amount = '0.5'; // Human-readable amount
 const destinationAddress = '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33'; // Replace with your external wallet address
 const destinationMemo = undefined; // Set for chains that require a memo (Stellar, XRP, etc.)
-const withdrawalQuoteOnly = true; // Set to true to only see fee quote without executing
+const withdrawalQuoteOnly = false; // Set to true to only see fee quote without executing
 const nativeFeeTokenId = 'nep245:v2_1.omni.hot.tg:56_11111111111111111111';
 const feeProbeAmount = '0.00001'; // Small BNB probe amount used only to estimate relayer fee
 
