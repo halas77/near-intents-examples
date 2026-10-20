@@ -87,18 +87,41 @@ export const submitWithdrawal = async ({
   // Attach your wallet signer to the SDK instance
   intentsSdk.setIntentSigner(signer);
 
-  // Process the full withdrawal: build intent → sign → submit → wait for bridge
-  const withdrawal = await intentsSdk.processWithdrawal({
+  // Submit withdrawal intent without waiting for destination-chain indexing.
+  // This avoids appearing stuck when destination status lags.
+  const { intentHash } = await intentsSdk.signAndSendWithdrawalIntent({
     withdrawalParams,
     feeEstimation,
   });
+  console.log(`Intent submitted: ${intentHash}`);
 
-  // Wait for the intent to be settled on-chain (bridge completion)
-  // This may take a few seconds to minutes depending on the destination chain
+  // Wait for Near-side settlement first (usually fast).
   const intentTx = await intentsSdk.waitForIntentSettlement({
-    intentHash: withdrawal.intentHash,
+    intentHash,
   });
-  return intentTx;
+
+  // Destination indexing can lag even when funds already arrived.
+  // Cap the wait so the script always returns promptly with useful hashes.
+  let destinationTx: { hash: string | null } | null = null;
+  try {
+    destinationTx = await intentsSdk.waitForWithdrawalCompletion({
+      withdrawalParams,
+      intentTx,
+      signal: AbortSignal.timeout(destinationWaitTimeoutMs),
+    });
+  } catch (error) {
+    console.warn(
+      `Destination completion wait timed out after ${destinationWaitTimeoutMs}ms. ` +
+        'The withdrawal may still be completed on destination chain.',
+    );
+    console.warn(error);
+  }
+
+  return {
+    intentHash,
+    intentTx,
+    destinationTx,
+  };
 };
 
 // ── Configuration ──────────────────────────────────────────────────────────────
@@ -107,12 +130,13 @@ export const submitWithdrawal = async ({
 // nep245:v2_1.omni.hot.tg:56_12zbnsg6xndDVj25QyL82YMPudb -- aster
 // nep245:v2_1.omni.hot.tg:56_11111111111111111111 -- bnb
 const tokenId = 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g'; // Token to withdraw (see get-tokens-list.ts for options)
-const amount = '0.5'; // Human-readable amount
+const amount = '0.2'; // Human-readable amount
 const destinationAddress = '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33'; // Replace with your external wallet address
 const destinationMemo = undefined; // Set for chains that require a memo (Stellar, XRP, etc.)
 const withdrawalQuoteOnly = false; // Set to true to only see fee quote without executing
 const nativeFeeTokenId = 'nep245:v2_1.omni.hot.tg:56_11111111111111111111';
 const feeProbeAmount = '0.00001'; // Small BNB probe amount used only to estimate relayer fee
+const destinationWaitTimeoutMs = 120_000; // Limit destination wait to 2 minutes
 
 async function main() {
   // Auto-detect signer type (NEAR or EVM) based on which .env key is set
@@ -169,7 +193,7 @@ async function main() {
   }
 
   // Phase 2: Execute the withdrawal
-  const intentTx = await submitWithdrawal({
+  const withdrawalResult = await submitWithdrawal({
     withdrawalParams: {
       assetId: token.assetId, // Token to withdraw
       amount: BigInt(amountIn), // Amount in smallest unit
@@ -181,7 +205,7 @@ async function main() {
     signer,
   });
   console.log('\nWithdrawal submitted. Settlement result:');
-  console.log(JSON.stringify(intentTx, null, 2));
+  console.log(JSON.stringify(withdrawalResult, null, 2));
 }
 
 // Only run when executed directly
