@@ -122,17 +122,17 @@ export const submitWithdrawal = async ({
 const withdrawals: WithdrawalConfig[] = [
   {
     tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // BNB
-    amount: '0.00004',
+    amount: '0.00002',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
   },
-  {
-    tokenId: 'nep245:v2_1.omni.hot.tg:56_2w93GqMcEmQFDru84j3HZZWt557r', // USDC
-    amount: '0.010927678269472345',
-    destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
-  },
+  // {
+  //   tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // BNB
+  //   amount: '0.00002',
+  //   destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
+  // },
   {
     tokenId: 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g', // USDT
-    amount: '0.041787273387901298',
+    amount: '0.05',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
   },
 ];
