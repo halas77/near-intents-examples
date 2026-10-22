@@ -1,8 +1,9 @@
 /**
- *  Withdraw Tokens
+ *  Withdraw Tokens (Single & Batch Support)
  *
- *  Moves tokens out of your intents account to an external wallet address on any supported chain.
- *  The withdrawal is settled on-chain via the POA bridge, so a bridge fee applies.
+ *  Moves tokens out of your intents account to external wallet addresses on any supported chain.
+ *  Multiple tokens can be withdrawn in ONE SINGLE intent transaction on NEAR.
+ *  The withdrawal is settled on-chain via the bridge, so bridge fees apply.
  *
  *  Why withdrawals?
  *  ----------------
@@ -11,22 +12,23 @@
  *  you need to withdraw — the bridge releases the real tokens on the destination chain.
  *
  *  Two-phase flow:
- *   1. Fee estimation — call `estimateWithdrawalFee` to see the expected bridge fee
+ *   1. Fee estimation — calls `estimateWithdrawalFee` for all configured tokens to see expected bridge fees
  *      before committing. Set `withdrawalQuoteOnly = true` to stop here.
- *   2. Submission — sign the intent, submit it, and wait for on-chain settlement.
- *      The SDK handles signing, broadcasting, and polling for completion.
+ *   2. Submission — signs all token withdrawals in a SINGLE intent and submits it to the relayer.
+ *      The SDK handles signing, broadcasting, and polling for completion across destination chains.
  *
  *  Fee modes:
- *   - `feeInclusive: true`  — fee is deducted from the withdrawal amount (you receive less)
+ *   - `feeInclusive: true`  — fee is deducted from the withdrawal amount (you receive amount - fee)
  *   - `feeInclusive: false` — fee is added on top (you need extra balance to cover it)
  *
  *  Configure the variables below:
- *   - `withdrawals[]`      — list of tokens to withdraw in a single batch
+ *   - `withdrawals[]`      — list of tokens to withdraw in a single intent
  *   - `tokenId`            — token asset ID for each withdrawal entry
  *   - `amount`             — human-readable amount for each entry
  *   - `destinationAddress` — external wallet address for each entry
  *   - `destinationMemo`    — optional memo per entry (required for some chains like Stellar, XRP)
- *   - `withdrawalQuoteOnly` — set to true to only see the fee quote without executing
+ *   - `feeInclusive`       — optional per-entry fee mode (defaults to true)
+ *   - `withdrawalQuoteOnly` — set to true to only see fee quotes without executing
  *
  *  Run:  pnpm sdk/withdraw-tokens
  *
@@ -44,11 +46,12 @@ import { getTokenById, Token } from './get-tokens-list';
 import { intentsSdk } from './utils/config';
 import { getSigner } from './utils/signer';
 
-type WithdrawalConfig = {
+export type WithdrawalConfig = {
   tokenId: string;
   amount: string;
   destinationAddress: string;
   destinationMemo?: string;
+  feeInclusive?: boolean;
 };
 
 type ResolvedWithdrawal = {
@@ -57,15 +60,22 @@ type ResolvedWithdrawal = {
   amountIn: string;
 };
 
-type WithdrawalBatch = {
+/**
+ * Estimate the bridge fees for one or multiple withdrawals without executing them.
+ */
+export const getWithdrawalQuote = async ({
+  withdrawalParams,
+}: {
   withdrawalParams: WithdrawalParams[];
-  feeEstimation: FeeEstimation[];
-  entries: ResolvedWithdrawal[];
+}) => {
+  return intentsSdk.estimateWithdrawalFee({
+    withdrawalParams,
+  });
 };
 
 /**
- * Sign and submit the withdrawal intent, then wait for on-chain settlement.
- * The bridge releases the real tokens on the destination chain once settled.
+ * Sign and submit all configured withdrawals in a SINGLE intent, then wait for settlement.
+ * All tokens are bundled into 1 intent hash and settled atomically on NEAR.
  */
 export const submitWithdrawal = async ({
   withdrawalParams,
@@ -79,23 +89,29 @@ export const submitWithdrawal = async ({
   // Attach your wallet signer to the SDK instance
   intentsSdk.setIntentSigner(signer);
 
-  // Submit withdrawal intent without waiting for destination-chain indexing.
-  // This avoids appearing stuck when destination status lags.
+  console.log(
+    `Submitting 1 single intent for ${withdrawalParams.length} token withdrawal(s)...`,
+  );
+
+  // Submit all withdrawal items together in ONE single intent
   const { intentHash } = await intentsSdk.signAndSendWithdrawalIntent({
     withdrawalParams,
     feeEstimation,
   });
   console.log(`Intent submitted: ${intentHash}`);
 
-  // Wait for Near-side settlement first (usually fast).
+  // Wait for Near-side settlement first (atomic execution of all withdrawals on NEAR)
+  console.log('Waiting for intent settlement on NEAR...');
   const intentTx = await intentsSdk.waitForIntentSettlement({
     intentHash,
   });
+  console.log(`NEAR intent settled! Tx: ${intentTx.hash}`);
 
   // Destination indexing can lag even when funds already arrived.
-  // Cap the wait so the script always returns promptly with useful hashes.
+  // Cap the wait so the script returns promptly with useful hashes.
   let destinationTx: Array<{ hash: string | null }> | null = null;
   try {
+    console.log('Waiting for withdrawal completion on destination chain(s)...');
     destinationTx = await intentsSdk.waitForWithdrawalCompletion({
       withdrawalParams,
       intentTx,
@@ -118,82 +134,32 @@ export const submitWithdrawal = async ({
 
 // ── Configuration ──────────────────────────────────────────────────────────────
 
-// Configure multiple withdrawals to execute in one intent submission.
+// Configure multiple withdrawals to execute in ONE single intent submission.
+// Add 2, 3, or more tokens here — they will all be bundled into the same intent.
 const withdrawals: WithdrawalConfig[] = [
   {
     tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // BNB
     amount: '0.00002',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
+    feeInclusive: true,
   },
-  // {
-  //   tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // BNB
-  //   amount: '0.00002',
-  //   destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
-  // },
   {
-    tokenId: 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g', // USDT
-    amount: '0.05',
+    tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // USDT
+    amount: '0.00002',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
+    feeInclusive: true,
   },
+  // Example for a 3rd token:
+  // {
+  //   tokenId: 'nep245:v2_1.omni.hot.tg:56_12zbnsg6xndDVj25QyL82YMPudb', // ASTER
+  //   amount: '1.0',
+  //   destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
+  //   feeInclusive: true,
+  // },
 ];
 
-const withdrawalQuoteOnly = false; // Set to true to only see fee quote without executing
+const withdrawalQuoteOnly = false; // Set to true to only see fee quotes without executing
 const destinationWaitTimeoutMs = 120_000; // Limit destination wait to 2 minutes
-const maxIntentComplexityPerBatch = 4; // Lower this if you still hit gas limits
-
-const estimateIntentComplexity = (fee: FeeEstimation) => {
-  // Quoted withdrawals include additional solver-signed intents.
-  return fee.quote ? 3 : 1;
-};
-
-const buildBatches = ({
-  resolvedWithdrawals,
-  withdrawalParams,
-  feeEstimation,
-  maxComplexity,
-}: {
-  resolvedWithdrawals: ResolvedWithdrawal[];
-  withdrawalParams: WithdrawalParams[];
-  feeEstimation: FeeEstimation[];
-  maxComplexity: number;
-}): WithdrawalBatch[] => {
-  const batches: WithdrawalBatch[] = [];
-
-  let current: WithdrawalBatch = {
-    withdrawalParams: [],
-    feeEstimation: [],
-    entries: [],
-  };
-  let currentComplexity = 0;
-
-  for (let i = 0; i < withdrawalParams.length; i++) {
-    const complexity = estimateIntentComplexity(feeEstimation[i]);
-    const shouldFlush =
-      current.withdrawalParams.length > 0 &&
-      currentComplexity + complexity > maxComplexity;
-
-    if (shouldFlush) {
-      batches.push(current);
-      current = {
-        withdrawalParams: [],
-        feeEstimation: [],
-        entries: [],
-      };
-      currentComplexity = 0;
-    }
-
-    current.withdrawalParams.push(withdrawalParams[i]);
-    current.feeEstimation.push(feeEstimation[i]);
-    current.entries.push(resolvedWithdrawals[i]);
-    currentComplexity += complexity;
-  }
-
-  if (current.withdrawalParams.length > 0) {
-    batches.push(current);
-  }
-
-  return batches;
-};
 
 const resolveWithdrawals = async (
   configs: WithdrawalConfig[],
@@ -271,7 +237,9 @@ async function main() {
     );
   }
 
-  console.log('Preparing batch withdrawal...');
+  console.log(
+    `Preparing batch withdrawal (${resolvedWithdrawals.length} token(s) in 1 intent)...`,
+  );
   console.table(
     resolvedWithdrawals.map((entry) => ({
       token: entry.token.symbol,
@@ -280,6 +248,7 @@ async function main() {
       amountSmallestUnit: entry.amountIn,
       destination: entry.config.destinationAddress,
       memo: entry.config.destinationMemo ?? '',
+      feeInclusive: entry.config.feeInclusive ?? true,
     })),
   );
 
@@ -288,7 +257,7 @@ async function main() {
       assetId: entry.token.assetId,
       amount: BigInt(entry.amountIn),
       destinationAddress: entry.config.destinationAddress,
-      feeInclusive: true,
+      feeInclusive: entry.config.feeInclusive ?? true,
       destinationMemo: entry.config.destinationMemo,
     }),
   );
@@ -300,6 +269,9 @@ async function main() {
 
   const invalidFeeInclusiveRows = resolvedWithdrawals
     .map((entry, index) => {
+      const isInclusive = entry.config.feeInclusive ?? true;
+      if (!isInclusive) return null;
+
       const amount = BigInt(entry.amountIn);
       const fee = feeEstimation[index].amount;
       const net = amount - fee;
@@ -335,36 +307,16 @@ async function main() {
     return;
   }
 
-  // Phase 2: Execute in gas-safe batches to avoid prepaid gas failures.
-  const batches = buildBatches({
-    resolvedWithdrawals,
+  // Phase 2: Execute all withdrawals in ONE single intent
+  console.log('\nSubmitting all withdrawals in a single intent...');
+  const withdrawalResult = await submitWithdrawal({
     withdrawalParams,
     feeEstimation,
-    maxComplexity: maxIntentComplexityPerBatch,
+    signer,
   });
 
-  const results: Array<Awaited<ReturnType<typeof submitWithdrawal>>> = [];
-  for (let i = 0; i < batches.length; i++) {
-    const batch = batches[i];
-    console.log(`\nSubmitting batch ${i + 1}/${batches.length}...`);
-    console.table(
-      batch.entries.map((entry) => ({
-        token: entry.token.symbol,
-        assetId: entry.token.assetId,
-        amountHuman: entry.config.amount,
-      })),
-    );
-
-    const result = await submitWithdrawal({
-      withdrawalParams: batch.withdrawalParams,
-      feeEstimation: batch.feeEstimation,
-      signer,
-    });
-    results.push(result);
-  }
-
-  console.log('\nAll withdrawal batches submitted. Settlement results:');
-  console.log(JSON.stringify(results, null, 2));
+  console.log('\nBatch withdrawal submitted. Settlement result:');
+  console.log(JSON.stringify(withdrawalResult, null, 2));
 }
 
 // Only run when executed directly

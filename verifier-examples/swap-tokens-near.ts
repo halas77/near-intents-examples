@@ -192,13 +192,13 @@ export const submitSwap = async ({
 };
 
 // ── Configuration ──────────────────────────────────────────────────────────────
-const fromTokenId = 'nep245:v2_1.omni.hot.tg:137_11111111111111111111';
+const fromTokenId = 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g';
 
-const toTokenId = 'nep245:v2_1.omni.hot.tg:56_11111111111111111111';
+const toTokenId = 'nep245:v2_1.omni.hot.tg:143_11111111111111111111';
 
-const amount = '0.000119198633812001';
+const amount = '0.45';
 
-const quoteOnly = false;
+const quoteOnly = true;
 
 async function main() {
   console.log('Requesting swap quote...');
