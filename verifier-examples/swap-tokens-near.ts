@@ -194,7 +194,7 @@ export const submitSwap = async ({
 // ── Configuration ──────────────────────────────────────────────────────────────
 const fromTokenId = 'nep245:v2_1.omni.hot.tg:56_2CMMyVTGZkeyNZTSvS5sarzfir6g';
 
-const toTokenId = 'nep245:v2_1.omni.hot.tg:56_SZzgw3HSudhZcTwPWUTi2RJB19t';
+const toTokenId = 'nep245:v2_1.omni.hot.tg:56_2w93GqMcEmQFDru84j3HZZWt557r';
 
 const amount = '0.45';
 
