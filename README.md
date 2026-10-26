@@ -76,16 +76,16 @@ near-intents-examples/
 
 ## Dependencies
 
-| Package | Purpose |
-|---|---|
-| [`@defuse-protocol/one-click-sdk-typescript`](https://www.npmjs.com/package/@defuse-protocol/one-click-sdk-typescript) | 1-Click REST API client (quotes, status, token list) |
-| [`@defuse-protocol/intents-sdk`](https://www.npmjs.com/package/@defuse-protocol/intents-sdk) | Intents SDK for signing, submitting, and settling intents |
-| [`@defuse-protocol/internal-utils`](https://www.npmjs.com/package/@defuse-protocol/internal-utils) | Auth identity, message factories, POA bridge client |
-| [`near-api-js`](https://github.com/near/near-api-js) | NEAR blockchain interaction (RPC, accounts, NEP-413 signing) |
-| [`viem`](https://viem.sh) | EVM wallet client and ERC-191 message signing |
-| [`zod`](https://zod.dev) | Runtime response validation and type inference |
-| [`@scure/base`](https://github.com/nicolo-ribaudo/scure-base) | Base64 encoding/decoding for signatures and nonces |
-| [`dotenv`](https://github.com/motdotla/dotenv) | Environment variable loading |
+| Package                                                                                                                | Purpose                                                      |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`@defuse-protocol/one-click-sdk-typescript`](https://www.npmjs.com/package/@defuse-protocol/one-click-sdk-typescript) | 1-Click REST API client (quotes, status, token list)         |
+| [`@defuse-protocol/intents-sdk`](https://www.npmjs.com/package/@defuse-protocol/intents-sdk)                           | Intents SDK for signing, submitting, and settling intents    |
+| [`@defuse-protocol/internal-utils`](https://www.npmjs.com/package/@defuse-protocol/internal-utils)                     | Auth identity, message factories, POA bridge client          |
+| [`near-api-js`](https://github.com/near/near-api-js)                                                                   | NEAR blockchain interaction (RPC, accounts, NEP-413 signing) |
+| [`viem`](https://viem.sh)                                                                                              | EVM wallet client and ERC-191 message signing                |
+| [`zod`](https://zod.dev)                                                                                               | Runtime response validation and type inference               |
+| [`@scure/base`](https://github.com/nicolo-ribaudo/scure-base)                                                          | Base64 encoding/decoding for signatures and nonces           |
+| [`dotenv`](https://github.com/motdotla/dotenv)                                                                         | Environment variable loading                                 |
 
 ---
 
@@ -117,21 +117,22 @@ pnpm 1click/full-swap           # Full end-to-end swap (steps 2-5 combined)
 Edit the configuration variables at the top of [`2-get-quote.ts`](./1click-example/2-get-quote.ts) or [`6-full-swap.ts`](./1click-example/6-full-swap.ts):
 
 ```ts
-const isTest = true;           // true = dry run (no deposit address), false = real execution
-const originAsset = 'nep141:wrap.near';                                           // Source token
-const destinationAsset = 'nep141:arb-0x912ce59144191c1204e64559fe8253a0e49e6548.omft.near'; // Target token
-const amount = NEAR.toUnits('0.5').toString();                                    // Amount in smallest unit
+const isTest = true; // true = dry run (no deposit address), false = real execution
+const originAsset = 'nep141:wrap.near'; // Source token
+const destinationAsset =
+  'nep141:arb-0x912ce59144191c1204e64559fe8253a0e49e6548.omft.near'; // Target token
+const amount = NEAR.toUnits('0.5').toString(); // Amount in smallest unit
 ```
 
 ### Status Codes
 
-| Status | Description |
-|---|---|
-| `PENDING_DEPOSIT` | Waiting for deposit confirmation |
-| `KNOWN_DEPOSIT_TX` | Deposit transaction detected |
-| `PROCESSING` | Swap being executed |
-| `SUCCESS` | Swap completed |
-| `REFUNDED` | Swap failed, tokens refunded |
+| Status             | Description                      |
+| ------------------ | -------------------------------- |
+| `PENDING_DEPOSIT`  | Waiting for deposit confirmation |
+| `KNOWN_DEPOSIT_TX` | Deposit transaction detected     |
+| `PROCESSING`       | Swap being executed              |
+| `SUCCESS`          | Swap completed                   |
+| `REFUNDED`         | Swap failed, tokens refunded     |
 
 ---
 
@@ -163,6 +164,7 @@ pnpm sdk/swap-tokens-evm             # Swap using EVM wallet (ERC-191 signing)
 # Move Tokens (auto-detects signer)
 pnpm sdk/transfer-tokens             # Internal transfer to another intents account
 pnpm sdk/withdraw-tokens             # Withdraw tokens to an external chain address
+pnpm sdk/batch-withdraw              # Batch multi-token (NEP-245) withdrawal in one intent transaction
 ```
 
 ### Typical Workflow

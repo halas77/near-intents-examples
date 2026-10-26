@@ -138,14 +138,14 @@ export const submitWithdrawal = async ({
 // Add 2, 3, or more tokens here — they will all be bundled into the same intent.
 const withdrawals: WithdrawalConfig[] = [
   {
-    tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // BNB
-    amount: '0.00002',
+    tokenId: 'nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L', // USDC
+    amount: '0.01',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
     feeInclusive: true,
   },
   {
-    tokenId: 'nep245:v2_1.omni.hot.tg:56_11111111111111111111', // USDT
-    amount: '0.00002',
+    tokenId: 'nep245:v2_1.omni.hot.tg:137_3hpYoaLtt8MP1Z2GH1U473DMRKgr', // USDT
+    amount: '0.01',
     destinationAddress: '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
     feeInclusive: true,
   },
