@@ -93,14 +93,14 @@ export function encodeReceiverAddress(address: string): string {
 export interface MtBatchWithdrawConfig {
   /** Multi-token contract ID (NEP-245 contract) */
   mtContract: string;
-  /** Callback receiver contract ID */
+  /** Callback receiver contract ID or target NEAR account */
   receiverId: string;
   /** Array of NEP-245 token IDs */
   tokenIds: string[];
   /** Positionally-aligned array of amounts (as strings) */
   amounts: string[];
-  /** Callback message JSON object (will be serialized to string) */
-  callbackMsg: Record<string, unknown>;
+  /** Callback message JSON object (or null for direct mt_batch_transfer without callback) */
+  callbackMsg?: Record<string, unknown> | null;
   /** Optional memo */
   memo?: string;
   /** Optional min_gas override */
@@ -308,7 +308,7 @@ export async function resolveAutoCallbackMsg(options?: {
  * @param autoCallbackMsg Optional pre-resolved callback message when MT_CALLBACK_MSG_JSON is not set.
  */
 export function loadConfig(
-  autoCallbackMsg?: Record<string, unknown>,
+  autoCallbackMsg?: Record<string, unknown> | null,
 ): MtBatchWithdrawConfig {
   const mtContract = process.env.MT_CONTRACT || 'v2_1.omni.hot.tg';
 
@@ -389,9 +389,11 @@ export function loadConfig(
   }
 
   // Parse callback message
-  let callbackMsg: Record<string, unknown>;
+  let callbackMsg: Record<string, unknown> | null = null;
   const callbackMsgRaw = process.env.MT_CALLBACK_MSG_JSON;
-  if (callbackMsgRaw) {
+  if (process.env.MT_NO_CALLBACK === 'true') {
+    callbackMsg = null;
+  } else if (callbackMsgRaw) {
     try {
       callbackMsg = JSON.parse(callbackMsgRaw);
     } catch {
@@ -408,7 +410,7 @@ export function loadConfig(
         'MT_CALLBACK_MSG_JSON must be a JSON object (not null, not an array).',
       );
     }
-  } else if (autoCallbackMsg) {
+  } else if (autoCallbackMsg !== undefined) {
     callbackMsg = autoCallbackMsg;
   } else {
     throw new Error(
@@ -421,6 +423,7 @@ export function loadConfig(
   // If callback contract is bridge-refuel.hot.tg and receiver_id inside msg is an EVM address ("0x..."),
   // convert it to the Base58 format expected by the Rust smart contract.
   if (
+    callbackMsg &&
     receiverId === 'bridge-refuel.hot.tg' &&
     typeof callbackMsg.receiver_id === 'string' &&
     callbackMsg.receiver_id.startsWith('0x')
@@ -472,7 +475,8 @@ export function loadConfig(
 export function buildMtWithdrawIntent(
   config: MtBatchWithdrawConfig,
 ): MtWithdrawIntent {
-  const msgString = JSON.stringify(config.callbackMsg);
+  const msgString =
+    config.callbackMsg != null ? JSON.stringify(config.callbackMsg) : null;
 
   const intent: MtWithdrawIntent = {
     intent: 'mt_withdraw',
@@ -495,39 +499,61 @@ async function main() {
   const isSubmitMode = process.argv.includes('--submit');
 
   console.log('╔══════════════════════════════════════════════════════════╗');
-  console.log('║  MT Batch Withdraw — NEP-245 Callback-Based Withdrawal  ║');
+  console.log('║  MT Batch Withdraw — NEP-245 Callback-Based Withdrawal   ║');
   console.log('╚══════════════════════════════════════════════════════════╝');
   console.log();
 
-  // If MT_CALLBACK_MSG_JSON is not provided, automatically resolve receiver_id,
-  // amount_native, and live destination block_number.
-  let autoCallbackMsg: Record<string, unknown> | undefined;
-  if (!process.env.MT_CALLBACK_MSG_JSON) {
-    console.log(
-      'ℹ  MT_CALLBACK_MSG_JSON not set — automatically resolving receiver_id, amount_native, and live block_number...',
-    );
-    let firstTokenId: string | undefined;
-    try {
-      const raw = process.env.MT_TOKEN_IDS;
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr) && arr.length > 0) {
-          firstTokenId = String(arr[0]);
-        }
-      }
-    } catch {
-      // Ignore JSON parse errors here; loadConfig will report them cleanly
-    }
+  const receiverIdEnv = process.env.MT_RECEIVER_ID;
+  const isBridgeRefuel = receiverIdEnv === 'bridge-refuel.hot.tg';
+  const noCallbackRequested =
+    process.env.MT_NO_CALLBACK === 'true' ||
+    process.env.MT_CALLBACK_MSG_JSON === 'null';
 
-    autoCallbackMsg = await resolveAutoCallbackMsg({
-      tokenId: firstTokenId,
-      isSubmitMode,
-    });
+  let autoCallbackMsg: Record<string, unknown> | null | undefined;
+
+  if (noCallbackRequested) {
     console.log(
-      '   Auto-resolved callback msg:',
-      JSON.stringify(autoCallbackMsg),
+      'ℹ  Direct transfer requested (no callback) — omitting msg field for mt_batch_transfer.',
     );
     console.log();
+    autoCallbackMsg = null;
+  } else if (!process.env.MT_CALLBACK_MSG_JSON) {
+    if (isBridgeRefuel) {
+      console.log(
+        'ℹ  MT_CALLBACK_MSG_JSON not set — automatically resolving receiver_id, amount_native, and live block_number for bridge-refuel...',
+      );
+      let firstTokenId: string | undefined;
+      try {
+        const raw = process.env.MT_TOKEN_IDS;
+        if (raw) {
+          const arr = JSON.parse(raw);
+          if (Array.isArray(arr) && arr.length > 0) {
+            firstTokenId = String(arr[0]);
+          }
+        }
+      } catch {
+        // Ignore JSON parse errors here; loadConfig will report them cleanly
+      }
+
+      autoCallbackMsg = await resolveAutoCallbackMsg({
+        tokenId: firstTokenId,
+        isSubmitMode,
+      });
+      console.log(
+        '   Auto-resolved callback msg:',
+        JSON.stringify(autoCallbackMsg),
+      );
+      console.log();
+    } else {
+      console.log(
+        `ℹ  Receiver "${receiverIdEnv}" is a standard NEAR account (not bridge-refuel.hot.tg).`,
+      );
+      console.log(
+        '   Omitting msg field so intents.near executes direct mt_batch_transfer (no contract callback).',
+      );
+      console.log();
+      autoCallbackMsg = null;
+    }
   }
 
   // Load and validate configuration
@@ -555,16 +581,22 @@ async function main() {
   console.log('───────────────────────');
   console.log();
 
-  // Warn about callback behavior
-  console.log(
-    '⚠  WARNING: The `msg` field triggers `mt_batch_transfer_call` on the',
-  );
-  console.log(
-    '   multi-token contract, which invokes `mt_on_transfer` on the receiver.',
-  );
-  console.log(
-    '   This can trigger contract behavior. Only use with a trusted receiver.',
-  );
+  // Warn about callback behavior if msg is present
+  if (intent.msg) {
+    console.log(
+      '⚠  WARNING: The `msg` field triggers `mt_batch_transfer_call` on the',
+    );
+    console.log(
+      '   multi-token contract, which invokes `mt_on_transfer` on the receiver.',
+    );
+    console.log(
+      '   This can trigger contract behavior. Only use with a trusted receiver.',
+    );
+  } else {
+    console.log(
+      'ℹ  Direct transfer mode: no `msg` attached, so `mt_batch_transfer` will be invoked.',
+    );
+  }
   console.log();
 
   if (!isSubmitMode) {

@@ -395,7 +395,7 @@ withEnv(
     assert(config.amounts.length === 2, 'two amounts loaded');
     assert(config.memo === 'test', 'memo loaded');
     assert(
-      config.callbackMsg.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+      config.callbackMsg?.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
       'callback msg receiver_id Base58 encoded',
     );
   },
@@ -528,15 +528,15 @@ withEnv(
     };
     const config = loadConfig(autoMsg);
     assert(
-      config.callbackMsg.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+      config.callbackMsg?.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
       'auto receiver_id passed to config',
     );
     assert(
-      config.callbackMsg.amount_native === DEFAULT_AMOUNT_NATIVE,
+      config.callbackMsg?.amount_native === DEFAULT_AMOUNT_NATIVE,
       'auto amount_native passed to config',
     );
     assert(
-      config.callbackMsg.block_number === 99999999,
+      config.callbackMsg?.block_number === 99999999,
       'auto block_number passed to config',
     );
   },

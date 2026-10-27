@@ -20,7 +20,6 @@
     "sdk/swap-tokens-near": "tsx verifier-examples/swap-tokens-near.ts",
     "sdk/get-public-key-near": "tsx verifier-examples/get-public-key-near.ts",
     "sdk/add-public-key-near": "tsx verifier-examples/add-public-key-near.ts",
-    "sdk/batch-withdraw": "tsx verifier-examples/batch-withdraw.ts",
     "sdk/mt-batch-withdraw": "tsx verifier-examples/mt-batch-withdraw.ts",
     "sdk/mt-batch-withdraw-test": "tsx verifier-examples/mt-batch-withdraw.test.ts",
     "lint": "eslint .",
