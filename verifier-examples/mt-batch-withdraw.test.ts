@@ -10,8 +10,8 @@
 
 import {
   DEFAULT_AMOUNT_NATIVE,
-  DEFAULT_DESTINATION_ADDRESS,
   buildMtWithdrawIntent,
+  encodeReceiverAddress,
   loadConfig,
   resolveAutoCallbackMsg,
 } from './mt-batch-withdraw';
@@ -395,9 +395,8 @@ withEnv(
     assert(config.amounts.length === 2, 'two amounts loaded');
     assert(config.memo === 'test', 'memo loaded');
     assert(
-      config.callbackMsg.receiver_id ===
-        '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33',
-      'callback msg receiver_id loaded',
+      config.callbackMsg.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+      'callback msg receiver_id Base58 encoded',
     );
   },
 );
@@ -494,8 +493,8 @@ console.log('Test 14: resolveAutoCallbackMsg auto-resolution');
       const promise = resolveAutoCallbackMsg();
       promise.then((resolved) => {
         assert(
-          resolved.receiver_id === DEFAULT_DESTINATION_ADDRESS,
-          'default destination address resolved',
+          resolved.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+          'default destination address resolved in Base58',
         );
         assert(
           resolved.amount_native === DEFAULT_AMOUNT_NATIVE,
@@ -523,13 +522,13 @@ withEnv(
   },
   () => {
     const autoMsg = {
-      receiver_id: DEFAULT_DESTINATION_ADDRESS,
+      receiver_id: '2aEi7QMoRCvshYvrT779cXaDk1hC',
       amount_native: DEFAULT_AMOUNT_NATIVE,
       block_number: 99999999,
     };
     const config = loadConfig(autoMsg);
     assert(
-      config.callbackMsg.receiver_id === DEFAULT_DESTINATION_ADDRESS,
+      config.callbackMsg.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
       'auto receiver_id passed to config',
     );
     assert(
@@ -542,6 +541,28 @@ withEnv(
     );
   },
 );
+console.log();
+
+// Test 16: encodeReceiverAddress converts EVM 0x address to Base58
+console.log('Test 16: encodeReceiverAddress Base58 conversion');
+{
+  const evmAddr = '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33';
+  const encoded = encodeReceiverAddress(evmAddr);
+  assert(
+    encoded === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+    'EVM address encoded to Base58 correctly',
+  );
+  assert(
+    !encoded.startsWith('0'),
+    'Base58 address does not contain invalid "0" character at byte 0',
+  );
+
+  const nearAccount = 'alice.near';
+  assert(
+    encodeReceiverAddress(nearAccount) === 'alice.near',
+    'Named NEAR account left unchanged',
+  );
+}
 console.log();
 
 // ── Summary ────────────────────────────────────────────────────────────────────

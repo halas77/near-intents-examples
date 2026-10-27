@@ -49,8 +49,16 @@
 
 import 'dotenv/config';
 import { RouteEnum } from '@defuse-protocol/intents-sdk';
+import { base58 } from '@scure/base';
 import { fileURLToPath } from 'node:url';
-import { type Chain, createPublicClient, fallback, http } from 'viem';
+import {
+  type Chain,
+  createPublicClient,
+  fallback,
+  hexToBytes,
+  http,
+  isAddress,
+} from 'viem';
 import { arbitrum, base, bsc, mainnet, optimism, polygon } from 'viem/chains';
 import { intentsSdk } from './utils/config';
 import { getSigner } from './utils/signer';
@@ -63,6 +71,19 @@ export const DEFAULT_DESTINATION_ADDRESS =
 
 /** Default native relayer fee in wei (0.01 MATIC / POL) */
 export const DEFAULT_AMOUNT_NATIVE = '10000000000000000';
+
+/**
+ * Encode an EVM receiver address to the Base58 format expected by bridge-refuel.hot.tg.
+ * The on-chain Rust contract decodes `receiver_id` via `bs58::decode()`.
+ * Passing raw "0x..." causes the contract to panic with:
+ * "provided string contained invalid character '0' at byte 0".
+ */
+export function encodeReceiverAddress(address: string): string {
+  if (isAddress(address) && address.startsWith('0x')) {
+    return base58.encode(hexToBytes(address as `0x${string}`));
+  }
+  return address;
+}
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -151,10 +172,11 @@ export async function resolveAutoCallbackMsg(options?: {
   amount_native: string;
   block_number: number;
 }> {
-  const receiverId =
+  const rawReceiver =
     options?.destinationAddress ||
     process.env.MT_DESTINATION_ADDRESS ||
     DEFAULT_DESTINATION_ADDRESS;
+  const receiverId = encodeReceiverAddress(rawReceiver);
 
   let amountNative =
     options?.amountNative ||
@@ -394,6 +416,16 @@ export function loadConfig(
         'This is passed as the `msg` field to `mt_batch_transfer_call`. ' +
         'Example: MT_CALLBACK_MSG_JSON=\'{"receiver_id":"dest.near","amount_native":"1000"}\'',
     );
+  }
+
+  // If callback contract is bridge-refuel.hot.tg and receiver_id inside msg is an EVM address ("0x..."),
+  // convert it to the Base58 format expected by the Rust smart contract.
+  if (
+    receiverId === 'bridge-refuel.hot.tg' &&
+    typeof callbackMsg.receiver_id === 'string' &&
+    callbackMsg.receiver_id.startsWith('0x')
+  ) {
+    callbackMsg.receiver_id = encodeReceiverAddress(callbackMsg.receiver_id);
   }
 
   // Validate NEAR account ID in MT_CONTRACT
