@@ -99,8 +99,8 @@ export interface MtBatchWithdrawConfig {
   tokenIds: string[];
   /** Positionally-aligned array of amounts (as strings) */
   amounts: string[];
-  /** Callback message JSON object (or null for direct mt_batch_transfer without callback) */
-  callbackMsg?: Record<string, unknown> | null;
+  /** Callback message JSON object or array (or null for direct mt_batch_transfer without callback) */
+  callbackMsg?: Record<string, unknown> | unknown[] | null;
   /** Optional memo */
   memo?: string;
   /** Optional min_gas override */
@@ -389,7 +389,7 @@ export function loadConfig(
   }
 
   // Parse callback message
-  let callbackMsg: Record<string, unknown> | null = null;
+  let callbackMsg: Record<string, unknown> | unknown[] | null = null;
   const callbackMsgRaw = process.env.MT_CALLBACK_MSG_JSON;
   if (process.env.MT_NO_CALLBACK === 'true') {
     callbackMsg = null;
@@ -401,20 +401,21 @@ export function loadConfig(
         `MT_CALLBACK_MSG_JSON is not valid JSON: ${callbackMsgRaw}`,
       );
     }
-    if (
-      callbackMsg === null ||
-      typeof callbackMsg !== 'object' ||
-      Array.isArray(callbackMsg)
-    ) {
+    if (callbackMsg === null || typeof callbackMsg !== 'object') {
       throw new Error(
-        'MT_CALLBACK_MSG_JSON must be a JSON object (not null, not an array).',
+        'MT_CALLBACK_MSG_JSON must be a JSON object or array (not null, not primitive).',
+      );
+    }
+    if (receiverId === 'bridge-refuel.hot.tg' && Array.isArray(callbackMsg)) {
+      throw new Error(
+        'MT_CALLBACK_MSG_JSON must be a JSON object (not an array) for bridge-refuel.hot.tg.',
       );
     }
   } else if (autoCallbackMsg !== undefined) {
     callbackMsg = autoCallbackMsg;
   } else {
     throw new Error(
-      'MT_CALLBACK_MSG_JSON is required. Provide a JSON object for the callback message. ' +
+      'MT_CALLBACK_MSG_JSON is required. Provide a JSON object or array for the callback message. ' +
         'This is passed as the `msg` field to `mt_batch_transfer_call`. ' +
         'Example: MT_CALLBACK_MSG_JSON=\'{"receiver_id":"dest.near","amount_native":"1000"}\'',
     );
@@ -424,6 +425,7 @@ export function loadConfig(
   // convert it to the Base58 format expected by the Rust smart contract.
   if (
     callbackMsg &&
+    !Array.isArray(callbackMsg) &&
     receiverId === 'bridge-refuel.hot.tg' &&
     typeof callbackMsg.receiver_id === 'string' &&
     callbackMsg.receiver_id.startsWith('0x')

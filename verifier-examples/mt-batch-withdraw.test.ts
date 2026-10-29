@@ -402,12 +402,12 @@ withEnv(
 );
 console.log();
 
-// Test 11: Callback msg array/null rejected
-console.log('Test 11: Callback msg must be a JSON object');
+// Test 11: Callback msg array/null validation
+console.log('Test 11: Callback msg validation for object / array');
 withEnv(
   {
     MT_CONTRACT: 'v2_1.omni.hot.tg',
-    MT_RECEIVER_ID: 'callback.near',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
     MT_TOKEN_IDS: '["t1","t2"]',
     MT_AMOUNTS: '["1","2"]',
     MT_CALLBACK_MSG_JSON: '[1,2,3]',
@@ -415,9 +415,22 @@ withEnv(
   () => {
     assertThrows(
       () => loadConfig(),
-      'must be a JSON object',
-      'rejects JSON array as callback msg',
+      'must be a JSON object (not an array) for bridge-refuel.hot.tg',
+      'rejects JSON array as callback msg for bridge-refuel.hot.tg',
     );
+  },
+);
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'dex.intear.near',
+    MT_TOKEN_IDS: '["t1","t2"]',
+    MT_AMOUNTS: '["1","2"]',
+    MT_CALLBACK_MSG_JSON: '[{"TransferAsset":{"to":{"Account":"halas7.near"}}}]',
+  },
+  () => {
+    const config = loadConfig();
+    assert(Array.isArray(config.callbackMsg), 'allows JSON array for dex.intear.near');
   },
 );
 withEnv(
@@ -431,7 +444,7 @@ withEnv(
   () => {
     assertThrows(
       () => loadConfig(),
-      'must be a JSON object',
+      'must be a JSON object or array',
       'rejects null as callback msg',
     );
   },
