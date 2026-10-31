@@ -411,6 +411,20 @@ export function loadConfig(
         'MT_CALLBACK_MSG_JSON must be a JSON object (not an array) for bridge-refuel.hot.tg.',
       );
     }
+
+    // If an auto-resolved callback object is provided, use it as defaults
+    // and let explicit MT_CALLBACK_MSG_JSON keys override those defaults.
+    // This restores auto-fill behavior for partial objects like "{}".
+    if (
+      autoCallbackMsg &&
+      receiverId === 'bridge-refuel.hot.tg' &&
+      !Array.isArray(callbackMsg)
+    ) {
+      callbackMsg = {
+        ...(autoCallbackMsg as Record<string, unknown>),
+        ...(callbackMsg as Record<string, unknown>),
+      };
+    }
   } else if (autoCallbackMsg !== undefined) {
     callbackMsg = autoCallbackMsg;
   } else {
@@ -507,9 +521,9 @@ async function main() {
 
   const receiverIdEnv = process.env.MT_RECEIVER_ID;
   const isBridgeRefuel = receiverIdEnv === 'bridge-refuel.hot.tg';
+  const callbackMsgRaw = process.env.MT_CALLBACK_MSG_JSON;
   const noCallbackRequested =
-    process.env.MT_NO_CALLBACK === 'true' ||
-    process.env.MT_CALLBACK_MSG_JSON === 'null';
+    process.env.MT_NO_CALLBACK === 'true' || callbackMsgRaw === 'null';
 
   let autoCallbackMsg: Record<string, unknown> | null | undefined;
 
@@ -519,34 +533,65 @@ async function main() {
     );
     console.log();
     autoCallbackMsg = null;
-  } else if (!process.env.MT_CALLBACK_MSG_JSON) {
-    if (isBridgeRefuel) {
-      console.log(
-        'ℹ  MT_CALLBACK_MSG_JSON not set — automatically resolving receiver_id, amount_native, and live block_number for bridge-refuel...',
-      );
-      let firstTokenId: string | undefined;
-      try {
-        const raw = process.env.MT_TOKEN_IDS;
-        if (raw) {
-          const arr = JSON.parse(raw);
-          if (Array.isArray(arr) && arr.length > 0) {
-            firstTokenId = String(arr[0]);
-          }
+  } else {
+    let firstTokenId: string | undefined;
+    try {
+      const raw = process.env.MT_TOKEN_IDS;
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr) && arr.length > 0) {
+          firstTokenId = String(arr[0]);
         }
-      } catch {
-        // Ignore JSON parse errors here; loadConfig will report them cleanly
       }
+    } catch {
+      // Ignore JSON parse errors here; loadConfig will report them cleanly
+    }
 
+    let shouldAutoResolveBridgeMsg = false;
+
+    if (isBridgeRefuel) {
+      if (!callbackMsgRaw) {
+        shouldAutoResolveBridgeMsg = true;
+        console.log(
+          'ℹ  MT_CALLBACK_MSG_JSON not set — automatically resolving receiver_id, amount_native, and live block_number for bridge-refuel...',
+        );
+      } else {
+        try {
+          const parsed = JSON.parse(callbackMsgRaw);
+          const isObject =
+            parsed !== null &&
+            typeof parsed === 'object' &&
+            !Array.isArray(parsed);
+          if (isObject) {
+            const msgObj = parsed as Record<string, unknown>;
+            const missingRequiredFields =
+              msgObj.receiver_id === undefined ||
+              msgObj.amount_native === undefined ||
+              msgObj.block_number === undefined;
+            if (missingRequiredFields) {
+              shouldAutoResolveBridgeMsg = true;
+              console.log(
+                'ℹ  MT_CALLBACK_MSG_JSON is partial — auto-filling missing bridge-refuel fields (receiver_id, amount_native, block_number)...',
+              );
+            }
+          }
+        } catch {
+          // Invalid JSON will be reported by loadConfig with a clear error
+        }
+      }
+    }
+
+    if (shouldAutoResolveBridgeMsg) {
       autoCallbackMsg = await resolveAutoCallbackMsg({
         tokenId: firstTokenId,
         isSubmitMode,
       });
       console.log(
-        '   Auto-resolved callback msg:',
+        '   Auto-resolved callback defaults:',
         JSON.stringify(autoCallbackMsg),
       );
       console.log();
-    } else {
+    } else if (!callbackMsgRaw) {
       console.log(
         `ℹ  Receiver "${receiverIdEnv}" is a standard NEAR account (not bridge-refuel.hot.tg).`,
       );

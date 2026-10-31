@@ -22,6 +22,7 @@
     "sdk/add-public-key-near": "tsx verifier-examples/add-public-key-near.ts",
     "sdk/mt-batch-withdraw": "tsx verifier-examples/mt-batch-withdraw.ts",
     "sdk/mt-batch-withdraw-test": "tsx verifier-examples/mt-batch-withdraw.test.ts",
+    "sdk/register-receiver": "tsx verifier-examples/register-receiver.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write '**/*.{ts,json,md}'"

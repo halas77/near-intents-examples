@@ -2,18 +2,17 @@ starting
 
 Near chain:
 
-usdc: 315191
+usdc: 525101
 
-usdt: 398427
+usdt: 277427
 
 Polygon chain:
 
 usdc: 0.0174
 
-usdt: 0.00941
+usdt: 0.0134
 
 After 1st batch withdraw:
-https://nearblocks.io/txns/2dGPhfBG2vgjbpmXtvGhm9XHuGyM1cAVeX4beYBMfZu8
 
 Near chain:
 
@@ -23,6 +22,6 @@ usdt:
 
 Polygon chain:
 
-usdc: 0.0174
+usdc:
 
-usdt: 0.0134
+usdt:
