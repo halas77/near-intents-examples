@@ -69,8 +69,8 @@ import { getSigner } from './utils/signer';
 export const DEFAULT_DESTINATION_ADDRESS =
   '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33';
 
-/** Default native relayer fee in wei (0.01 MATIC / POL) */
-export const DEFAULT_AMOUNT_NATIVE = '2000';
+/** Default native relayer fee in wei or custom payload (e.g. JSON string, number, or null) */
+export const DEFAULT_AMOUNT_NATIVE: string = '0';
 
 /**
  * Encode an EVM receiver address to the Base58 format expected by bridge-refuel.hot.tg.
@@ -82,7 +82,7 @@ export function encodeReceiverAddress(address: string): string {
   if (isAddress(address) && address.startsWith('0x')) {
     return base58.encode(hexToBytes(address as `0x${string}`));
   }
-  return address;
+  throw new Error(`Invalid EVM address: ${address}`);
 }
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -165,11 +165,11 @@ export async function resolveAutoCallbackMsg(options?: {
   tokenId?: string;
   mtContract?: string;
   destinationAddress?: string;
-  amountNative?: string;
+  amountNative?: unknown;
   isSubmitMode?: boolean;
 }): Promise<{
   receiver_id: string;
-  amount_native: string;
+  amount_native: unknown;
   block_number: number;
 }> {
   const rawReceiver =
@@ -179,8 +179,8 @@ export async function resolveAutoCallbackMsg(options?: {
   const receiverId = encodeReceiverAddress(rawReceiver);
 
   let amountNative =
-    options?.amountNative ||
-    process.env.MT_AMOUNT_NATIVE ||
+    options?.amountNative ??
+    process.env.MT_AMOUNT_NATIVE ??
     DEFAULT_AMOUNT_NATIVE;
 
   const mtContract =
@@ -226,8 +226,9 @@ export async function resolveAutoCallbackMsg(options?: {
         blockNumber = Number(hotBridgeFee.blockNumber);
         if (
           hotBridgeFee.relayerFee &&
-          !options?.amountNative &&
-          !process.env.MT_AMOUNT_NATIVE
+          options?.amountNative === undefined &&
+          process.env.MT_AMOUNT_NATIVE === undefined &&
+          DEFAULT_AMOUNT_NATIVE === undefined
         ) {
           amountNative = hotBridgeFee.relayerFee.toString();
         }
