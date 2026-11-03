@@ -70,7 +70,7 @@ export const DEFAULT_DESTINATION_ADDRESS =
   '0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33';
 
 /** Default native relayer fee in wei (0.01 MATIC / POL) */
-export const DEFAULT_AMOUNT_NATIVE = '10000000000000000';
+export const DEFAULT_AMOUNT_NATIVE = '2000';
 
 /**
  * Encode an EVM receiver address to the Base58 format expected by bridge-refuel.hot.tg.
@@ -343,10 +343,8 @@ export function loadConfig(
   if (!Array.isArray(tokenIds)) {
     throw new Error('MT_TOKEN_IDS must be a JSON array of strings.');
   }
-  if (tokenIds.length < 2) {
-    throw new Error(
-      'MT_TOKEN_IDS must contain at least 2 token IDs for a batch withdrawal.',
-    );
+  if (tokenIds.length < 1) {
+    throw new Error('MT_TOKEN_IDS must contain at least 1 token ID.');
   }
   for (let i = 0; i < tokenIds.length; i++) {
     if (typeof tokenIds[i] !== 'string' || tokenIds[i].length === 0) {

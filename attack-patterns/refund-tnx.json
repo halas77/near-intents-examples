@@ -1,0 +1,183 @@
+{
+    "tx_hash": "ht4zhmi2adWxeTaZDReHXA87TrYLCfa5dXe4dkKehFa",
+    "signer_id": "intents.near",
+    "receiver_id": "intents.near",
+    "final_execution_status": "FINAL",
+    "final_status": {
+        "SuccessValue": ""
+    },
+    "transaction_flow": [
+        {
+            "step": 1,
+            "call_type": "transaction_function_call",
+            "method_name": "execute_intents",
+            "contract": "intents.near",
+            "predecessor_id": "intents.near",
+            "receiver_id": "intents.near",
+            "deposit": "0",
+            "gas": "300000000000000",
+            "args": {
+                "signed": [
+                    {
+                        "payload": {
+                            "message": "{\"deadline\":\"2026-11-02T07:23:28.543Z\",\"intents\":[{\"intent\":\"mt_withdraw\",\"token\":\"v2_1.omni.hot.tg\",\"receiver_id\":\"bridge-refuel.hot.tg\",\"token_ids\":[\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"],\"msg\":\"{\\\"receiver_id\\\":\\\"2aEi7QMoRCvshYvrT779cXaDk1hC\\\",\\\"amount_native\\\":\\\"10000000000000000\\\",\\\"block_number\\\":96599126}\",\"memo\":null,\"min_gas\":\"1000\",\"storage_deposit\":null}],\"signer_id\":\"roughrobe4214.near\"}",
+                            "nonce": "Vij2xgAlKBKzwD0hTpQp5BgyvOhV2+fsqDlzzdjifIE=",
+                            "recipient": "intents.near"
+                        },
+                        "public_key": "ed25519:Hs5q57h5bLG7ey6FEAK6VW7aK28dRszpfXiVLHbVV65p",
+                        "signature": "ed25519:3sNWq7iUPqCWnR9dfidEtQJETDSZyKM7wr4thBMMq51uoq9cFs2T8JaMCMBkEnDRw1KZzksGmP9SxNH3ySd97t8R",
+                        "standard": "nep413"
+                    }
+                ]
+            },
+            "outcome_receipt_id": "BXXbLvqkq8JkJui7LBTPMSYSQUmtBW86LK36tBVD7r5F",
+            "return": {
+                "SuccessReceiptId": "BXXbLvqkq8JkJui7LBTPMSYSQUmtBW86LK36tBVD7r5F"
+            },
+            "logs": []
+        },
+        {
+            "step": 2,
+            "receipt_id": "BXXbLvqkq8JkJui7LBTPMSYSQUmtBW86LK36tBVD7r5F",
+            "call_type": "function_execution_outcome",
+            "method_name": "execute_intents",
+            "executor_id": "intents.near",
+            "return": {
+                "SuccessValue": ""
+            },
+            "logs": [
+                "EVENT_JSON:{\"standard\":\"dip4\",\"version\":\"0.4.3\",\"event\":\"mt_withdraw\",\"data\":[{\"intent_hash\":\"8mWNB8aDTkHWasugrL5szzjoK6kTQGzE6ujLdaaFHVat\",\"account_id\":\"roughrobe4214.near\",\"token\":\"v2_1.omni.hot.tg\",\"receiver_id\":\"bridge-refuel.hot.tg\",\"token_ids\":[\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"],\"msg\":\"{\\\"receiver_id\\\":\\\"2aEi7QMoRCvshYvrT779cXaDk1hC\\\",\\\"amount_native\\\":\\\"10000000000000000\\\",\\\"block_number\\\":96599126}\",\"min_gas\":\"1000\"}]}",
+                "EVENT_JSON:{\"standard\":\"dip4\",\"version\":\"0.4.3\",\"event\":\"intents_executed\",\"data\":[{\"intent_hash\":\"8mWNB8aDTkHWasugrL5szzjoK6kTQGzE6ujLdaaFHVat\",\"account_id\":\"roughrobe4214.near\",\"nonce\":\"Vij2xgAlKBKzwD0hTpQp5BgyvOhV2+fsqDlzzdjifIE=\"}]}",
+                "EVENT_JSON:{\"standard\":\"nep245\",\"version\":\"1.0.0\",\"event\":\"mt_burn\",\"data\":[{\"owner_id\":\"roughrobe4214.near\",\"token_ids\":[\"nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"],\"memo\":\"withdraw\"}]}"
+            ]
+        },
+        {
+            "step": 3,
+            "receipt_id": "7wa4a8foyMSeszMtmAPJQctw6gTWYT1cxcEg8AniXA9a",
+            "call_type": "receipt_function_call",
+            "method_name": "mt_batch_transfer_call",
+            "predecessor_id": "intents.near",
+            "receiver_id": "v2_1.omni.hot.tg",
+            "deposit": "1",
+            "gas": "278548565313822",
+            "args": {
+                "receiver_id": "bridge-refuel.hot.tg",
+                "token_ids": [
+                    "137_qiStmoQJDQPTebaPjgx5VBxZv6L"
+                ],
+                "amounts": [
+                    "2000"
+                ],
+                "approvals": null,
+                "memo": null,
+                "msg": "{\"receiver_id\":\"2aEi7QMoRCvshYvrT779cXaDk1hC\",\"amount_native\":\"10000000000000000\",\"block_number\":96599126}"
+            },
+            "executor_id": "v2_1.omni.hot.tg",
+            "return": {
+                "SuccessReceiptId": "6qyrLkseB7QoukWgWBky6by6x1LPNQVF9sgsPj82kC73"
+            },
+            "logs": [
+                "EVENT_JSON:{\"standard\":\"nep245\",\"version\":\"1.0.0\",\"event\":\"mt_transfer\",\"data\":[{\"old_owner_id\":\"intents.near\",\"new_owner_id\":\"bridge-refuel.hot.tg\",\"token_ids\":[\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"]}]}"
+            ]
+        },
+        {
+            "step": 4,
+            "receipt_id": "5m5BLU3tzSe8DgGpc5tU6gatRPeszu6tHC6CzoVeRRLJ",
+            "call_type": "receipt_function_call",
+            "method_name": "mt_on_transfer",
+            "predecessor_id": "v2_1.omni.hot.tg",
+            "receiver_id": "bridge-refuel.hot.tg",
+            "deposit": "0",
+            "gas": "133000849875401",
+            "args": {
+                "sender_id": "intents.near",
+                "previous_owner_ids": [
+                    "intents.near"
+                ],
+                "token_ids": [
+                    "137_qiStmoQJDQPTebaPjgx5VBxZv6L"
+                ],
+                "amounts": [
+                    "2000"
+                ],
+                "msg": "{\"receiver_id\":\"2aEi7QMoRCvshYvrT779cXaDk1hC\",\"amount_native\":\"10000000000000000\",\"block_number\":96599126}"
+            },
+            "executor_id": "bridge-refuel.hot.tg",
+            "return": {
+                "Failure": {
+                    "ActionError": {
+                        "index": 0,
+                        "kind": {
+                            "FunctionCallError": {
+                                "ExecutionError": "Smart contract panicked: panicked at src/lib.rs:112:56:\nAmount overflow"
+                            }
+                        }
+                    }
+                }
+            },
+            "logs": [
+                "prepaid_gas: NearGas { inner: 133000849875401 }"
+            ]
+        },
+        {
+            "step": 5,
+            "receipt_id": "6qyrLkseB7QoukWgWBky6by6x1LPNQVF9sgsPj82kC73",
+            "call_type": "receipt_function_call",
+            "method_name": "mt_resolve_transfer",
+            "predecessor_id": "v2_1.omni.hot.tg",
+            "receiver_id": "v2_1.omni.hot.tg",
+            "deposit": "0",
+            "gas": "140000849875401",
+            "args": {
+                "previous_owner_ids": [
+                    "intents.near"
+                ],
+                "receiver_id": "bridge-refuel.hot.tg",
+                "token_ids": [
+                    "137_qiStmoQJDQPTebaPjgx5VBxZv6L"
+                ],
+                "amounts": [
+                    "2000"
+                ],
+                "approvals": null
+            },
+            "executor_id": "v2_1.omni.hot.tg",
+            "return": {
+                "SuccessValue": "WyIwIl0=",
+                "decoded_success_value": "[\"0\"]"
+            },
+            "logs": [
+                "EVENT_JSON:{\"standard\":\"nep245\",\"version\":\"1.0.0\",\"event\":\"mt_transfer\",\"data\":[{\"old_owner_id\":\"bridge-refuel.hot.tg\",\"new_owner_id\":\"intents.near\",\"token_ids\":[\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"],\"memo\":\"refund\"}]}"
+            ]
+        },
+        {
+            "step": 6,
+            "receipt_id": "AgJSn4Ssp4UNR7ueqY3xFGD4yizRAMPnWL7PX5vxcM3t",
+            "call_type": "receipt_function_call",
+            "method_name": "mt_resolve_withdraw",
+            "predecessor_id": "intents.near",
+            "receiver_id": "intents.near",
+            "deposit": "0",
+            "gas": "15000000000000",
+            "args": {
+                "token": "v2_1.omni.hot.tg",
+                "sender_id": "roughrobe4214.near",
+                "token_ids": [
+                    "137_qiStmoQJDQPTebaPjgx5VBxZv6L"
+                ],
+                "amounts": [
+                    "2000"
+                ],
+                "is_call": true
+            },
+            "executor_id": "intents.near",
+            "return": {
+                "SuccessValue": "WyIwIl0=",
+                "decoded_success_value": "[\"0\"]"
+            },
+            "logs": [
+                "EVENT_JSON:{\"standard\":\"nep245\",\"version\":\"1.0.0\",\"event\":\"mt_mint\",\"data\":[{\"owner_id\":\"roughrobe4214.near\",\"token_ids\":[\"nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L\"],\"amounts\":[\"2000\"],\"memo\":\"refund\"}]}"
+            ]
+        }
+    ]
+}
