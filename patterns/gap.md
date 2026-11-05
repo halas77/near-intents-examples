@@ -1,297 +1,307 @@
-# Special desync cases focused on `mt_on_withdraw` return value
+# Gap-focused attack patterns (env-specific, desync-first)
 
-> Note: function name is written as `mt_on_withdraw` here to match your wording; in codebases it is often `mt_on_withdraw`/`mt_on_transfer`.
+This revision uses your concrete config and your observations.
 
-## Goal of this document
+## Baseline under test
 
-This file is **not** about `withdraw` failing.
-It focuses on cases where:
+- `MT_CONTRACT = v2_1.omni.hot.tg`
+- `MT_RECEIVER_ID = bridge-refuel.hot.tg`
+- `MT_TOKEN_IDS = ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]`
+- `MT_AMOUNTS = ["2000"]`
+- `MT_CALLBACK_MSG_JSON = {"amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
+- `MT_MIN_GAS = 1000`
 
-1. `mt_on_withdraw` execution path **continues**,
-2. `withdraw` executes and can succeed,
-3. `on_withdraw_complete` can also succeed,
-4. but the value observed by the token resolver is unusual (non-zero / malformed / mis-sized), causing refund behavior.
+Critical behavior from your notes:
 
-Because your protocol intentionally ties refund to `mt_on_withdraw` return, these are the highest-value attack patterns.
+- only index `0` token is truly bridged; extra tokens are transferred directly to receiver,
+- unknown keys accepted,
+- duplicate unknown keys last-wins,
+- `amount_native=0` can still succeed,
+- any `block_number` seems accepted,
+- huge `receiver_id` can consume all gas,
+- there are “published but not settled” outcomes.
 
----
+Your target class (correct):
 
-## Threat model: where the gap appears
-
-If `mt_on_withdraw` both:
-
-- schedules side effects (`withdraw` chain), and
-- returns a value that controls refund,
-
-then any logic bug in **return construction** can create:
-
-- external success on destination chain, and
-- local refund on source chain.
-
-That is the exact desync target.
+> `mt_on_withdrwal` returns unusual value (or parse shape), while withdraw path still succeeds and `on_withdraw_complete` can still report success.
 
 ---
 
-## Creative payload-driven edge cases to try
+## Red-team campaigns (non-generic, tuned to your setup)
 
-## 1) Partial-parse fallback that still schedules withdraw
+## Campaign 1: Dual-source amount divergence (`MT_AMOUNTS` vs `msg.amount_native`)
 
-**Pattern to look for in code**
+Your baseline already sets `MT_AMOUNTS[0] = 2000` and `amount_native = "0"`.
 
-- `msg` parsing with fallback defaults, e.g. `serde_json::from_str(...).unwrap_or(default)`
-- or parse into `Value` and missing fields default to `0`
+That is a perfect wedge: if bridge amount comes from transfer array but refund logic reads `amount_native`, you can get silent non-zero unused.
 
-**Payload idea**
+### Payload ladder
 
-- Send a `msg` that is syntactically valid JSON but semantically odd:
-  - missing optional field used only in refund math,
-  - present field used by withdraw path.
+1. `{"amount_native":"0","receiver_id":"2aEi7...","block_number":100}`
+2. `{"amount_native":"1","receiver_id":"2aEi7...","block_number":100}`
+3. `{"amount_native":"1999","receiver_id":"2aEi7...","block_number":100}`
+4. `{"amount_native":"2000","receiver_id":"2aEi7...","block_number":100}`
+5. `{"amount_native":"2001","receiver_id":"2aEi7...","block_number":100}`
 
-Example payload:
-`{"receiver_id":"dest","amount":"1000","refund_hint":null}`
+Keep `MT_AMOUNTS=["2000"]` constant for all runs.
 
-**Expected weird behavior**
+### What you are hunting
 
-- withdraw uses `amount=1000` and succeeds,
-- refund calculation sees `refund_hint` fallback and returns non-zero vector.
+- withdraw receipt succeeds in all/most cases,
+- resolver return vector changes with `amount_native`, not with transferred amount.
 
----
-
-## 2) Duplicate-key JSON ambiguity (first-wins vs last-wins)
-
-**Pattern**
-
-- one path parses into struct, another into map/value,
-- or on-chain vs relayer parser differs.
-
-**Payload**
-`{"receiver_id":"good","receiver_id":"evil","amount":"1"}`
-
-**What to test**
-
-- whether return builder reads one value while withdraw builder reads another.
-
-**Desync result**
-
-- withdraw succeeds to one target,
-- return vector built from conflicting interpretation produces refund amount.
+If true, refund logic can be steered independently of bridged amount.
 
 ---
 
-## 3) Vector length mismatch created by batch shape tricks
+## Campaign 2: Gas-unit confusion exploit (`MT_MIN_GAS=1000`)
 
-**Pattern**
+`1000` is suspiciously tiny if interpreted as yocto-gas-like raw units, but maybe middleware rescales it.
 
-- output refund vector created from `processed_tokens.len()` instead of `token_ids.len()`,
-- dedup in business logic but no dedup in resolver expectation.
+Try to detect inconsistent unit conversions between simulation and execution.
 
-**Payload**
+### Sweep set (exact values)
 
-- `token_ids=["usdc","usdc"]`, `amounts=["10","10"]`
-- or `token_ids=["fee","asset"]` when code expects `[asset,fee]`
+`[0, 1, 999, 1000, 1001, 10_000, 1_000_000, 10^9, 10^12, 10^14]`
 
-**Why valuable**
+### Why this is clever
 
-- withdraw path may normalize/dedup and still succeed,
-- returned vector length/order mismatch can make resolver interpret as failure/refund.
+If one stage treats this as “TGas-like” and another as raw gas, you can get:
 
----
+- simulation pass,
+- execution with partial receipt completion,
+- weird final return interpretation / settle behavior.
 
-## 4) Dust/rounding branch leaks non-zero unused
+Correlate each gas value with:
 
-**Pattern**
-
-- integer division for fees, bridge rates, decimals conversion,
-- branch like `unused = input - effective_amount`.
-
-**Payload**
-
-- amounts near rounding boundaries:
-  - `1`, `9`, `10`, `11`, `99`, `100`, `101`, etc.
-- especially with mixed decimals asset pairs.
-
-**Expected**
-
-- withdraw succeeds for rounded-down amount,
-- return vector contains 1-wei dust as refund unexpectedly.
-
-This is a silent desync if relayer releases full logical amount while source refunds dust repeatedly at scale.
+- withdraw status,
+- callback status,
+- resolver refund vector.
 
 ---
 
-## 5) Zero-like numeric strings accepted differently inside code paths
+## Campaign 3: Receiver length cliff where side-effect survives
 
-**Pattern**
+You already observed giant `receiver_id` can panic with prepaid gas exhausted.
 
-- one path uses strict parser, another uses permissive conversion.
+Do a binary search on receiver length to find this exact zone:
 
-**Payload set**
+- enough gas for withdraw + callback to be emitted/executed,
+- but return construction / tail parsing / event serialization becomes unstable.
 
-- `"0"`, `"00"`, `"0000"`, `"+0"`
-- very large with leading zeros.
+### Concrete strategy
 
-**Target**
+Use base58-safe receiver strings of lengths:
 
-- make one branch treat value as valid zero for withdraw precondition,
-- another branch treat formatting as invalid/edge and return non-zero unused.
+`[44, 88, 176, 352, 704, 1408, 2816]`
 
----
+Then binary search around first failing threshold.
 
-## 6) UTF-8 / normalization mismatch in token IDs or receiver IDs
+### High-value signal
 
-**Pattern**
-
-- map keys are compared as raw bytes in one place and normalized string in another.
-
-**Payload**
-
-- visually identical IDs with different normalization (NFC/NFD),
-- trailing unicode whitespace.
-
-**Outcome**
-
-- withdraw path uses canonicalized lookup and succeeds,
-- refund bookkeeping misses key and returns full or partial unused.
+`withdraw success == true` while resolver sees malformed/failed return branch -> refund.
 
 ---
 
-## 7) Optional field toggles “simulation mode” return logic
+## Campaign 4: Duplicate-key conflict on critical fields
 
-**Pattern**
+You confirmed duplicate unknown keys are last-wins; now test if critical keys behave consistently across stages.
 
-- flags like `dry_run`, `estimate`, `quote_only` in msg,
-- intended for integration/testing.
+### Payloads
 
-**Payload**
-`{"receiver_id":"dest","amount":"1000","quote_only":true}`
+1. `{"amount_native":"2000","amount_native":"0","receiver_id":"2aEi7...","block_number":100}`
+2. `{"receiver_id":"good","receiver_id":"2aEi7...","amount_native":"2000","block_number":100}`
+3. `{"block_number":100,"block_number":0,"amount_native":"2000","receiver_id":"2aEi7..."}`
 
-**Potential bug**
+### Desync angle
 
-- flag affects only return calculation branch,
-- but withdraw scheduling ignores flag and still executes.
-
----
-
-## 8) Callback data races on mutable temp state used for return
-
-**Pattern**
-
-- `mt_on_withdraw` reads/writes temporary state shared across calls (e.g. cached quote, rolling nonce bucket),
-- return vector depends on that mutable state.
-
-**Payload strategy**
-
-- submit two crafted transfers in adjacent blocks:
-  - tx A sets cache with edge value,
-  - tx B consumes it and gets unusual refund vector while still scheduling valid withdraw.
+If simulation and execution don’t preserve the same key-overwrite semantics after reserialization, they may disagree silently.
 
 ---
 
-## 9) Saturating math / checked math fallback only in return path
+## Campaign 5: Unknown-key shadowing of internal names
 
-**Pattern**
+Unknown keys are accepted; inject names likely to collide with internal struct/map logic.
 
-- withdraw uses checked validated amount,
-- return uses `saturating_sub` or fallback-on-overflow.
+### Payload examples
 
-**Payload**
+- `"amount":"2000"`
+- `"native_amount":"2000"`
+- `"refund":"2000"`
+- `"token_id":"137_qiSt..."`
+- `"min_gas":"100000000000000"`
+- `"receiver":"2aEi7..."`
 
-- max-ish values near `u128` boundaries in msg fields not directly used by withdraw amount but used in return diff.
+Use them together with valid required fields.
 
-**Result**
+### Why this matters
 
-- withdraw executes with bounded amount,
-- return math saturates to huge/incorrect unused vector.
-
----
-
-## 10) Promise detachment + non-deterministic return branch
-
-**Pattern**
-
-- function detaches withdraw promise,
-- return value depends on post-validation branch with external-state read (e.g., config map / per-user toggle).
-
-**Payload strategy**
-
-- pick account/config combination that enters unusual return branch (`[full_amount]`, wrong length, wrong token index),
-- keep withdraw params otherwise valid.
-
-**Impact**
-
-- resolver refunds from return vector, while detached withdraw still succeeds.
+If any branch parses generic `serde_json::Value` and checks `get("amount")` or similar fallbacks, return logic can be influenced without breaking withdraw path.
 
 ---
 
-## 11) Mixed success in multi-asset batch where policy expects all-or-nothing
+## Campaign 6: Multi-token parasitic refund (first token bridge, others direct)
 
-**Pattern**
+Exploit your protocol asymmetry directly.
 
-- withdraw is called once per asset and best-effort continues,
-- return vector treats any sub-failure as refundable for entire batch.
+### Payload profile
 
-**Payload**
+- `token_ids = [A, B, C]`
+- `amounts = [2000, 1, 1]` then `[2000, 999999, 999999]`
+- msg remains valid for A bridging.
 
-- asset A fully valid,
-- asset B crafted to hit edge validation that does not abort function (just marks unused).
+### Hunt
 
-**Outcome**
+- A bridge succeeds,
+- B/C are directly delivered to receiver,
+- return vector accidentally credits refundable unused for B/C due index mismatch.
 
-- asset A withdraw succeeds and can trigger destination release,
-- return includes refund for B (or whole batch due policy bug).
-
----
-
-## 12) Return serialization mismatch while business logic succeeds
-
-**Pattern**
-
-- return built as native numbers instead of string-U128 in one branch,
-- or accidental `Vec<u64>` / nested vec in rare path.
-
-**Payload trigger**
-
-- branch-specific conditions such as `if memo.is_some()` or special token id.
-
-**Outcome**
-
-- withdraw and callback succeed,
-- resolver cannot parse returned schema and applies refund behavior.
+This is high-impact because extra indices are most likely to be mis-accounted.
 
 ---
 
-## High-value test matrix (practical)
+## Campaign 7: Duplicate token-id role confusion
 
-For each payload class above, run this invariant check:
+Test position-sensitive logic with same token repeated.
 
-- `withdraw_succeeded == true`
-- `on_withdraw_complete_succeeded == true`
-- `resolver_observed_return != expected_zero_vector`
+### Payload set
 
-Then flag if any of:
+- `[A, A]` with `[2000, 1]`
+- `[A, A, A]` with `[2000, 1, 999999]`
 
-- refund > 0,
-- refund vector length mismatch,
-- parse failure interpreted as refund.
+### Attack thesis
 
-Prioritize fuzzing around:
-
-- duplicate token IDs,
-- ordering permutations,
-- numeric boundary strings,
-- nullable/optional fields,
-- unicode-normalized identifiers.
+If bookkeeping maps by token id but return vector is by index, one slot can be treated as unprocessed/refundable while value moved already.
 
 ---
 
-## Hardening specifically for your protocol choice
+## Campaign 8: `block_number` steering for branch drift
 
-Since refund is intentionally based on `mt_on_withdraw` return (not withdraw result), enforce:
+Since any block number appears accepted, drive corner branches.
 
-1. **Single canonical return builder** used by all branches.
-2. **Strict schema parse** (`deny_unknown_fields`, no fallback defaults for refund-critical fields).
-3. **Return-shape assertion before return**: exact length/order/type every time.
-4. **No branch-dependent serialization**; always produce `Vec<U128>` canonical form.
-5. **Property tests**: any path that schedules withdraw must return zero vector unless explicit business rule says otherwise.
+### Payload values
 
-If you want, I can also add a second section with concrete near-workspaces test case templates for each payload class.
+`block_number = 0, 1, 100, current+1, 2^63-1, 2^64-1`
+
+### What to detect
+
+- same withdraw behavior,
+- different return behavior (or different settle route / relayer decision).
+
+If `block_number` is incorporated into idempotency keys inconsistently, this can create replay-like side effects with altered refund outcomes.
+
+---
+
+## Campaign 9: Near-maximum numeric strings that do not panic
+
+You’ve already found panic points. Now aim right below them.
+
+### Payload corpus for `amount_native`
+
+- `"340282366920938463463374607431768211454"` (u128 max-1)
+- same value with leading zeros
+- `"18446744073709551615"` (u64 max)
+- `"18446744073709551616"` (u64 max+1)
+
+### Goal
+
+No immediate panic, but subtle cast/branch asymmetry in return math.
+
+---
+
+## Campaign 10: Nested-JSON ambiguity (you noted nested `amount_native` success)
+
+This is very non-generic and very valuable in your case.
+
+### Payload variants
+
+1. `{"amount_native":{"v":"2000"},"receiver_id":"2aEi7...","block_number":100}`
+2. `{"amount_native":{"amount":"2000"},"receiver_id":"2aEi7...","block_number":100}`
+3. `{"amount_native":["2000"],"receiver_id":"2aEi7...","block_number":100}`
+
+### Why this is critical
+
+If one stage stringifies nested data and another strictly parses, you can get cross-stage disagreement without obvious execution failure.
+
+---
+
+## Campaign 11: Settlement race (“published not settled”)
+
+You observed `Intent is published but not settled`.
+
+### Exploit model
+
+1. craft payload that emits intermediate success signal (event/log/receipt),
+2. stress final settle path (gas boundary, long receiver, heavy payload),
+3. watch whether relayer acts on intermediate signal.
+
+### Success condition
+
+External release occurs, but resolver path later records refundable or unresolved status.
+
+---
+
+## Campaign 12: Callback-visible-field insufficiency
+
+You observed callback sees limited subset in multi-token scenarios.
+
+### Attack setup
+
+Use 3+ token arrays where semantic validity depends on token #3, but callback can only infer from token #1/#2 subset.
+
+### Failure mode
+
+Callback returns structurally valid but semantically wrong refund vector because it cannot reconstruct full intent context.
+
+---
+
+## Minimal “elite” payload pack (start here)
+
+Use these first before broad fuzzing:
+
+1. **Amount split baseline**  
+   `{"amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}` with `amounts=["2000"]`
+2. **Duplicate critical key**  
+   `{"amount_native":"2000","amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
+3. **Nested amount_native**  
+   `{"amount_native":{"v":"2000"},"receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
+4. **Long receiver cliff**  
+   valid base58 receiver at 700+ chars with normal `amount_native`.
+5. **Multi-token asymmetry**  
+   `token_ids=[A,B,C]`, `amounts=[2000,1,1]`, normal msg for A.
+
+If any of these gives `(withdraw=success) AND (refund>0 or abnormal return shape)`, treat as critical.
+
+---
+
+## Strict invariants to enforce in your tests
+
+For each run capture:
+
+1. simulation result,
+2. execution result,
+3. withdraw receipt result,
+4. `on_withdraw_complete` result,
+5. resolver-observed return bytes/value,
+6. per-index refunded amounts.
+
+Critical finding rule:
+
+- withdraw succeeded,
+- callback succeeded (or relayer acted as success),
+- return value produced non-zero refund / parse fallback / length mismatch.
+
+---
+
+## Hardening (specific to your architecture)
+
+1. Make `amount_native` and `amounts[0]` consistency mandatory (or remove one source of truth).
+2. Reject unknown keys and duplicate keys outright.
+3. Reject nested/non-string `amount_native` at schema boundary.
+4. Add explicit max length for `receiver_id` before any promise scheduling.
+5. Make `block_number` bounded and semantically checked.
+6. For multi-token calls, lock refund semantics to deterministic zero for non-bridged indices unless intentionally supported.
+7. Before returning from `mt_on_withdrwal`, assert exact vector length and exact canonical type.
+8. Relayer must only release on final settle success, never on intermediate logs.
+
+This checklist is built for your exact env and observed behavior, not generic bridge advice.

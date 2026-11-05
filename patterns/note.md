@@ -73,3 +73,15 @@ Notes:
 - it accepts large receiver_id values like: "2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha"
 
 - when i try receiver_id with extremely large value, it panics with Exceeded the prepaid gas. the tnx is the attacked
+
+Notes:
+
+- MT_AMOUNTS vs msg.amount_native:
+  - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "0", the result is 2000 token is bridged
+  - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "1", the result is 1999 tokens are bridged and 1 token is transferred to the receiver.
+  - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "1999", the result is 1 token is bridges and 1999 tokens transferred to the receiver.
+  - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "2000", the result is 2000 tokens are transferred to the receiver and none is bridged.
+  - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "2001", panics with Smart contract panicked: panicked at src/lib.rs:112:56: Amount overflow
+  * in every case the resolver returns 2000.
+
+-
