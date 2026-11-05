@@ -39,3 +39,37 @@ metaMessages: [
 ],
 
 -
+
+Notes:
+
+- nested amount_native succeed
+- any block number succeed
+- amount_native=0 succeed
+- unknown key succeed
+- multiple unknown keys succeed
+- duplicate unknown keys accept only the last
+- missing amount_native panics with "Smart contract panicked: panicked at src/lib.rs:111:65:
+  called `Option::unwrap()` on a `None` value"
+- any account_id succeed
+- wrong type for amount_native panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("invalid type: integer `0`, expected a string", line: 1, column: 18)
+- random(i just change valid base58 and randomly change some chars) receiver_id succeed
+
+Notes:
+
+- amount_native=null panics with "Smart contract panicked: panicked at src/lib.rs:111:65:
+  called `Option::unwrap()` on a `None` value"
+- amount_native non-numeric panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("invalid digit found in string", line: 1, column: 22)"
+- receiver_id missing panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("missing field `receiver_id`", line: 1, column: 41)"
+- string block_number panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("invalid type: string \"100\", expected u64", line: 1, column: 88)"
+- maximum u128 native_amount panics with "Smart contract panicked: panicked at src/lib.rs:112:56:
+  Amount overflow"
+
+Notes:
+
+- it accepts large receiver_id values like: "2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha2aEi7QMoRCvshYvrT779cXaDk1ha"
+
+- when i try receiver_id with extremely large value, it panics with Exceeded the prepaid gas. the tnx is the attacked

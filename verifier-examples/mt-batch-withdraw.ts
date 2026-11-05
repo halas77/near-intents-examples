@@ -77,12 +77,22 @@ export const DEFAULT_AMOUNT_NATIVE: string = '0';
  * The on-chain Rust contract decodes `receiver_id` via `bs58::decode()`.
  * Passing raw "0x..." causes the contract to panic with:
  * "provided string contained invalid character '0' at byte 0".
+ *
+ * If the address cannot be resolved or is not an EVM address, returns the original
+ * string without throwing to allow testing arbitrary payloads.
  */
 export function encodeReceiverAddress(address: string): string {
-  if (isAddress(address) && address.startsWith('0x')) {
-    return base58.encode(hexToBytes(address as `0x${string}`));
+  try {
+    if (typeof address === 'string') {
+      const trimmed = address.trim();
+      if (isAddress(trimmed) && trimmed.startsWith('0x')) {
+        return base58.encode(hexToBytes(trimmed as `0x${string}`));
+      }
+    }
+  } catch {
+    // Return original string if address resolution fails
   }
-  throw new Error(`Invalid EVM address: ${address}`);
+  return address;
 }
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -99,8 +109,8 @@ export interface MtBatchWithdrawConfig {
   tokenIds: string[];
   /** Positionally-aligned array of amounts (as strings) */
   amounts: string[];
-  /** Callback message JSON object or array (or null for direct mt_batch_transfer without callback) */
-  callbackMsg?: Record<string, unknown> | unknown[] | null;
+  /** Callback message JSON object, array, or raw string (or null for direct mt_batch_transfer without callback) */
+  callbackMsg?: Record<string, unknown> | unknown[] | string | null;
   /** Optional memo */
   memo?: string;
   /** Optional min_gas override */
@@ -130,19 +140,6 @@ interface MtWithdrawIntent {
 // ── Validation ─────────────────────────────────────────────────────────────────
 
 /**
- * Validate a NEAR-style account ID (simplified check).
- * Accepts: implicit hex (64 chars), named accounts (alice.near), sub-accounts.
- */
-function isValidAccountId(id: string): boolean {
-  if (!id || id.length === 0 || id.length > 64) return false;
-  // Implicit account (64 hex chars)
-  if (/^[0-9a-f]{64}$/.test(id)) return true;
-  // Named account: alphanumeric, -, _, . segments, minimum 2 chars, ending in valid TLD
-  if (/^[a-z0-9][a-z0-9._-]*[a-z0-9]$/.test(id)) return true;
-  return false;
-}
-
-/**
  * Validate that a string represents a valid positive integer amount.
  */
 function isValidAmount(amount: string): boolean {
@@ -153,51 +150,40 @@ function isValidAmount(amount: string): boolean {
 }
 
 /**
- * Automatically resolve callback message parameters when MT_CALLBACK_MSG_JSON is omitted.
+ * Automatically resolve the destination chain block number.
  *
- * Resolves:
- * - `receiver_id`: from options / MT_DESTINATION_ADDRESS / DEFAULT_DESTINATION_ADDRESS
- * - `amount_native`: from options / MT_AMOUNT_NATIVE / DEFAULT_AMOUNT_NATIVE
- * - `block_number`: fetched dynamically from the destination chain via SDK fee estimation
- *   (same method used by withdraw-tokens.ts) or directly via Viem RPC.
+ * Tries:
+ * 1. MT_BLOCK_NUMBER environment variable override
+ * 2. Defuse SDK estimateWithdrawalFee
+ * 3. Direct Viem RPC for destination EVM chain
+ * 4. Fallback block height for dry-run preview if offline/unreachable
  */
-export async function resolveAutoCallbackMsg(options?: {
+export async function resolveBlockNumber(options?: {
   tokenId?: string;
   mtContract?: string;
-  destinationAddress?: string;
-  amountNative?: unknown;
+  receiverId?: string;
   isSubmitMode?: boolean;
-}): Promise<{
-  receiver_id: string;
-  amount_native: unknown;
-  block_number: number;
-}> {
-  const rawReceiver =
-    options?.destinationAddress ||
-    process.env.MT_DESTINATION_ADDRESS ||
-    DEFAULT_DESTINATION_ADDRESS;
-  const receiverId = encodeReceiverAddress(rawReceiver);
-
-  let amountNative =
-    options?.amountNative ??
-    process.env.MT_AMOUNT_NATIVE ??
-    DEFAULT_AMOUNT_NATIVE;
-
-  const mtContract =
-    options?.mtContract || process.env.MT_CONTRACT || 'v2_1.omni.hot.tg';
-
-  let blockNumber: number | null = null;
-
+}): Promise<number> {
   // Check if explicit block number override is provided in env
   if (
     process.env.MT_BLOCK_NUMBER &&
     /^\d+$/.test(process.env.MT_BLOCK_NUMBER)
   ) {
-    blockNumber = parseInt(process.env.MT_BLOCK_NUMBER, 10);
+    return parseInt(process.env.MT_BLOCK_NUMBER, 10);
   }
 
+  const mtContract =
+    options?.mtContract || process.env.MT_CONTRACT || 'v2_1.omni.hot.tg';
+  const receiverId =
+    options?.receiverId ||
+    encodeReceiverAddress(
+      process.env.MT_DESTINATION_ADDRESS || DEFAULT_DESTINATION_ADDRESS,
+    );
+
+  let blockNumber: number | null = null;
+
   // Method 1: Try SDK estimateWithdrawalFee (as in withdraw-tokens.ts)
-  if (blockNumber === null && options?.tokenId) {
+  if (options?.tokenId) {
     try {
       const assetId = options.tokenId.startsWith('nep245:')
         ? options.tokenId
@@ -224,14 +210,6 @@ export async function resolveAutoCallbackMsg(options?: {
         hotBridgeFee.blockNumber !== null
       ) {
         blockNumber = Number(hotBridgeFee.blockNumber);
-        if (
-          hotBridgeFee.relayerFee &&
-          options?.amountNative === undefined &&
-          process.env.MT_AMOUNT_NATIVE === undefined &&
-          DEFAULT_AMOUNT_NATIVE === undefined
-        ) {
-          amountNative = hotBridgeFee.relayerFee.toString();
-        }
       }
     } catch {
       // Fallback to Viem RPC if SDK estimation is unavailable
@@ -296,6 +274,85 @@ export async function resolveAutoCallbackMsg(options?: {
     }
   }
 
+  return blockNumber;
+}
+
+/**
+ * Helper to inject "block_number": <blockNumber> into a JSON object string
+ * while preserving formatting, whitespace, and any duplicate keys/values.
+ */
+export function injectBlockNumberIntoJsonString(
+  jsonStr: string,
+  blockNumber: number,
+): string {
+  const trimmed = jsonStr.trim();
+  if (!trimmed.startsWith('{') || !trimmed.endsWith('}')) {
+    return jsonStr;
+  }
+  // If block_number is set to null, "auto", 0, or "", replace it with the resolved block number
+  if (
+    /((?:'|")block_number(?:'|")\s*:\s*)(null|'auto'|"auto"|''|""|0)/i.test(
+      jsonStr,
+    )
+  ) {
+    return jsonStr.replace(
+      /((?:'|")block_number(?:'|")\s*:\s*)(null|'auto'|"auto"|''|""|0)/i,
+      `$1${blockNumber}`,
+    );
+  }
+  // If block_number is already explicitly specified, leave it untouched
+  if (/(?:'|")block_number(?:'|")\s*:/i.test(jsonStr)) {
+    return jsonStr;
+  }
+  const lastBraceIndex = jsonStr.lastIndexOf('}');
+  if (lastBraceIndex === -1) {
+    return jsonStr;
+  }
+  const contentBefore = jsonStr.slice(0, lastBraceIndex);
+  const contentAfter = jsonStr.slice(lastBraceIndex);
+  const innerContent = contentBefore.replace(/^[^{]*{/, '').trim();
+  const separator = innerContent.length > 0 ? ', ' : '';
+  return `${contentBefore}${separator}"block_number": ${blockNumber}${contentAfter}`;
+}
+
+/**
+ * Automatically resolve callback message parameters when MT_CALLBACK_MSG_JSON is omitted.
+ *
+ * Resolves:
+ * - `receiver_id`: from options / MT_DESTINATION_ADDRESS / DEFAULT_DESTINATION_ADDRESS
+ * - `amount_native`: from options / MT_AMOUNT_NATIVE / DEFAULT_AMOUNT_NATIVE
+ * - `block_number`: fetched dynamically from the destination chain via SDK fee estimation
+ *   or directly via Viem RPC.
+ */
+export async function resolveAutoCallbackMsg(options?: {
+  tokenId?: string;
+  mtContract?: string;
+  destinationAddress?: string;
+  amountNative?: unknown;
+  isSubmitMode?: boolean;
+}): Promise<{
+  receiver_id: string;
+  amount_native: unknown;
+  block_number: number;
+}> {
+  const rawReceiver =
+    options?.destinationAddress ||
+    process.env.MT_DESTINATION_ADDRESS ||
+    DEFAULT_DESTINATION_ADDRESS;
+  const receiverId = encodeReceiverAddress(rawReceiver);
+
+  const amountNative =
+    options?.amountNative ??
+    process.env.MT_AMOUNT_NATIVE ??
+    DEFAULT_AMOUNT_NATIVE;
+
+  const blockNumber = await resolveBlockNumber({
+    tokenId: options?.tokenId,
+    mtContract: options?.mtContract,
+    receiverId,
+    isSubmitMode: options?.isSubmitMode,
+  });
+
   return {
     receiver_id: receiverId,
     amount_native: amountNative,
@@ -309,7 +366,8 @@ export async function resolveAutoCallbackMsg(options?: {
  * @param autoCallbackMsg Optional pre-resolved callback message when MT_CALLBACK_MSG_JSON is not set.
  */
 export function loadConfig(
-  autoCallbackMsg?: Record<string, unknown> | null,
+  autoCallbackMsg?: Record<string, unknown> | string | null,
+  autoBlockNumber?: number | null,
 ): MtBatchWithdrawConfig {
   const mtContract = process.env.MT_CONTRACT || 'v2_1.omni.hot.tg';
 
@@ -317,13 +375,7 @@ export function loadConfig(
   if (!receiverId) {
     throw new Error(
       'MT_RECEIVER_ID is required. Set it to the callback receiver contract ' +
-        '(e.g. bridge-refuel.hot.tg). This is the NEAR contract that will ' +
-        'receive the mt_batch_transfer_call callback.',
-    );
-  }
-  if (!isValidAccountId(receiverId)) {
-    throw new Error(
-      `MT_RECEIVER_ID "${receiverId}" is not a valid NEAR account ID.`,
+        '(e.g. bridge-refuel.hot.tg) or target NEAR account / public key.',
     );
   }
 
@@ -387,42 +439,58 @@ export function loadConfig(
     }
   }
 
+  const blockNumberToInject =
+    autoBlockNumber ??
+    (process.env.MT_BLOCK_NUMBER && /^\d+$/.test(process.env.MT_BLOCK_NUMBER)
+      ? parseInt(process.env.MT_BLOCK_NUMBER, 10)
+      : null);
+
   // Parse callback message
-  let callbackMsg: Record<string, unknown> | unknown[] | null = null;
+  let callbackMsg: Record<string, unknown> | unknown[] | string | null = null;
   const callbackMsgRaw = process.env.MT_CALLBACK_MSG_JSON;
-  if (process.env.MT_NO_CALLBACK === 'true') {
+  if (process.env.MT_NO_CALLBACK === 'true' || callbackMsgRaw === 'null') {
     callbackMsg = null;
-  } else if (callbackMsgRaw) {
-    try {
-      callbackMsg = JSON.parse(callbackMsgRaw);
-    } catch {
-      throw new Error(
-        `MT_CALLBACK_MSG_JSON is not valid JSON: ${callbackMsgRaw}`,
-      );
-    }
-    if (callbackMsg === null || typeof callbackMsg !== 'object') {
-      throw new Error(
-        'MT_CALLBACK_MSG_JSON must be a JSON object or array (not null, not primitive).',
-      );
-    }
-    if (receiverId === 'bridge-refuel.hot.tg' && Array.isArray(callbackMsg)) {
-      throw new Error(
-        'MT_CALLBACK_MSG_JSON must be a JSON object (not an array) for bridge-refuel.hot.tg.',
+  } else if (callbackMsgRaw !== undefined && callbackMsgRaw !== '') {
+    // Keep raw string as the base to preserve duplicate keys, formatting, and custom payloads without trimming
+    let resolvedStr = callbackMsgRaw;
+
+    // Resolve what can be resolved (e.g. EVM addresses in receiver_id to Base58)
+    resolvedStr = resolvedStr.replace(
+      /((?:'|")receiver_id(?:'|")\s*:\s*(?:'|"))([^'"]+)((?:'|"))/g,
+      (_match, prefix, addr, suffix) => {
+        const encoded = encodeReceiverAddress(addr);
+        return `${prefix}${encoded}${suffix}`;
+      },
+    );
+
+    // Auto-resolve block_number if not already specified and blockNumberToInject is provided
+    if (blockNumberToInject !== null) {
+      resolvedStr = injectBlockNumberIntoJsonString(
+        resolvedStr,
+        blockNumberToInject,
       );
     }
 
-    // If an auto-resolved callback object is provided, use it as defaults
-    // and let explicit MT_CALLBACK_MSG_JSON keys override those defaults.
-    // This restores auto-fill behavior for partial objects like "{}".
-    if (
-      autoCallbackMsg &&
-      receiverId === 'bridge-refuel.hot.tg' &&
-      !Array.isArray(callbackMsg)
-    ) {
-      callbackMsg = {
-        ...(autoCallbackMsg as Record<string, unknown>),
-        ...(callbackMsg as Record<string, unknown>),
-      };
+    let parsed: unknown = null;
+    let isJson = false;
+    try {
+      parsed = JSON.parse(resolvedStr);
+      isJson = true;
+    } catch {
+      // Malformed or raw text payload — pass as is without validation error
+      parsed = resolvedStr;
+    }
+
+    if (isJson && parsed !== null && typeof parsed === 'object') {
+      Object.defineProperty(parsed, '__raw', {
+        value: resolvedStr,
+        enumerable: false,
+        writable: true,
+        configurable: true,
+      });
+      callbackMsg = parsed as Record<string, unknown> | unknown[];
+    } else {
+      callbackMsg = resolvedStr;
     }
   } else if (autoCallbackMsg !== undefined) {
     callbackMsg = autoCallbackMsg;
@@ -434,23 +502,21 @@ export function loadConfig(
     );
   }
 
-  // If callback contract is bridge-refuel.hot.tg and receiver_id inside msg is an EVM address ("0x..."),
-  // convert it to the Base58 format expected by the Rust smart contract.
+  // If callback contract receiver_id inside msg is an EVM address ("0x..."),
+  // convert it to Base58 if it's an object without __raw
   if (
     callbackMsg &&
+    typeof callbackMsg === 'object' &&
     !Array.isArray(callbackMsg) &&
-    receiverId === 'bridge-refuel.hot.tg' &&
-    typeof callbackMsg.receiver_id === 'string' &&
-    callbackMsg.receiver_id.startsWith('0x')
+    !('__raw' in callbackMsg)
   ) {
-    callbackMsg.receiver_id = encodeReceiverAddress(callbackMsg.receiver_id);
-  }
-
-  // Validate NEAR account ID in MT_CONTRACT
-  if (!isValidAccountId(mtContract)) {
-    throw new Error(
-      `MT_CONTRACT "${mtContract}" is not a valid NEAR account ID.`,
-    );
+    const obj = callbackMsg as Record<string, unknown>;
+    if (typeof obj.receiver_id === 'string') {
+      obj.receiver_id = encodeReceiverAddress(obj.receiver_id);
+    }
+    if (blockNumberToInject !== null && obj.block_number === undefined) {
+      obj.block_number = blockNumberToInject;
+    }
   }
 
   const memo = process.env.MT_MEMO || undefined;
@@ -490,8 +556,20 @@ export function loadConfig(
 export function buildMtWithdrawIntent(
   config: MtBatchWithdrawConfig,
 ): MtWithdrawIntent {
-  const msgString =
-    config.callbackMsg != null ? JSON.stringify(config.callbackMsg) : null;
+  let msgString: string | null = null;
+  if (config.callbackMsg !== undefined && config.callbackMsg !== null) {
+    if (typeof config.callbackMsg === 'string') {
+      msgString = config.callbackMsg;
+    } else if (
+      typeof config.callbackMsg === 'object' &&
+      '__raw' in config.callbackMsg &&
+      typeof (config.callbackMsg as { __raw?: string }).__raw === 'string'
+    ) {
+      msgString = (config.callbackMsg as { __raw: string }).__raw;
+    } else {
+      msgString = JSON.stringify(config.callbackMsg);
+    }
+  }
 
   const intent: MtWithdrawIntent = {
     intent: 'mt_withdraw',
@@ -525,6 +603,7 @@ async function main() {
     process.env.MT_NO_CALLBACK === 'true' || callbackMsgRaw === 'null';
 
   let autoCallbackMsg: Record<string, unknown> | null | undefined;
+  let autoBlockNumber: number | null = null;
 
   if (noCallbackRequested) {
     console.log(
@@ -546,64 +625,55 @@ async function main() {
       // Ignore JSON parse errors here; loadConfig will report them cleanly
     }
 
-    let shouldAutoResolveBridgeMsg = false;
-
-    if (isBridgeRefuel) {
-      if (!callbackMsgRaw) {
-        shouldAutoResolveBridgeMsg = true;
+    if (!callbackMsgRaw) {
+      if (isBridgeRefuel) {
         console.log(
           'ℹ  MT_CALLBACK_MSG_JSON not set — automatically resolving receiver_id, amount_native, and live block_number for bridge-refuel...',
         );
+        autoCallbackMsg = await resolveAutoCallbackMsg({
+          tokenId: firstTokenId,
+          isSubmitMode,
+        });
+        console.log(
+          '   Auto-resolved callback defaults:',
+          JSON.stringify(autoCallbackMsg),
+        );
+        console.log();
       } else {
-        try {
-          const parsed = JSON.parse(callbackMsgRaw);
-          const isObject =
-            parsed !== null &&
-            typeof parsed === 'object' &&
-            !Array.isArray(parsed);
-          if (isObject) {
-            const msgObj = parsed as Record<string, unknown>;
-            const missingRequiredFields =
-              msgObj.receiver_id === undefined ||
-              msgObj.amount_native === undefined ||
-              msgObj.block_number === undefined;
-            if (missingRequiredFields) {
-              shouldAutoResolveBridgeMsg = true;
-              console.log(
-                'ℹ  MT_CALLBACK_MSG_JSON is partial — auto-filling missing bridge-refuel fields (receiver_id, amount_native, block_number)...',
-              );
-            }
-          }
-        } catch {
-          // Invalid JSON will be reported by loadConfig with a clear error
-        }
+        console.log(
+          `ℹ  Receiver "${receiverIdEnv}" is a standard NEAR account (not bridge-refuel.hot.tg).`,
+        );
+        console.log(
+          '   Omitting msg field so intents.near executes direct mt_batch_transfer (no contract callback).',
+        );
+        console.log();
+        autoCallbackMsg = null;
       }
-    }
+    } else {
+      const isJsonObject =
+        callbackMsgRaw.trim().startsWith('{') &&
+        callbackMsgRaw.trim().endsWith('}');
+      const missingBlockNumber =
+        !/(?:'|")block_number(?:'|")\s*:/i.test(callbackMsgRaw) ||
+        /(?:'|")block_number(?:'|")\s*:\s*(null|'auto'|"auto"|''|""|0)\b/i.test(
+          callbackMsgRaw,
+        );
 
-    if (shouldAutoResolveBridgeMsg) {
-      autoCallbackMsg = await resolveAutoCallbackMsg({
-        tokenId: firstTokenId,
-        isSubmitMode,
-      });
-      console.log(
-        '   Auto-resolved callback defaults:',
-        JSON.stringify(autoCallbackMsg),
-      );
-      console.log();
-    } else if (!callbackMsgRaw) {
-      console.log(
-        `ℹ  Receiver "${receiverIdEnv}" is a standard NEAR account (not bridge-refuel.hot.tg).`,
-      );
-      console.log(
-        '   Omitting msg field so intents.near executes direct mt_batch_transfer (no contract callback).',
-      );
-      console.log();
-      autoCallbackMsg = null;
+      if (isJsonObject && missingBlockNumber) {
+        console.log(
+          'ℹ  block_number not specified in callback message — automatically resolving destination block number...',
+        );
+        autoBlockNumber = await resolveBlockNumber({
+          tokenId: firstTokenId,
+          isSubmitMode,
+        });
+        console.log(`   Auto-resolved block_number: ${autoBlockNumber}\n`);
+      }
     }
   }
 
   // Load and validate configuration
-  const config = loadConfig(autoCallbackMsg);
+  const config = loadConfig(autoCallbackMsg, autoBlockNumber);
   const intent = buildMtWithdrawIntent(config);
 
   // Display the proposed intent
@@ -611,7 +681,13 @@ async function main() {
   console.log('Callback receiver:  ', config.receiverId);
   console.log('Token IDs:          ', config.tokenIds);
   console.log('Amounts:            ', config.amounts);
-  console.log('Callback msg:       ', JSON.stringify(config.callbackMsg));
+  console.log(
+    'Callback msg:       ',
+    typeof config.callbackMsg === 'string'
+      ? config.callbackMsg
+      : ((config.callbackMsg as { __raw?: string })?.__raw ??
+          JSON.stringify(config.callbackMsg)),
+  );
   if (config.memo) console.log('Memo:               ', config.memo);
   if (config.minGas) console.log('Min gas:            ', config.minGas);
   if (config.storageDeposit)

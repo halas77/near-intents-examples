@@ -173,8 +173,8 @@ console.log('Test 3: Callback msg is preserved through serialization');
 }
 console.log();
 
-// Test 4: Invalid JSON in MT_CALLBACK_MSG_JSON is rejected
-console.log('Test 4: Invalid JSON in callback msg is rejected');
+// Test 4: Malformed or raw text callback msg is passed through without validation errors
+console.log('Test 4: Raw / malformed callback msg is passed through');
 withEnv(
   {
     MT_CONTRACT: 'v2_1.omni.hot.tg',
@@ -184,10 +184,15 @@ withEnv(
     MT_CALLBACK_MSG_JSON: '{not valid json',
   },
   () => {
-    assertThrows(
-      () => loadConfig(),
-      'MT_CALLBACK_MSG_JSON is not valid JSON',
-      'rejects malformed JSON',
+    const config = loadConfig();
+    assert(
+      config.callbackMsg === '{not valid json',
+      'malformed JSON passed through as raw string',
+    );
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg === '{not valid json',
+      'intent.msg retains raw malformed string',
     );
   },
 );
@@ -395,15 +400,18 @@ withEnv(
     assert(config.amounts.length === 2, 'two amounts loaded');
     assert(config.memo === 'test', 'memo loaded');
     assert(
-      config.callbackMsg?.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+      typeof config.callbackMsg === 'object' &&
+        config.callbackMsg !== null &&
+        !Array.isArray(config.callbackMsg) &&
+        config.callbackMsg['receiver_id'] === '2aEi7QMoRCvshYvrT779cXaDk1hC',
       'callback msg receiver_id Base58 encoded',
     );
   },
 );
 console.log();
 
-// Test 11: Callback msg array/null validation
-console.log('Test 11: Callback msg validation for object / array');
+// Test 11: Callback msg allows arrays and null
+console.log('Test 11: Callback msg allows arrays and null');
 withEnv(
   {
     MT_CONTRACT: 'v2_1.omni.hot.tg',
@@ -413,10 +421,10 @@ withEnv(
     MT_CALLBACK_MSG_JSON: '[1,2,3]',
   },
   () => {
-    assertThrows(
-      () => loadConfig(),
-      'must be a JSON object (not an array) for bridge-refuel.hot.tg',
-      'rejects JSON array as callback msg for bridge-refuel.hot.tg',
+    const config = loadConfig();
+    assert(
+      Array.isArray(config.callbackMsg),
+      'allows JSON array for bridge-refuel.hot.tg',
     );
   },
 );
@@ -426,11 +434,15 @@ withEnv(
     MT_RECEIVER_ID: 'dex.intear.near',
     MT_TOKEN_IDS: '["t1","t2"]',
     MT_AMOUNTS: '["1","2"]',
-    MT_CALLBACK_MSG_JSON: '[{"TransferAsset":{"to":{"Account":"halas7.near"}}}]',
+    MT_CALLBACK_MSG_JSON:
+      '[{"TransferAsset":{"to":{"Account":"halas7.near"}}}]',
   },
   () => {
     const config = loadConfig();
-    assert(Array.isArray(config.callbackMsg), 'allows JSON array for dex.intear.near');
+    assert(
+      Array.isArray(config.callbackMsg),
+      'allows JSON array for dex.intear.near',
+    );
   },
 );
 withEnv(
@@ -442,30 +454,27 @@ withEnv(
     MT_CALLBACK_MSG_JSON: 'null',
   },
   () => {
-    assertThrows(
-      () => loadConfig(),
-      'must be a JSON object or array',
-      'rejects null as callback msg',
-    );
+    const config = loadConfig();
+    assert(config.callbackMsg === null, 'allows null callback msg');
   },
 );
 console.log();
 
-// Test 12: Less than 2 token IDs rejected
-console.log('Test 12: Less than 2 token IDs rejected');
+// Test 12: Empty token IDs array is rejected
+console.log('Test 12: Empty token IDs array is rejected');
 withEnv(
   {
     MT_CONTRACT: 'v2_1.omni.hot.tg',
     MT_RECEIVER_ID: 'callback.near',
-    MT_TOKEN_IDS: '["t1"]',
-    MT_AMOUNTS: '["1"]',
+    MT_TOKEN_IDS: '[]',
+    MT_AMOUNTS: '[]',
     MT_CALLBACK_MSG_JSON: '{"key":"val"}',
   },
   () => {
     assertThrows(
       () => loadConfig(),
-      'at least 2 token IDs',
-      'rejects single token ID',
+      'at least 1 token ID',
+      'rejects empty token IDs array',
     );
   },
 );
@@ -540,16 +549,19 @@ withEnv(
       block_number: 99999999,
     };
     const config = loadConfig(autoMsg);
+    const callbackMsg = config.callbackMsg as
+      | Record<string, unknown>
+      | undefined;
     assert(
-      config.callbackMsg?.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
+      callbackMsg?.receiver_id === '2aEi7QMoRCvshYvrT779cXaDk1hC',
       'auto receiver_id passed to config',
     );
     assert(
-      config.callbackMsg?.amount_native === DEFAULT_AMOUNT_NATIVE,
+      callbackMsg?.amount_native === DEFAULT_AMOUNT_NATIVE,
       'auto amount_native passed to config',
     );
     assert(
-      config.callbackMsg?.block_number === 99999999,
+      callbackMsg?.block_number === 99999999,
       'auto block_number passed to config',
     );
   },
@@ -576,6 +588,146 @@ console.log('Test 16: encodeReceiverAddress Base58 conversion');
     'Named NEAR account left unchanged',
   );
 }
+console.log();
+
+// Test 17: Preserves duplicate keys and values without trimming
+console.log('Test 17: Duplicate keys and values in callback msg are preserved');
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON:
+      '{"amount_native":"0", "receiver_id":"0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33", "amount_native":"0", "receiver_id":"0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33"}',
+  },
+  () => {
+    const config = loadConfig();
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg ===
+        '{"amount_native":"0", "receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1hC", "amount_native":"0", "receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1hC"}',
+      'duplicate keys and values preserved with EVM address resolved to Base58',
+    );
+  },
+);
+console.log();
+
+// Test 18: ed25519 public key is accepted as MT_RECEIVER_ID without validation error
+console.log('Test 18: ed25519 public key is accepted as MT_RECEIVER_ID');
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'ed25519:Anpgu2DvnC3E4yULEyN5eX64KPpgpKTHomgWcm6ArZyr',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON: '{"key":"val"}',
+  },
+  () => {
+    const config = loadConfig();
+    assert(
+      config.receiverId ===
+        'ed25519:Anpgu2DvnC3E4yULEyN5eX64KPpgpKTHomgWcm6ArZyr',
+      'receiverId matches ed25519 public key without error',
+    );
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.receiver_id ===
+        'ed25519:Anpgu2DvnC3E4yULEyN5eX64KPpgpKTHomgWcm6ArZyr',
+      'intent.receiver_id preserves ed25519 public key',
+    );
+  },
+);
+console.log();
+
+// Test 19: Auto-resolves block_number into callback message when omitted or null
+console.log('Test 19: Auto-resolves block_number into callback message');
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON: '{"amount_native":"0", "receiver_id":"0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33"}',
+    MT_BLOCK_NUMBER: '68420150',
+  },
+  () => {
+    const config = loadConfig(undefined, 68420150);
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg?.includes('"block_number": 68420150') === true,
+      'auto-injects block_number when missing',
+    );
+    assert(
+      intent.msg?.includes('"receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1hC"') === true,
+      'receiver_id is encoded to Base58 alongside injected block_number',
+    );
+  },
+);
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON: '{"amount_native":"0", "block_number": null}',
+    MT_BLOCK_NUMBER: '68420150',
+  },
+  () => {
+    const config = loadConfig(undefined, 68420150);
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg?.includes('"block_number": 68420150') === true,
+      'replaces null block_number placeholder with resolved value',
+    );
+  },
+);
+console.log();
+
+// Test 19: Auto-resolves block_number into callback message when omitted or null
+console.log('Test 19: Auto-resolves block_number into callback message');
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON:
+      '{"amount_native":"0", "receiver_id":"0x70E93a63A6f2a85784bF71Ba1d3Ca745202f9B33"}',
+    MT_BLOCK_NUMBER: '68420150',
+  },
+  () => {
+    const config = loadConfig(undefined, 68420150);
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg?.includes('"block_number": 68420150') === true,
+      'auto-injects block_number when missing',
+    );
+    assert(
+      intent.msg?.includes('"receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1hC"') ===
+        true,
+      'receiver_id is encoded to Base58 alongside injected block_number',
+    );
+  },
+);
+withEnv(
+  {
+    MT_CONTRACT: 'v2_1.omni.hot.tg',
+    MT_RECEIVER_ID: 'bridge-refuel.hot.tg',
+    MT_TOKEN_IDS: '["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]',
+    MT_AMOUNTS: '["2000"]',
+    MT_CALLBACK_MSG_JSON: '{"amount_native":"0", "block_number": null}',
+    MT_BLOCK_NUMBER: '68420150',
+  },
+  () => {
+    const config = loadConfig(undefined, 68420150);
+    const intent = buildMtWithdrawIntent(config);
+    assert(
+      intent.msg?.includes('"block_number": 68420150') === true,
+      'replaces null block_number placeholder with resolved value',
+    );
+  },
+);
 console.log();
 
 // ── Summary ────────────────────────────────────────────────────────────────────

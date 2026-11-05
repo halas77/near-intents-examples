@@ -32,7 +32,8 @@ async function main() {
 
   // Call storage_deposit on the multi-token contract
   // Deposit 0.25 NEAR (generous — typical registration needs ~0.00125 NEAR)
-  const depositAmount = process.env.MT_STORAGE_DEPOSIT || '250000000000000000000000'; // 0.25 NEAR
+  const depositAmount =
+    process.env.MT_STORAGE_DEPOSIT || '250000000000000000000000'; // 0.25 NEAR
 
   console.log(`Calling storage_deposit on ${mtContract}...`);
   console.log(`  account_id: ${receiverId}`);
@@ -72,4 +73,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-
