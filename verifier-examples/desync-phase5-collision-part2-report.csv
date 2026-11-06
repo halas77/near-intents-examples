@@ -1,0 +1,5 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p5-valid-plus-silent-noop-receiver-newline","64V1feEvnVNDqeXtB46zrMEfqFP64qqLyhXEBw4S4LRS","C7JTntRVKfzEC9S1WBwtr1YrGEQMNJzSHy5417fdzXpi","0","[""0"",""0""]","[[""0"",""0""],[""0"",""0""]]","true","false","false","Withdraw path started with zero-unused return"
+"p5-valid-plus-overflow-amount","Dc3B4opp7sAQA9TqAhrC4ctcQ5fqoWo1tT8ZAdDtsyX8","8kra4VqwD9v7zBYAxydxjP1ZqZ6T4onEzsUoUy5cBWBG","0","[""0"",""0""]","[[""0"",""0""]]","true","true","false","Withdraw started and refund logs exist (inspect ordering carefully)"
+"p5-three-legs-valid-panic-valid","F5dcsrNDsf4mc2UA8xiQoj7bw2baMYwLXuggXcbrx6mT","7TZiAHp3CNrvvdgctBYuhksLkABF2xkt51hKAioQcXZF","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p5-token-shape-mix","5v11SNezCEQqeiNw5jwuCEHwZPguydqeE4PRXhe6jHJH","2FfFSFaoLranYhpXHxFQmKFVmKyXnJvozyQpLqg15oFL","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

@@ -1,0 +1,40 @@
+[
+  {
+    "name": "p5-valid-then-dup-receiver-panic",
+    "intentHash": "E3RUZXThEiKyFjJiBwXDuWi6DNrD11jpdfPcJfVVkFNv",
+    "txHash": "5BHaS8sstvwMwqKzDy6WFxBEp9Zn3wZ21xzjZvubJKxL",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p5-panic-first-valid-second",
+    "intentHash": "A41jnaEeWAyt66mCweVeJVYvW4mhASNda3tU3tMsECGL",
+    "txHash": "AFkLscTcUyhYrGALQTG3Th9x8AoLVHeQncRsiYo15i69",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  }
+]

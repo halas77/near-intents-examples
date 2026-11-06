@@ -1,0 +1,78 @@
+[
+  {
+    "name": "p5-valid-plus-silent-noop-receiver-newline",
+    "intents": [
+      {
+        "name": "leg-valid",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-3a\"}",
+        "memo": "p5-3a"
+      },
+      {
+        "name": "leg-noop-newline",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\\n\",\"block_number\":100,\"tag\":\"p5-3b\"}",
+        "memo": "p5-3b"
+      }
+    ]
+  },
+  {
+    "name": "p5-valid-plus-overflow-amount",
+    "intents": [
+      {
+        "name": "leg-valid-u64max-block",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p5-4a\"}",
+        "memo": "p5-4a"
+      },
+      {
+        "name": "leg-overflow",
+        "rawMsg": "{\"amount_native\":\"340282366920938463463374607431768211456\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-4b\"}",
+        "memo": "p5-4b"
+      }
+    ]
+  },
+  {
+    "name": "p5-three-legs-valid-panic-valid",
+    "intents": [
+      {
+        "name": "leg-valid-a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":0,\"tag\":\"p5-5a\"}",
+        "memo": "p5-5a"
+      },
+      {
+        "name": "leg-panic-float",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100.0,\"tag\":\"p5-5b\"}",
+        "memo": "p5-5b"
+      },
+      {
+        "name": "leg-valid-b",
+        "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-5c\"}",
+        "memo": "p5-5c"
+      }
+    ]
+  },
+  {
+    "name": "p5-token-shape-mix",
+    "intents": [
+      {
+        "name": "leg-two-token-valid",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-6a\"}",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p5-6a"
+      },
+      {
+        "name": "leg-one-token-valid",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-6b\"}",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1"],
+        "memo": "p5-6b"
+      },
+      {
+        "name": "leg-one-token-panic-dup-amount",
+        "rawMsg": "{\"amount_native\":\"0\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-6c\"}",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1"],
+        "memo": "p5-6c"
+      }
+    ]
+  }
+]

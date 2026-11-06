@@ -1,0 +1,3 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p5-valid-then-dup-receiver-panic","E3RUZXThEiKyFjJiBwXDuWi6DNrD11jpdfPcJfVVkFNv","5BHaS8sstvwMwqKzDy6WFxBEp9Zn3wZ21xzjZvubJKxL","0","[""0"",""0""]","[[""0"",""0""]]","true","true","false","Withdraw started and refund logs exist (inspect ordering carefully)"
+"p5-panic-first-valid-second","A41jnaEeWAyt66mCweVeJVYvW4mhASNda3tU3tMsECGL","AFkLscTcUyhYrGALQTG3Th9x8AoLVHeQncRsiYo15i69","0","[""0"",""0""]","[[""0"",""0""]]","true","true","false","Withdraw started and refund logs exist (inspect ordering carefully)"

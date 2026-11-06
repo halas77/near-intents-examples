@@ -1,0 +1,64 @@
+[
+  {
+    "name": "p5-valid-plus-silent-noop-receiver-newline",
+    "intentHash": "64V1feEvnVNDqeXtB46zrMEfqFP64qqLyhXEBw4S4LRS",
+    "txHash": "C7JTntRVKfzEC9S1WBwtr1YrGEQMNJzSHy5417fdzXpi",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p5-valid-plus-overflow-amount",
+    "intentHash": "Dc3B4opp7sAQA9TqAhrC4ctcQ5fqoWo1tT8ZAdDtsyX8",
+    "txHash": "8kra4VqwD9v7zBYAxydxjP1ZqZ6T4onEzsUoUy5cBWBG",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p5-three-legs-valid-panic-valid",
+    "intentHash": "F5dcsrNDsf4mc2UA8xiQoj7bw2baMYwLXuggXcbrx6mT",
+    "txHash": "7TZiAHp3CNrvvdgctBYuhksLkABF2xkt51hKAioQcXZF",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p5-token-shape-mix",
+    "intentHash": "5v11SNezCEQqeiNw5jwuCEHwZPguydqeE4PRXhe6jHJH",
+    "txHash": "2FfFSFaoLranYhpXHxFQmKFVmKyXnJvozyQpLqg15oFL",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

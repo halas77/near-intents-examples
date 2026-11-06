@@ -42,16 +42,27 @@ interface CaseResult {
   intentHash?: string;
   txHash?: string;
   mtOnTransferUnused?: string[];
+  mtOnTransferUnusedAll?: string[][];
   withdrawStarted: boolean;
   refundApplied: boolean;
   likelyDesync: boolean;
   note: string;
 }
 
+interface HunterCaseIntent {
+  name?: string;
+  msgObject?: UnknownObject;
+  rawMsg?: string;
+  tokenIds?: string[];
+  amounts?: string[];
+  memo?: string | null;
+}
+
 interface HunterCase {
   name: string;
   msgObject?: UnknownObject;
   rawMsg?: string;
+  intents?: HunterCaseIntent[];
 }
 
 const DEFAULT_MT_CONTRACT = process.env.MT_CONTRACT || 'v2_1.omni.hot.tg';
@@ -117,31 +128,31 @@ async function fetchTxOutcome(
   return json;
 }
 
-function parseUnusedFromBridgeReceipt(
-  outcome: TxOutcome,
-): string[] | undefined {
-  const bridgeReceipt = outcome.result.receipts_outcome.find(
-    (r) => r.outcome.executor_id === 'bridge-refuel.hot.tg',
-  );
-  if (!bridgeReceipt) return undefined;
-  const decoded = decodeSuccessValueBase64(
-    bridgeReceipt.outcome.status.SuccessValue,
-  );
-  if (!decoded) return undefined;
-  try {
-    const parsed = JSON.parse(decoded);
-    if (Array.isArray(parsed) && parsed.every((v) => typeof v === 'string')) {
-      return parsed;
+function parseUnusedFromBridgeReceipts(outcome: TxOutcome): string[][] {
+  const values: string[][] = [];
+
+  for (const receipt of outcome.result.receipts_outcome) {
+    if (receipt.outcome.executor_id !== 'bridge-refuel.hot.tg') continue;
+    const decoded = decodeSuccessValueBase64(
+      receipt.outcome.status.SuccessValue,
+    );
+    if (!decoded) continue;
+    try {
+      const parsed = JSON.parse(decoded);
+      if (Array.isArray(parsed) && parsed.every((v) => typeof v === 'string')) {
+        values.push(parsed);
+      }
+    } catch {
+      // Ignore non-JSON success values.
     }
-  } catch {
-    return undefined;
   }
-  return undefined;
+
+  return values;
 }
 
 function analyzeOutcome(
   outcome: TxOutcome,
-  mtOnTransferUnused?: string[],
+  mtOnTransferUnusedAll: string[][],
 ): {
   withdrawStarted: boolean;
   refundApplied: boolean;
@@ -166,14 +177,14 @@ function analyzeOutcome(
       (log.includes('"event":"mt_mint"') && log.includes('"memo":"refund"')),
   );
 
-  const unused0 = mtOnTransferUnused?.[0] ?? '0';
-  const nonZeroUnused0 = (() => {
+  const nonZeroUnused0 = mtOnTransferUnusedAll.some((unused) => {
+    const unused0 = unused[0] ?? '0';
     try {
       return BigInt(unused0) > 0n;
     } catch {
       return false;
     }
-  })();
+  });
 
   const likelyDesync = withdrawStarted && nonZeroUnused0;
 
@@ -257,6 +268,85 @@ function buildCases(baseReceiverId: string): HunterCase[] {
   ];
 }
 
+function parseCustomIntent(
+  item: unknown,
+  index: number,
+  baseReceiverId: string,
+): HunterCaseIntent {
+  if (typeof item === 'string') {
+    return {
+      name: `intent-${index + 1}`,
+      rawMsg: item.replaceAll('__BASE58_RECEIVER__', baseReceiverId),
+    };
+  }
+
+  if (typeof item !== 'object' || item === null) {
+    throw new Error(`intents[${index}] must be object or string`);
+  }
+
+  const maybeIntent = item as {
+    name?: unknown;
+    msg?: unknown;
+    rawMsg?: unknown;
+    token_ids?: unknown;
+    amounts?: unknown;
+    memo?: unknown;
+  };
+
+  const intent: HunterCaseIntent = {
+    name: typeof maybeIntent.name === 'string' ? maybeIntent.name : undefined,
+  };
+
+  if (Array.isArray(maybeIntent.token_ids)) {
+    if (maybeIntent.token_ids.some((v) => typeof v !== 'string')) {
+      throw new Error(`intents[${index}].token_ids must be string[]`);
+    }
+    intent.tokenIds = maybeIntent.token_ids as string[];
+  }
+
+  if (Array.isArray(maybeIntent.amounts)) {
+    if (maybeIntent.amounts.some((v) => typeof v !== 'string')) {
+      throw new Error(`intents[${index}].amounts must be string[]`);
+    }
+    intent.amounts = maybeIntent.amounts as string[];
+  }
+
+  if (maybeIntent.memo === null || typeof maybeIntent.memo === 'string') {
+    intent.memo = maybeIntent.memo;
+  } else if (maybeIntent.memo !== undefined) {
+    throw new Error(`intents[${index}].memo must be string or null`);
+  }
+
+  if (typeof maybeIntent.rawMsg === 'string') {
+    intent.rawMsg = maybeIntent.rawMsg.replaceAll(
+      '__BASE58_RECEIVER__',
+      baseReceiverId,
+    );
+    return intent;
+  }
+
+  if (typeof maybeIntent.msg === 'string') {
+    intent.rawMsg = maybeIntent.msg.replaceAll(
+      '__BASE58_RECEIVER__',
+      baseReceiverId,
+    );
+    return intent;
+  }
+
+  if (maybeIntent.msg && typeof maybeIntent.msg === 'object') {
+    const replaced = substituteReceiverPlaceholder(
+      maybeIntent.msg,
+      baseReceiverId,
+    );
+    intent.msgObject = replaced as UnknownObject;
+    return intent;
+  }
+
+  const replaced = substituteReceiverPlaceholder(item, baseReceiverId);
+  intent.msgObject = replaced as UnknownObject;
+  return intent;
+}
+
 function parseCustomCases(baseReceiverId: string): HunterCase[] | null {
   const raw = process.env.DESYNC_CASES_JSON;
   if (!raw) return null;
@@ -269,7 +359,6 @@ function parseCustomCases(baseReceiverId: string): HunterCase[] | null {
   const normalized: HunterCase[] = parsed.map((item, index) => {
     const defaultName = `custom-${index + 1}`;
 
-    // Raw msg payload (string entry): allows duplicate keys and exact ordering.
     if (typeof item === 'string') {
       return {
         name: defaultName,
@@ -287,9 +376,20 @@ function parseCustomCases(baseReceiverId: string): HunterCase[] | null {
       name?: unknown;
       msg?: unknown;
       rawMsg?: unknown;
+      intents?: unknown;
     };
+
     const name =
       typeof maybeNamed.name === 'string' ? maybeNamed.name : defaultName;
+
+    if (Array.isArray(maybeNamed.intents)) {
+      return {
+        name,
+        intents: maybeNamed.intents.map((v, i) =>
+          parseCustomIntent(v, i, baseReceiverId),
+        ),
+      };
+    }
 
     if (typeof maybeNamed.rawMsg === 'string') {
       return {
@@ -301,7 +401,6 @@ function parseCustomCases(baseReceiverId: string): HunterCase[] | null {
       };
     }
 
-    // Convenience: when msg is string, treat it as raw payload.
     if (typeof maybeNamed.msg === 'string') {
       return {
         name,
@@ -320,7 +419,6 @@ function parseCustomCases(baseReceiverId: string): HunterCase[] | null {
       return { name, msgObject: replaced as UnknownObject };
     }
 
-    // Backward-compatible shorthand: object entry itself is msg object.
     const replaced = substituteReceiverPlaceholder(item, baseReceiverId);
     return { name, msgObject: replaced as UnknownObject };
   });
@@ -336,6 +434,7 @@ function toCsv(results: CaseResult[]): string {
     'txHash',
     'unused0',
     'unusedRaw',
+    'unusedAll',
     'withdrawStarted',
     'refundApplied',
     'likelyDesync',
@@ -353,6 +452,7 @@ function toCsv(results: CaseResult[]): string {
       r.txHash ?? '',
       unused0,
       unusedRaw,
+      r.mtOnTransferUnusedAll ? JSON.stringify(r.mtOnTransferUnusedAll) : '',
       String(r.withdrawStarted),
       String(r.refundApplied),
       String(r.likelyDesync),
@@ -390,6 +490,21 @@ function getCaseMsgString(testCase: HunterCase): string {
   throw new Error(`Case "${testCase.name}" missing msgObject/rawMsg`);
 }
 
+function getIntentMsgString(
+  intent: HunterCaseIntent,
+  caseName: string,
+): string {
+  if (typeof intent.rawMsg === 'string') {
+    return intent.rawMsg;
+  }
+  if (intent.msgObject && typeof intent.msgObject === 'object') {
+    return JSON.stringify(intent.msgObject);
+  }
+  throw new Error(
+    `Case "${caseName}" contains an intent missing msgObject/rawMsg`,
+  );
+}
+
 function buildIntent(args: {
   mtContract: string;
   receiverId: string;
@@ -397,6 +512,7 @@ function buildIntent(args: {
   amounts: string[];
   msgString: string;
   minGas: string;
+  memo?: string | null;
 }): MtWithdrawIntent {
   return {
     intent: 'mt_withdraw',
@@ -405,7 +521,7 @@ function buildIntent(args: {
     token_ids: args.tokenIds,
     amounts: args.amounts,
     msg: args.msgString,
-    memo: null,
+    memo: args.memo ?? null,
     min_gas: args.minGas,
     storage_deposit: null,
   };
@@ -421,32 +537,54 @@ async function runCase(
     minGas: string;
   },
 ): Promise<CaseResult> {
-  const intent = buildIntent({
-    mtContract: config.mtContract,
-    receiverId: config.receiverId,
-    tokenIds: config.tokenIds,
-    amounts: config.amounts,
-    msgString: getCaseMsgString(testCase),
-    minGas: config.minGas,
-  });
+  const intents = testCase.intents?.length
+    ? testCase.intents.map((intent, i) => {
+        const tokenIds = intent.tokenIds ?? config.tokenIds;
+        const amounts = intent.amounts ?? config.amounts;
+        if (tokenIds.length !== amounts.length) {
+          throw new Error(
+            `Case "${testCase.name}" intent[${i}] tokenIds/amounts length mismatch`,
+          );
+        }
 
-  const { intentHash } = await intentsSdk.signAndSendIntent({
-    intents: [intent],
-  });
+        return buildIntent({
+          mtContract: config.mtContract,
+          receiverId: config.receiverId,
+          tokenIds,
+          amounts,
+          msgString: getIntentMsgString(intent, testCase.name),
+          minGas: config.minGas,
+          memo: intent.memo,
+        });
+      })
+    : [
+        buildIntent({
+          mtContract: config.mtContract,
+          receiverId: config.receiverId,
+          tokenIds: config.tokenIds,
+          amounts: config.amounts,
+          msgString: getCaseMsgString(testCase),
+          minGas: config.minGas,
+        }),
+      ];
+
+  const { intentHash } = await intentsSdk.signAndSendIntent({ intents });
   const settled = await intentsSdk.waitForIntentSettlement({
     intentHash,
     signal: AbortSignal.timeout(180_000),
   });
 
   const outcome = await fetchTxOutcome(settled.hash, settled.accountId);
-  const mtOnTransferUnused = parseUnusedFromBridgeReceipt(outcome);
-  const analysis = analyzeOutcome(outcome, mtOnTransferUnused);
+  const mtOnTransferUnusedAll = parseUnusedFromBridgeReceipts(outcome);
+  const mtOnTransferUnused = mtOnTransferUnusedAll[0];
+  const analysis = analyzeOutcome(outcome, mtOnTransferUnusedAll);
 
   return {
     name: testCase.name,
     intentHash,
     txHash: settled.hash,
     mtOnTransferUnused,
+    mtOnTransferUnusedAll,
     ...analysis,
   };
 }
@@ -495,7 +633,16 @@ async function main() {
   if (!submit) {
     for (const c of selectedCases) {
       console.log(`[dry-run] ${c.name}`);
-      console.log(getCaseMsgString(c));
+      if (c.intents?.length) {
+        c.intents.forEach((intent, i) => {
+          console.log(
+            `  intent[${i}] tokenIds=${JSON.stringify(intent.tokenIds ?? tokenIds)} amounts=${JSON.stringify(intent.amounts ?? amounts)}`,
+          );
+          console.log(`  msg[${i}] ${getIntentMsgString(intent, c.name)}`);
+        });
+      } else {
+        console.log(getCaseMsgString(c));
+      }
     }
     console.log('\nPass --submit to execute on-chain.');
     return;
@@ -524,6 +671,9 @@ async function main() {
         'mt_on_transfer  :',
         result.mtOnTransferUnused ?? '(unavailable)',
       );
+      if (result.mtOnTransferUnusedAll?.length) {
+        console.log('mt_on_transfer_all:', result.mtOnTransferUnusedAll);
+      }
       console.log('withdrawStarted :', result.withdrawStarted);
       console.log('refundApplied   :', result.refundApplied);
       console.log('likelyDesync    :', result.likelyDesync);

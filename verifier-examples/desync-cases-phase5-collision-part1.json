@@ -1,0 +1,32 @@
+[
+  {
+    "name": "p5-valid-then-dup-receiver-panic",
+    "intents": [
+      {
+        "name": "leg-valid",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-1a\"}",
+        "memo": "p5-1a"
+      },
+      {
+        "name": "leg-panic-dup-receiver",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"evil.receiver\",\"block_number\":100,\"tag\":\"p5-1b\"}",
+        "memo": "p5-1b"
+      }
+    ]
+  },
+  {
+    "name": "p5-panic-first-valid-second",
+    "intents": [
+      {
+        "name": "leg-panic-bom",
+        "rawMsg": "\uFEFF{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-2a\"}",
+        "memo": "p5-2a"
+      },
+      {
+        "name": "leg-valid-shadow",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\\u200b\":\"shadow\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p5-2b\"}",
+        "memo": "p5-2b"
+      }
+    ]
+  }
+]
