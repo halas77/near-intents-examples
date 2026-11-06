@@ -23,6 +23,7 @@
     "sdk/mt-batch-withdraw": "tsx verifier-examples/mt-batch-withdraw.ts",
     "sdk/mt-batch-withdraw-test": "tsx verifier-examples/mt-batch-withdraw.test.ts",
     "sdk/register-receiver": "tsx verifier-examples/register-receiver.ts",
+    "sdk/mt-desync-hunter": "tsx verifier-examples/mt-desync-hunter.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write '**/*.{ts,json,md}'"
