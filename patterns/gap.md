@@ -1,307 +1,225 @@
-# Gap-focused attack patterns (env-specific, desync-first)
+# Sharp desync playbook (logic-first, based on measured campaigns)
 
-This revision uses your concrete config and your observations.
+This is a logic-level threat model, not a code-style bug list.
 
-## Baseline under test
+## What your measurements prove
 
-- `MT_CONTRACT = v2_1.omni.hot.tg`
-- `MT_RECEIVER_ID = bridge-refuel.hot.tg`
-- `MT_TOKEN_IDS = ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"]`
-- `MT_AMOUNTS = ["2000"]`
-- `MT_CALLBACK_MSG_JSON = {"amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
-- `MT_MIN_GAS = 1000`
+### A) Amount split is deterministic and controllable
 
-Critical behavior from your notes:
+With `MT_AMOUNTS=["2000"]`:
 
-- only index `0` token is truly bridged; extra tokens are transferred directly to receiver,
-- unknown keys accepted,
-- duplicate unknown keys last-wins,
-- `amount_native=0` can still succeed,
-- any `block_number` seems accepted,
-- huge `receiver_id` can consume all gas,
-- there are “published but not settled” outcomes.
+- `amount_native="0"` -> bridge `2000`, receiver `0`
+- `amount_native="1"` -> bridge `1999`, receiver `1`
+- `amount_native="1999"` -> bridge `1`, receiver `1999`
+- `amount_native="2000"` -> bridge `0`, receiver `2000`
+- `amount_native="2001"` -> panic (overflow)
 
-Your target class (correct):
+**Meaning:** `amount_native` is effectively a routing dial between bridge vs local receiver.
 
-> `mt_on_withdrwal` returns unusual value (or parse shape), while withdraw path still succeeds and `on_withdraw_complete` can still report success.
+### B) Return semantics are already suspicious
 
----
+You observed: `mt_on_transfer` returns `0`, but resolver returns original `2000` (even in failed transactions).
 
-## Red-team campaigns (non-generic, tuned to your setup)
+**Meaning:** settlement/refund interpretation is likely decoupled from the business result. This is the core risk.
 
-## Campaign 1: Dual-source amount divergence (`MT_AMOUNTS` vs `msg.amount_native`)
+### C) Gas has a settlement cliff, not just execution failure
 
-Your baseline already sets `MT_AMOUNTS[0] = 2000` and `amount_native = "0"`.
+At high `MT_MIN_GAS`, you get `published but not settled / NOT_FOUND_OR_NOT_VALID`.
 
-That is a perfect wedge: if bridge amount comes from transfer array but refund logic reads `amount_native`, you can get silent non-zero unused.
+**Meaning:** there is a split-brain window between “intent publication” and “final accounting truth”.
 
-### Payload ladder
+### D) Receiver length has boundary behavior (704/880 observations)
 
-1. `{"amount_native":"0","receiver_id":"2aEi7...","block_number":100}`
-2. `{"amount_native":"1","receiver_id":"2aEi7...","block_number":100}`
-3. `{"amount_native":"1999","receiver_id":"2aEi7...","block_number":100}`
-4. `{"amount_native":"2000","receiver_id":"2aEi7...","block_number":100}`
-5. `{"amount_native":"2001","receiver_id":"2aEi7...","block_number":100}`
+Crossing length boundaries changes outcome mode.
 
-Keep `MT_AMOUNTS=["2000"]` constant for all runs.
+**Meaning:** input size can be used as a deterministic phase-switch to push flow into different settlement paths.
 
-### What you are hunting
+### E) Duplicate critical JSON fields are rejected
 
-- withdraw receipt succeeds in all/most cases,
-- resolver return vector changes with `amount_native`, not with transferred amount.
+`receiver_id`, `amount_native`, `block_number` duplicates panic.
 
-If true, refund logic can be steered independently of bridged amount.
+**Meaning:** that vector is closed; do not spend effort there.
 
 ---
 
-## Campaign 2: Gas-unit confusion exploit (`MT_MIN_GAS=1000`)
+## Redefined campaigns (rare, sharp, logic-driven)
 
-`1000` is suspiciously tiny if interpreted as yocto-gas-like raw units, but maybe middleware rescales it.
+## Campaign 1 — **Economic desync without technical failure**
 
-Try to detect inconsistent unit conversions between simulation and execution.
+Use the routing dial intentionally:
 
-### Sweep set (exact values)
+- Keep transaction “valid”.
+- Move most value to receiver via `amount_native` close to full amount.
+- Keep resolver behavior pinned to original amount signal (as you observed).
 
-`[0, 1, 999, 1000, 1001, 10_000, 1_000_000, 10^9, 10^12, 10^14]`
+### Why this is rare and dangerous
 
-### Why this is clever
+This is not a parser bug; it is a semantic mismatch between:
 
-If one stage treats this as “TGas-like” and another as raw gas, you can get:
+1. what _moved where_, and
+2. what _resolver believes should be refunded/settled_.
 
-- simulation pass,
-- execution with partial receipt completion,
-- weird final return interpretation / settle behavior.
-
-Correlate each gas value with:
-
-- withdraw status,
-- callback status,
-- resolver refund vector.
+If resolver still anchors to original `MT_AMOUNTS`, attacker can arbitrage bridge/receiver allocation while accounting lags or misattributes.
 
 ---
 
-## Campaign 3: Receiver length cliff where side-effect survives
+## Campaign 2 — **Published-success / settlement-fail arbitrage**
 
-You already observed giant `receiver_id` can panic with prepaid gas exhausted.
+Target the zone where intent is published, side effects may occur, but settlement is `NOT_FOUND_OR_NOT_VALID`.
 
-Do a binary search on receiver length to find this exact zone:
+### Attack shape
 
-- enough gas for withdraw + callback to be emitted/executed,
-- but return construction / tail parsing / event serialization becomes unstable.
+1. Force high-but-accepted complexity (gas near cliff, long receiver near boundary).
+2. Obtain intermediate success evidence (intent published / receipts / offchain watcher trigger).
+3. Let final settle fail or become ambiguous.
 
-### Concrete strategy
+### Exploit condition
 
-Use base58-safe receiver strings of lengths:
-
-`[44, 88, 176, 352, 704, 1408, 2816]`
-
-Then binary search around first failing threshold.
-
-### High-value signal
-
-`withdraw success == true` while resolver sees malformed/failed return branch -> refund.
+If any relayer/ops process acts on publication or intermediate receipts, you can get external completion while internal accounting remains refundable/retryable.
 
 ---
 
-## Campaign 4: Duplicate-key conflict on critical fields
+## Campaign 3 — **Boundary steering via receiver length**
 
-You confirmed duplicate unknown keys are last-wins; now test if critical keys behave consistently across stages.
+You found hard behavioral edges (704, 880).
+Treat input length as a control surface, not fuzz noise.
 
-### Payloads
+### Objective
 
-1. `{"amount_native":"2000","amount_native":"0","receiver_id":"2aEi7...","block_number":100}`
-2. `{"receiver_id":"good","receiver_id":"2aEi7...","amount_native":"2000","block_number":100}`
-3. `{"block_number":100,"block_number":0,"amount_native":"2000","receiver_id":"2aEi7..."}`
+Find two adjacent lengths where:
 
-### Desync angle
-
-If simulation and execution don’t preserve the same key-overwrite semantics after reserialization, they may disagree silently.
-
----
-
-## Campaign 5: Unknown-key shadowing of internal names
-
-Unknown keys are accepted; inject names likely to collide with internal struct/map logic.
-
-### Payload examples
-
-- `"amount":"2000"`
-- `"native_amount":"2000"`
-- `"refund":"2000"`
-- `"token_id":"137_qiSt..."`
-- `"min_gas":"100000000000000"`
-- `"receiver":"2aEi7..."`
-
-Use them together with valid required fields.
+- both pass initial simulation,
+- one finalizes clean,
+- one drifts into non-settled or alternate resolver behavior.
 
 ### Why this matters
 
-If any branch parses generic `serde_json::Value` and checks `get("amount")` or similar fallbacks, return logic can be influenced without breaking withdraw path.
+This gives an attacker a reproducible “mode switch” to choose accounting branch outcomes while keeping payload semantics same.
 
 ---
 
-## Campaign 6: Multi-token parasitic refund (first token bridge, others direct)
+## Campaign 4 — **Resolver truth-source inversion**
 
-Exploit your protocol asymmetry directly.
+Your strongest anomaly: callback/transfer says zero-style success, resolver reports original amount.
 
-### Payload profile
+### Hypothesis to validate
 
-- `token_ids = [A, B, C]`
-- `amounts = [2000, 1, 1]` then `[2000, 999999, 999999]`
-- msg remains valid for A bridging.
+Resolver may treat absent/failed parse/failed callback as “refund original,” independent of partial economic execution.
 
-### Hunt
+### Practical test
 
-- A bridge succeeds,
-- B/C are directly delivered to receiver,
-- return vector accidentally credits refundable unused for B/C due index mismatch.
+For each `amount_native` in `{0,1,1999,2000}` record:
 
-This is high-impact because extra indices are most likely to be mis-accounted.
+- actual bridged amount,
+- actual receiver amount,
+- resolver returned amount.
 
----
-
-## Campaign 7: Duplicate token-id role confusion
-
-Test position-sensitive logic with same token repeated.
-
-### Payload set
-
-- `[A, A]` with `[2000, 1]`
-- `[A, A, A]` with `[2000, 1, 999999]`
-
-### Attack thesis
-
-If bookkeeping maps by token id but return vector is by index, one slot can be treated as unprocessed/refundable while value moved already.
+If resolver stays constant while economics vary, the protocol has a truth-source inversion vulnerability.
 
 ---
 
-## Campaign 8: `block_number` steering for branch drift
+## Campaign 5 — **Cross-stage semantic drift (simulation vs execution)**
 
-Since any block number appears accepted, drive corner branches.
+You already know simulation and execution are separate.
+The rare bug is not “invalid accepted”; it is “valid interpreted differently across stages.”
 
-### Payload values
+### Focus inputs
 
-`block_number = 0, 1, 100, current+1, 2^63-1, 2^64-1`
+- same semantic payload, different size/ordering/unknown-key density,
+- near gas thresholds,
+- near receiver-length thresholds.
 
-### What to detect
+### Red flag
 
-- same withdraw behavior,
-- different return behavior (or different settle route / relayer decision).
-
-If `block_number` is incorporated into idempotency keys inconsistently, this can create replay-like side effects with altered refund outcomes.
+Simulation predicts one economic split; execution settles another, while resolver sticks to a third value source.
 
 ---
 
-## Campaign 9: Near-maximum numeric strings that do not panic
+## Campaign 6 — **First-token privilege + invisible liabilities**
 
-You’ve already found panic points. Now aim right below them.
+Since only index 0 is bridged, the model is asymmetric by design.
 
-### Payload corpus for `amount_native`
+### Logic risk
 
-- `"340282366920938463463374607431768211454"` (u128 max-1)
-- same value with leading zeros
-- `"18446744073709551615"` (u64 max)
-- `"18446744073709551616"` (u64 max+1)
+If settlement/refund logic is vectorized by full input but economic bridge logic is scalar (index 0 only), liabilities can appear on non-bridged paths.
+
+### Rare scenario
+
+Construct multi-token batches where non-first tokens are value-heavy. Even if no immediate bug appears, inspect whether accounting emits latent refundable claims not backed by bridge behavior.
+
+---
+
+## Campaign 7 — **Intent replay semantics through unconstrained `block_number` meaning**
+
+Even if any `block_number` is accepted, the logic question is: does it influence idempotency, nonce scope, or settlement identity?
+
+### Attack idea
+
+Repeat economically equivalent intents with varied `block_number` and near-identical payloads.
 
 ### Goal
 
-No immediate panic, but subtle cast/branch asymmetry in return math.
+Find whether system treats them as distinct in one stage and equivalent in another (or vice versa), creating double-process or double-refund windows.
 
 ---
 
-## Campaign 10: Nested-JSON ambiguity (you noted nested `amount_native` success)
+## Campaign 8 — **Overflow edge as oracle, not exploit**
 
-This is very non-generic and very valuable in your case.
+`amount_native=2001` panics for amount 2000. Use this edge as a precision oracle.
 
-### Payload variants
+### Method
 
-1. `{"amount_native":{"v":"2000"},"receiver_id":"2aEi7...","block_number":100}`
-2. `{"amount_native":{"amount":"2000"},"receiver_id":"2aEi7...","block_number":100}`
-3. `{"amount_native":["2000"],"receiver_id":"2aEi7...","block_number":100}`
+Probe near edge (`1998,1999,2000,2001`) under varying gas/receiver-length conditions.
 
-### Why this is critical
+### Why useful
 
-If one stage stringifies nested data and another strictly parses, you can get cross-stage disagreement without obvious execution failure.
+You can map exact ordering of checks and discover where side effects happen relative to overflow guard. That reveals whether “some effects before final reject” is possible in specific paths.
 
 ---
 
-## Campaign 11: Settlement race (“published not settled”)
+## Priority test matrix (small but high signal)
 
-You observed `Intent is published but not settled`.
+Run this grid first:
 
-### Exploit model
+- `amount_native`: `0,1,1999,2000`
+- `receiver_len`: `680,700,704,705,760,880`
+- `min_gas`: `low-pass`, `near-cliff`, `just-over-cliff`
 
-1. craft payload that emits intermediate success signal (event/log/receipt),
-2. stress final settle path (gas boundary, long receiver, heavy payload),
-3. watch whether relayer acts on intermediate signal.
+For each case, capture only these truths:
 
-### Success condition
+1. **Economic outcome**: `(bridged, sent_to_receiver)`
+2. **Protocol outcome**: `(published?, settled?, status)`
+3. **Resolver outcome**: `(returned amount/vector)`
 
-External release occurs, but resolver path later records refundable or unresolved status.
+### Critical finding definition
 
----
+A case is critical when all hold:
 
-## Campaign 12: Callback-visible-field insufficiency
+- economic outcome differs from baseline,
+- resolver outcome stays fixed to baseline/original amount,
+- and settle path is ambiguous or inconsistent (`NOT_FOUND_OR_NOT_VALID`, retryable, or delayed).
 
-You observed callback sees limited subset in multi-token scenarios.
-
-### Attack setup
-
-Use 3+ token arrays where semantic validity depends on token #3, but callback can only infer from token #1/#2 subset.
-
-### Failure mode
-
-Callback returns structurally valid but semantically wrong refund vector because it cannot reconstruct full intent context.
+That combination is the real desync surface.
 
 ---
 
-## Minimal “elite” payload pack (start here)
+## What to stop testing (low value now)
 
-Use these first before broad fuzzing:
+Based on your results:
 
-1. **Amount split baseline**  
-   `{"amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}` with `amounts=["2000"]`
-2. **Duplicate critical key**  
-   `{"amount_native":"2000","amount_native":"0","receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
-3. **Nested amount_native**  
-   `{"amount_native":{"v":"2000"},"receiver_id":"2aEi7QMoRCvshYvrT779cXaDk1ha","block_number":100}`
-4. **Long receiver cliff**  
-   valid base58 receiver at 700+ chars with normal `amount_native`.
-5. **Multi-token asymmetry**  
-   `token_ids=[A,B,C]`, `amounts=[2000,1,1]`, normal msg for A.
+- duplicate critical keys (`receiver_id`, `amount_native`, `block_number`) -> already hard-fail,
+- random extra keys causing no behavior change -> low priority unless combined with boundary conditions.
 
-If any of these gives `(withdraw=success) AND (refund>0 or abnormal return shape)`, treat as critical.
+Focus energy on **semantic splits + settlement ambiguity**, not parser trivia.
 
 ---
 
-## Strict invariants to enforce in your tests
+## Strategic hardening goals (logic layer)
 
-For each run capture:
+1. Define one canonical settlement truth: economic movement must match resolver-return basis.
+2. Make publication non-authoritative: only final settle can trigger external release/accounting.
+3. Bind `amount_native` semantics explicitly to accounting invariants (not just execution routing).
+4. Treat boundary-triggered mode changes (gas, receiver length) as security-critical and eliminate branch-dependent accounting.
+5. Add invariants at protocol level: no state where `(bridge_or_receiver moved value)` AND `(resolver implies full refundable original)` simultaneously.
 
-1. simulation result,
-2. execution result,
-3. withdraw receipt result,
-4. `on_withdraw_complete` result,
-5. resolver-observed return bytes/value,
-6. per-index refunded amounts.
-
-Critical finding rule:
-
-- withdraw succeeded,
-- callback succeeded (or relayer acted as success),
-- return value produced non-zero refund / parse fallback / length mismatch.
-
----
-
-## Hardening (specific to your architecture)
-
-1. Make `amount_native` and `amounts[0]` consistency mandatory (or remove one source of truth).
-2. Reject unknown keys and duplicate keys outright.
-3. Reject nested/non-string `amount_native` at schema boundary.
-4. Add explicit max length for `receiver_id` before any promise scheduling.
-5. Make `block_number` bounded and semantically checked.
-6. For multi-token calls, lock refund semantics to deterministic zero for non-bridged indices unless intentionally supported.
-7. Before returning from `mt_on_withdrwal`, assert exact vector length and exact canonical type.
-8. Relayer must only release on final settle success, never on intermediate logs.
-
-This checklist is built for your exact env and observed behavior, not generic bridge advice.
+This is the sharpest reading of your data: the vulnerability is likely **logic desynchronization across truth sources**, not classic input-validation bugs.

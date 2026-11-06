@@ -76,12 +76,57 @@ Notes:
 
 Notes:
 
+Campaign 1:
+
 - MT_AMOUNTS vs msg.amount_native:
   - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "0", the result is 2000 token is bridged
   - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "1", the result is 1999 tokens are bridged and 1 token is transferred to the receiver.
   - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "1999", the result is 1 token is bridges and 1999 tokens transferred to the receiver.
   - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "2000", the result is 2000 tokens are transferred to the receiver and none is bridged.
   - lets say MT_AMOUNTS = ["2000"] and msg.amount_native = "2001", panics with Smart contract panicked: panicked at src/lib.rs:112:56: Amount overflow
-  * in every case the resolver returns 2000.
+  * in every case mt_on_transfer returns 0 and the resolver returns 2000.
 
--
+Campaign 2:
+
+- MT_MIN_GAS pass successfully in every case below around 1000000000000000(i dont gent the exact number).
+
+- the transaction fails when MT_MIN_GAS is set above 1000000000000000.
+  details: 'Intent is published but not settled.',
+  metaMessages: [
+  'Status: NOT_FOUND_OR_NOT_VALID',
+  'Intent hash: CcNUHyE3cXWmb9mwC8Q4huHHLaNzESxeHhSDCfkCQQMY',
+  'Tx hash: 6QE8L5BD7B7U49SB7coxbHyApqieBv7N3kC4dRzz5ZeG'
+  ],
+  shortMessage: 'Intent settlement failed.',
+  result: {
+  intent_hash: 'CcNUHyE3cXWmb9mwC8Q4huHHLaNzESxeHhSDCfkCQQMY',
+  status: 'NOT_FOUND_OR_NOT_VALID',
+  status_details: 'FAILED',
+  data: { hash: '6QE8L5BD7B7U49SB7coxbHyApqieBv7N3kC4dRzz5ZeG' }
+  }
+
+Campaign 3:
+
+- receiver_id fails with length above 704. Below and equal to 704, it passes successfully.
+- but for all the mt_on_transfer return 0 and resolver returns the original MT_AMOUNTS. even in failed transactions.
+
+- 880 is the maximum length to work.
+
+when i add white space in the receiver_id it panics wth "Smart contract panicked: panicked at src/lib.rs:101:86: called `Result::unwrap()` on an `Err` value: Error("control character (\\u0000-\\u001F) found while parsing a string", line: 2, column: 0)"
+
+Campaign 4:
+
+- same receiver_id - panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("duplicate field `receiver_id`", line: 1, column: 81)"
+
+- same amount_native - panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("duplicate field `amount_native`", line: 1, column: 37)"
+
+- same block_number - panics with "Smart contract panicked: panicked at src/lib.rs:101:86:
+  called `Result::unwrap()` on an `Err` value: Error("duplicate field `block_number`", line: 1, column: 103)"
+
+Campaign 5:
+
+- add another keys passes and the tokens are bridged successfully. no strange things happen.
+
+In my conclusion for the above campaigns: the whole refund behavior are in mt_on_transfer so fully focus on that which can be situations that leads to silent failure then refund but still goes to withdraw process
