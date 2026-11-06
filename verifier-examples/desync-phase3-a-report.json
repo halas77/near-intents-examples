@@ -1,0 +1,150 @@
+[
+  {
+    "name": "p3a-valid-noise-01",
+    "intentHash": "2yv5EpykTaJ5WdSC65RCHsWczxkthgXLLqGGdp51QLBf",
+    "txHash": "5v5eD26U8tGiY7oHURnSxwzhvf454rsQzjYtnyxQfqXX",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-valid-noise-02",
+    "intentHash": "5tPHyiQGdWVPaKV4EsE3oWxtEnNHAt5s393F2yXA82VL",
+    "txHash": "HihZ5HimtQN9p79d9FujgyoKb6s96TM1E6KCH6JxqeCE",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-valid-noise-03-array",
+    "intentHash": "EUCSpraMQF62PZzzCwwFLFsYSFdjVc7wbYaxCzrhL4j6",
+    "txHash": "5eDcukjLrdhqpMxwMAYB9BwMBpa34exsrddshBPJE82w",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-block-0",
+    "intentHash": "4wyS74UuBNP5xPyZVT5vG6G4KwGCWHxqcoBQb9TgGDUk",
+    "txHash": "3EMVPNonGWmoBo28imk5cwyzQu5nxxM3zzYDs2vdNTuP",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-block-1",
+    "intentHash": "9byFZqiFoN445r2wXmc1J2NrCQqieKUeFnXKAD2FkQrQ",
+    "txHash": "HwzQM12Ae4Z6ogigWzhsbectASwhup7ZEunJvMTFPa5g",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-block-2pow31",
+    "intentHash": "DoRpyHGEHcHmbE13Dg94kB6WwjEKQKxu9oxFVm1dsUep",
+    "txHash": "4b7LK5fWAFqW662tRk5KVgze9uHh21PEZhZpVeE7nbtL",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-block-2pow32minus1",
+    "intentHash": "BgM7hQk8788J27hXT7s5RHfDXQzrJpioCPhVMfG5iVF8",
+    "txHash": "BdpxdyCZAb6gQzpAzUPHi16p9MeBdtGLeVJ56Twd1yeA",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-unicode-escaped-key",
+    "intentHash": "FB3cKsx4C8Cfa81UwEU46YkpmrLmmAP72m9GQyXpgbiZ",
+    "txHash": "DF7qYRtA47Ki2tk3khnU92mHJQPseHKsnVaDspBguaR1",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-shadow-key",
+    "intentHash": "F9UFBZsLnZrxm9WbyAiAxJ7gfkWEsjQapcUXmAbLgG1b",
+    "txHash": "4EtXxdHVgFmFj4xexuWKRUrZMVXqfSPvSoUzsegGsUTW",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-required-keys-late",
+    "intentHash": "Bk3EqV2bmA4weuKYPxZC5UJ13P7kHA8LaLN7YJjFKdBX",
+    "txHash": "14iycxs3BajXYx3ArF43tH1V7RhQ6jdJCqGnieiZ5qN",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p3a-duplicate-block-last-number",
+    "intentHash": "G3JyAnaJntPuoqFaZkijkuXZ83D8Mt8ZtWgwzgtJP8Kc",
+    "txHash": "E7Qp8PyqL8cBUBfEbnFAmLw7t6aMF8DMa6pxgSUeSjPi",
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p3a-duplicate-amount-last-valid",
+    "intentHash": "4CEGdS2uLxYAycBuH8wGbudiS57bQq2ay9avM4Pc1um4",
+    "txHash": "HqHNn5ofAxPYAjpNeMssirAnJT9tWAeqjVkZiVrqq4Xm",
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

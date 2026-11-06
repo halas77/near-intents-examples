@@ -1,0 +1,47 @@
+[
+  {
+    "name": "dup-receiver-last-valid",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "dup-receiver-last-evil",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"evil.receiver\",\"block_number\":100}"
+  },
+  {
+    "name": "dup-block-last-number",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"100\",\"block_number\":100}"
+  },
+  {
+    "name": "dup-block-last-string",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"block_number\":\"100\"}"
+  },
+  {
+    "name": "dup-amount-last-valid",
+    "rawMsg": "{\"amount_native\":\"0\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "dup-amount-last-huge",
+    "rawMsg": "{\"amount_native\":\"2\",\"amount_native\":\"4294967296\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "required-keys-late-order",
+    "rawMsg": "{\"policy\":\"optimistic\",\"strict\":false,\"amount_native\":\"2\",\"memo\":\"x\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "unicode-escaped-key-receiver",
+    "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "shadow-key-zero-width",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\\u200b\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "receiver-with-leading-space",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\" __BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "nested-placeholder-noise",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"meta\":{\"alt\":\"__BASE58_RECEIVER__\"}}"
+  },
+  "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"receiver_id\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\"}"
+]

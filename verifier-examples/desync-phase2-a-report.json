@@ -1,0 +1,81 @@
+[
+  {
+    "name": "valid-plus-noise-1",
+    "intentHash": "5mmLoTSpskRUEfDytfkNNJgmF65RxKfyCPCjv9Cc3Jpy",
+    "txHash": "9LPVq319qkU8knHJzEynfbKuzMnFLs6HW6tp7E8bSXqn",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "valid-plus-noise-2-nested",
+    "intentHash": "7UqSPdQJpGtQ1fh4kDMTXYMdg7DyKvwbvmhA7Ptk1VCL",
+    "txHash": "9cU2p4uab4FH2nD8FMf3TbXEET3LZCo5ZRmKR2RiYhfN",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "dup-receiver-last-valid-extra",
+    "intentHash": "8cXTAviAbeBpLbBKsD5x3qK5HFmr5U3hkp3qM4djqdF5",
+    "txHash": "5kxFEgxkxaqughaYSgA5hsVKmgy15sPmqipPjgiKavhn",
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "dup-block-last-number-extra",
+    "intentHash": "2eU4qdFJQaJJmCi5VBKpejTkeeP8v82Gfn8ELR59bB8j",
+    "txHash": "2ok9HXVhBgoJMZ83b1vr3pWc1QrFWpDuT6EWVHsDUHe6",
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "dup-amount-last-valid-extra",
+    "intentHash": "89QPWoPyHzNjnoshRMV5qqdbavMxznPG67Do9ZwfNAma",
+    "txHash": "Esxsjdirs1ABM9ZckrEtzPJB9voLff8bCcu6QzKrT75J",
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "unicode-escaped-key-receiver-extra",
+    "intentHash": "2FwKGj9SB6osuBXzxhng8jpMiHe2UPyGJNVWrp2Jte8K",
+    "txHash": "CKhkvin2zm2k4Trhf2J7HYPwLDFFyqPEm3VqNaqzcBr9",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "required-keys-late-order-heavy-noise",
+    "intentHash": "33CJPiVBXdZTuGQpYEK5EquV5Ft1CQQSvL1tB5fR6zJN",
+    "txHash": "HrRdxkHZDzwEyY7vpEELpqwZ2ieL4AdoiDBzFyVLdx3u",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

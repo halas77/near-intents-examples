@@ -1,0 +1,13 @@
+name,intentHash,txHash,unused0,unusedRaw,withdrawStarted,refundApplied,likelyDesync,note
+"p4a-key-escaped-r-prefix","Bke4NREwSXgpxwpQ36KR4suvBnuUwVEC2Tzzfvdbpyze","9ptzjfNedBpKeZJ5Qa3cSEyS5hdMrzcLJs5RQLP8sBf6","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4a-dup-key-literal-then-escaped","3HxEzvsVXYNWbt3GcQL5XoCPT1gXhc18oSA2KLmkFM6g","3fCY1YExRQGburPqcKXLTXMFvMPPuSnG7fapga3ZwrPH","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-dup-key-escaped-then-literal","H7zAqmfrhCSTdkfJXfSAPMde3SFucNkgnjWvhHpKRkmd","2HJwLf4fDZYXcptGYt6aCJVnEbk6nEiTncVfLKEQpcqm","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-receiver-value-escaped-chars","HozwbVyBn2K8MBKfeRQCx8Xp4sPkL6aoWyCcDSvYunHH","FqyJEHGJUmzxBSwbSk78ckkw82ENRopyRP4fjsVkixdi","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4a-block-scientific-notation","7CNSsLYK3vYbLY8WqY5mVeHQ7Ry4cjoSEXg3dYPzDpep","61p8UgBKQFcL5fFvg97YgV2fFn361JgBcpTG66QCm39s","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-block-float","2KMbfTtc9KQEUyDZzXweAQSAEovkriEeAiQai4Q38TXq","F6Gegb2kkcBFCDrPKrwWxAiX7fttdQTksqFyasTPAg6X","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-block-negative-zero","GSm1uvFjhkAgvbhxAY4ZtTjdbJCWYznzwWZm2uvucQ5J","5wbiggL1X43huiVPdTaprxozXWmg4hdkAp58Mb8vMVzh","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-block-u64-max","DNRxWWvSbtGAHECfxHh5Tv9LKCQx9zqCR6SzT4qBmaUB","qDwZEj2fXvhVAN1XiDCRNeyFJhwptJ7DfPqdrDAK3xN","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4a-amount-fullwidth-digit","C3C7YLiGi5CoorbbvfgM6udgNLZpTF5dETHwXVCdToLX","FrtwvkxJoFnAnVy8kASeawPpMvAczRN9aeBpVYhNZuxM","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-amount-null-byte-suffix","9KLi3nL3Lm5woEigJCUunCCXFfV11cVwtWF6XYHyzaov","EZZKRM2dDsivW5K6H1LdnKwdeS9JbQ3RjKjV6C4JuJXh","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-json-bom-prefix","Ag8aY6m2yqcdVZsKnrEpri2XV5U9Upv4szNpQskZ2yUD","3DcYf5QfZjsW1Jrx5wqTwrG5XyAgjNdK2HY9r1n1wDqr","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4a-json-whitespace-wrap","HAbwdnTsGyym4cPRNE67sDnyPtpfvuFeEurHVUBUS9nH","AUeYLrF2oiBag8ogHPhvsdjvnZTNYwY5UkNcbg9ADiLX","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"

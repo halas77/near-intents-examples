@@ -1,0 +1,13 @@
+name,intentHash,txHash,unused0,unusedRaw,withdrawStarted,refundApplied,likelyDesync,note
+"p4b-receiver-20bytes-baseline","ANcyqJFwRis4N1xamb5qS9Yfwz1EXFrKBonCXxbSEBK8","E26unaVL8gM84FUPyZ2gonwb84hZ6PNwi9q11DBXzhAi","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-receiver-19bytes","FHvDwtbizDhHMgo8pfaa3qkc9af8GrAFd92xL1wNocfo","HNSQ1SA6UesErdvBXNxTxEaQQTrRuxqgrb8C36y8mqSs","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-receiver-21bytes","4iWf9hK8JaMMxriD8GCCAC6v1ifZHVYieQh16fABtq2Q","DxhmXjL4xt69iSbBspXAJEGEMnTiVqPZPBSbBG2i5zvj","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-receiver-empty","3LA5CfaidpaZYsLnSAzHuVaFHqgSA9Kv1eeJLxL8oSDs","HZeyLQieQHq3oAYNspRarb9SBY5xuauG6sW8ES8apjLC","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-receiver-single-char","8dAgCUt5wp3QmN3cJhYJD4dNMduGtjxxjTRnPfacJ6Qb","GwKxAR33MygT9HygXkGSV6ECZfHWimqRW2MQ8oTzNvKS","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-receiver-invalid-base58-chars","3bXdTwACmQ9iNXvpfM9NL6Y11grQJMk6zY7Q9TwD2Dzt","EppbdoPh7sAktNvuqj1SyS7oPeiPX4H4XRd74aNG1ztU","0","[""0"",""0""]","false","false","false","No contradiction observed"
+"p4b-receiver-valid-plus-newline","144hGsiYNLJq6sEJhotHdg7GSt8Qt4kMaGqK71KBqELc","6jZ7ddtBDFuumhzyU2u79rZqt9dFQXMZgt3P4LysnYnL","0","[""0"",""0""]","false","false","false","No contradiction observed"
+"p4b-receiver-valid-plus-zwj","51KuJVtYpUmxjDGnv6yGUuwZnFYWNgaoJ97S7bTxWB9V","BBM1wckj4MVKD8LMCVG3CPFdmAxDYF4SScmQ9oN2kgbf","0","[""0"",""0""]","false","false","false","No contradiction observed"
+"p4b-dup-receiver-20-then-19","6R4KWJezDS1XXFct1hsciGS9vjjhWEhfNeNnXx3pRHx1","4s6b8zyFpeYqw3Jy68sBbJdvq1cJCMZHUqmdKCaypfKz","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4b-amount-u128-max","GMhSt6mVseMg4pgCH3oms4DSD7M5LcBmKb5Dya3hm4KR","2JFbELCghRyrEtMJBjaxkdtNXxqdtdsSQTmFwtotmhLk","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p4b-amount-u128-overflow","FC3G8hYSUb5ZfBz5E3qre83vZSymqA2dK2NTThVhMC85","6PTSGEuDTY9B436sJxUKQbDp5fSChQbAyRegi5NqB9rv","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p4b-amount-exponent-string","48NFPLUR7SprVG8zvsMu65ZA5hTHbn6ysMpmgkJYFGDE","GSEXzXepDP4MybZiNeGadmre4LQGya7Xjuigi2TQCbfs","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

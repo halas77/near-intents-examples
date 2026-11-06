@@ -1,0 +1,13 @@
+name,intentHash,txHash,unused0,unusedRaw,withdrawStarted,refundApplied,likelyDesync,note
+"p3a-valid-noise-01","2yv5EpykTaJ5WdSC65RCHsWczxkthgXLLqGGdp51QLBf","5v5eD26U8tGiY7oHURnSxwzhvf454rsQzjYtnyxQfqXX","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-valid-noise-02","5tPHyiQGdWVPaKV4EsE3oWxtEnNHAt5s393F2yXA82VL","HihZ5HimtQN9p79d9FujgyoKb6s96TM1E6KCH6JxqeCE","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-valid-noise-03-array","EUCSpraMQF62PZzzCwwFLFsYSFdjVc7wbYaxCzrhL4j6","5eDcukjLrdhqpMxwMAYB9BwMBpa34exsrddshBPJE82w","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-block-0","4wyS74UuBNP5xPyZVT5vG6G4KwGCWHxqcoBQb9TgGDUk","3EMVPNonGWmoBo28imk5cwyzQu5nxxM3zzYDs2vdNTuP","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-block-1","9byFZqiFoN445r2wXmc1J2NrCQqieKUeFnXKAD2FkQrQ","HwzQM12Ae4Z6ogigWzhsbectASwhup7ZEunJvMTFPa5g","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-block-2pow31","DoRpyHGEHcHmbE13Dg94kB6WwjEKQKxu9oxFVm1dsUep","4b7LK5fWAFqW662tRk5KVgze9uHh21PEZhZpVeE7nbtL","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-block-2pow32minus1","BgM7hQk8788J27hXT7s5RHfDXQzrJpioCPhVMfG5iVF8","BdpxdyCZAb6gQzpAzUPHi16p9MeBdtGLeVJ56Twd1yeA","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-unicode-escaped-key","FB3cKsx4C8Cfa81UwEU46YkpmrLmmAP72m9GQyXpgbiZ","DF7qYRtA47Ki2tk3khnU92mHJQPseHKsnVaDspBguaR1","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-shadow-key","F9UFBZsLnZrxm9WbyAiAxJ7gfkWEsjQapcUXmAbLgG1b","4EtXxdHVgFmFj4xexuWKRUrZMVXqfSPvSoUzsegGsUTW","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-required-keys-late","Bk3EqV2bmA4weuKYPxZC5UJ13P7kHA8LaLN7YJjFKdBX","14iycxs3BajXYx3ArF43tH1V7RhQ6jdJCqGnieiZ5qN","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3a-duplicate-block-last-number","G3JyAnaJntPuoqFaZkijkuXZ83D8Mt8ZtWgwzgtJP8Kc","E7Qp8PyqL8cBUBfEbnFAmLw7t6aMF8DMa6pxgSUeSjPi","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p3a-duplicate-amount-last-valid","4CEGdS2uLxYAycBuH8wGbudiS57bQq2ay9avM4Pc1um4","HqHNn5ofAxPYAjpNeMssirAnJT9tWAeqjVkZiVrqq4Xm","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

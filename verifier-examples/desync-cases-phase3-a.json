@@ -1,0 +1,50 @@
+[
+  {
+    "name": "p3a-valid-noise-01",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"note\":\"p3a-01\",\"strict\":false}"
+  },
+  {
+    "name": "p3a-valid-noise-02",
+    "rawMsg": "{\"meta\":{\"a\":1,\"b\":\"x\"},\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "p3a-valid-noise-03-array",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"arr\":[1,\"2\",true,{\"k\":\"v\"}]}"
+  },
+  {
+    "name": "p3a-block-0",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":0,\"tag\":\"zero-block\"}"
+  },
+  {
+    "name": "p3a-block-1",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":1,\"tag\":\"one-block\"}"
+  },
+  {
+    "name": "p3a-block-2pow31",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":2147483648,\"tag\":\"2pow31\"}"
+  },
+  {
+    "name": "p3a-block-2pow32minus1",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":4294967295,\"tag\":\"2pow32minus1\"}"
+  },
+  {
+    "name": "p3a-unicode-escaped-key",
+    "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"escaped-key\"}"
+  },
+  {
+    "name": "p3a-shadow-key",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\\u200b\":\"shadow\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "p3a-required-keys-late",
+    "rawMsg": "{\"foo\":\"bar\",\"x\":1,\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"y\":2,\"block_number\":100,\"z\":3}"
+  },
+  {
+    "name": "p3a-duplicate-block-last-number",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"100\",\"block_number\":100,\"tag\":\"dup-block\"}"
+  },
+  {
+    "name": "p3a-duplicate-amount-last-valid",
+    "rawMsg": "{\"amount_native\":\"0\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"dup-amount\"}"
+  }
+]

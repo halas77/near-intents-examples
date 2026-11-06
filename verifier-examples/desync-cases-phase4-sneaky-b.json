@@ -1,0 +1,50 @@
+[
+  {
+    "name": "p4b-receiver-20bytes-baseline",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"pEbmSWqJdBuPadRGm8tDY4USQK\",\"block_number\":100,\"tag\":\"r20\"}"
+  },
+  {
+    "name": "p4b-receiver-19bytes",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"Bhh3pU9gLXZiNDL6PEZuEP5ri\",\"block_number\":100,\"tag\":\"r19\"}"
+  },
+  {
+    "name": "p4b-receiver-21bytes",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"4bV2T9cgCnj8EfRk8Zoo4L6L77tp\",\"block_number\":100,\"tag\":\"r21\"}"
+  },
+  {
+    "name": "p4b-receiver-empty",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"\",\"block_number\":100,\"tag\":\"rempty\"}"
+  },
+  {
+    "name": "p4b-receiver-single-char",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"2\",\"block_number\":100,\"tag\":\"r1\"}"
+  },
+  {
+    "name": "p4b-receiver-invalid-base58-chars",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"0OIl\",\"block_number\":100,\"tag\":\"rinvalid58\"}"
+  },
+  {
+    "name": "p4b-receiver-valid-plus-newline",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\\n\",\"block_number\":100,\"tag\":\"rnewline\"}"
+  },
+  {
+    "name": "p4b-receiver-valid-plus-zwj",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\\u200d\",\"block_number\":100,\"tag\":\"rzwj\"}"
+  },
+  {
+    "name": "p4b-dup-receiver-20-then-19",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"pEbmSWqJdBuPadRGm8tDY4USQK\",\"receiver_id\":\"Bhh3pU9gLXZiNDL6PEZuEP5ri\",\"block_number\":100}"
+  },
+  {
+    "name": "p4b-amount-u128-max",
+    "rawMsg": "{\"amount_native\":\"340282366920938463463374607431768211455\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"u128max\"}"
+  },
+  {
+    "name": "p4b-amount-u128-overflow",
+    "rawMsg": "{\"amount_native\":\"340282366920938463463374607431768211456\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"u128overflow\"}"
+  },
+  {
+    "name": "p4b-amount-exponent-string",
+    "rawMsg": "{\"amount_native\":\"2e0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"aexp\"}"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "p3b-valid-noise-01",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"memo\":\"p3b-01\"}"
+  },
+  {
+    "name": "p3b-valid-noise-02-nested",
+    "rawMsg": "{\"nest\":{\"deep\":{\"v\":1}},\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "p3b-valid-noise-03-many",
+    "rawMsg": "{\"a\":1,\"b\":2,\"c\":3,\"d\":4,\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"e\":5}"
+  },
+  {
+    "name": "p3b-amount-leading-zeros",
+    "rawMsg": "{\"amount_native\":\"0002\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"lz\"}"
+  },
+  {
+    "name": "p3b-block-string-alt-field",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"block_number_alt\":\"100\"}"
+  },
+  {
+    "name": "p3b-receiver-extra-aliases",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"receiver\":\"__BASE58_RECEIVER__\",\"receiverId\":\"__BASE58_RECEIVER__\"}"
+  },
+  {
+    "name": "p3b-triplet-receiver-last-valid",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"bad1\",\"receiver_id\":\"bad2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "p3b-dup-receiver-last-valid-with-noise",
+    "rawMsg": "{\"q\":\"w\",\"amount_native\":\"2\",\"receiver_id\":\"bad\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"r\":\"t\"}"
+  },
+  {
+    "name": "p3b-boolean-null-noise",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"flag\":true,\"nullable\":null}"
+  },
+  {
+    "name": "p3b-array-of-objects-noise",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"hops\":[{\"id\":1},{\"id\":2}]}"
+  },
+  {
+    "name": "p3b-escaped-content-string",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"text\":\"line1\\nline2\\tend\"}"
+  },
+  {
+    "name": "p3b-raw-minimal-valid",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "shadow-key-plus-valid",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\\u200b\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"memo\":\"shadow\"}"
+  },
+  {
+    "name": "receiver-valid-with-trailing-noise",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"receiver\":\"__BASE58_RECEIVER__\",\"receiverId\":\"__BASE58_RECEIVER__\"}"
+  },
+  {
+    "name": "array-and-object-noise",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"arr\":[\"a\",1,true,{\"k\":\"v\"}],\"obj\":{\"p\":\"q\"}}"
+  },
+  {
+    "name": "large-safe-block-number",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":2147483648,\"memo\":\"big-block\"}"
+  },
+  {
+    "name": "stringy-numeric-noise-fields",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"amount_native_alt\":\"0002\",\"block_number_alt\":\"0100\"}"
+  },
+  {
+    "name": "duplicate-receiver-triplet-last-valid",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"bad1\",\"receiver_id\":\"bad2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "raw-string-entry-last",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"notes\":\"phase2-b7\"}"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "p4a-key-escaped-r-prefix",
+    "rawMsg": "{\"amount_native\":\"2\",\"\\u0072eceiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"escaped-r\"}"
+  },
+  {
+    "name": "p4a-dup-key-literal-then-escaped",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"bad_receiver\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+  },
+  {
+    "name": "p4a-dup-key-escaped-then-literal",
+    "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"bad_receiver\",\"block_number\":100}"
+  },
+  {
+    "name": "p4a-receiver-value-escaped-chars",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"\\u0032aEi7QMoRCvshYvrT779cXaDk1hC\",\"block_number\":100}"
+  },
+  {
+    "name": "p4a-block-scientific-notation",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":1e2,\"tag\":\"sci\"}"
+  },
+  {
+    "name": "p4a-block-float",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100.0,\"tag\":\"float\"}"
+  },
+  {
+    "name": "p4a-block-negative-zero",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":-0,\"tag\":\"negzero\"}"
+  },
+  {
+    "name": "p4a-block-u64-max",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"u64max\"}"
+  },
+  {
+    "name": "p4a-amount-fullwidth-digit",
+    "rawMsg": "{\"amount_native\":\"２\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"fullwidth\"}"
+  },
+  {
+    "name": "p4a-amount-null-byte-suffix",
+    "rawMsg": "{\"amount_native\":\"2\\u0000\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"nullbyte\"}"
+  },
+  {
+    "name": "p4a-json-bom-prefix",
+    "rawMsg": "\uFEFF{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"bom\"}"
+  },
+  {
+    "name": "p4a-json-whitespace-wrap",
+    "rawMsg": "  \n\t{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"ws\"}\n\t  "
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "valid-plus-noise-1",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"policy\":\"optimistic\",\"strict\":false,\"memo\":\"phase2-a1\"}"
+  },
+  {
+    "name": "valid-plus-noise-2-nested",
+    "rawMsg": "{\"meta\":{\"k\":\"v\",\"n\":1},\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"hint\":\"abc\"}"
+  },
+  {
+    "name": "dup-receiver-last-valid-extra",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"mode\":\"dupe-last-valid\"}"
+  },
+  {
+    "name": "dup-block-last-number-extra",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"100\",\"block_number\":100,\"memo\":\"dupe-block\"}"
+  },
+  {
+    "name": "dup-amount-last-valid-extra",
+    "rawMsg": "{\"amount_native\":\"0\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"x\":\"y\"}"
+  },
+  {
+    "name": "unicode-escaped-key-receiver-extra",
+    "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"unicode-key\"}"
+  },
+  {
+    "name": "required-keys-late-order-heavy-noise",
+    "rawMsg": "{\"a\":1,\"b\":2,\"c\":3,\"policy\":\"optimistic\",\"amount_native\":\"2\",\"x\":{\"y\":true},\"receiver_id\":\"__BASE58_RECEIVER__\",\"z\":[1,2,3],\"block_number\":100}"
+  }
+]

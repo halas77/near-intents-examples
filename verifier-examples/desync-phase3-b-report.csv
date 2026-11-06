@@ -1,0 +1,13 @@
+name,intentHash,txHash,unused0,unusedRaw,withdrawStarted,refundApplied,likelyDesync,note
+"p3b-valid-noise-01","FRarS6rocVvw7t5UcsgCxsYq6ui9d9DGCc6kbCxzHUJ7","FAnMZN1Auc5rGdkZpJdAevzi1XAD9L2NtjFF71i7hcwD","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-valid-noise-02-nested","CDb9iZ8U3YQe2GoWWmMttWZMvFpNP4nwd5Sg7cbeaMCT","4CV91puMgmcknGrmd6DzoXUyVD2UKvgWy36AwguUyjNT","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-valid-noise-03-many","9duVLFgzU7BVVG9ixCm16ui3Chkn9QL7KhrPbPEsczqF","Eur6XodaYcR9wnc11UikNAonPwTynMJaCmcQj1bdCCmt","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-amount-leading-zeros","HqBNt2LSYPhrerMPbXCG5qVN55KqXYx2DFGa5CsRLX6Y","EigLcswH9y7NqzQ6GMos1nxbJHVpCkx48BjhazEwG9wG","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-block-string-alt-field","GYaxdZT2bJqvuMcRJ9vGmw3c1iWM3XGAtDLdqJc6foKf","qxC74kaLnG3rYzZoJin85jKMYUuKUDJ3VB9kGqosZnr","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-receiver-extra-aliases","3PRZL6c1qxwKdtcdbcxiNY6pzE3RJM8Gm53WEEGJbUnu","259uCZa3RqffEMzGSS9T1kyfdgCrCh1Uu29VPyLPG1c7","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-triplet-receiver-last-valid","DetMN2bKN1uaGAReK9ggbNymcoRTSCMLgqFwGo6iXiV3","4DKBLQQdQ1qE2c3K7nTZ9yZGXLAwX8KYPHSKC3mJEc1f","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p3b-dup-receiver-last-valid-with-noise","4V5yUMh9ZfbwUptVjio3S8EHyQfmBKJVG89L82q7Lnsv","8cK9dMXHxqxjPdm4nfMWnhpiXCNEAQvAmwFMfpbgnPhS","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p3b-boolean-null-noise","9rzK51XkN5as1S5sFYhRjDFBf6Eh5XhJac12b6b7iQ5S","7cYfDCzNdxkFWqfa9RbuBAus2cZ9moELRRySt3J3h2JR","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-array-of-objects-noise","DiBtcexfeqexW2pz3wmar8agRNuB9neMwpaskvjPfoax","BCJkXHMFm2bmtqf5V48Hg83GwRqLZu9U4bdg4i4bPbff","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-escaped-content-string","8Yeb4WiBa555eXSVw92wmpCK9tyuFFq4sbzGxRXa1iMf","GJovPWwKkZsdydN1191Angvb8wYY92V8hGbnvd5oY58q","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"p3b-raw-minimal-valid","GhiUMQ1JD212z8Grdzu4zLM5VMZNwyihqJcUBnEDDbr","2nCRhUk8DU41Qb1Vqe33X5TsQnf1QNpXQ6zyhN4HbKgN","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"

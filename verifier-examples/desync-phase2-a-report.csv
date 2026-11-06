@@ -1,0 +1,8 @@
+name,intentHash,txHash,unused0,unusedRaw,withdrawStarted,refundApplied,likelyDesync,note
+"valid-plus-noise-1","5mmLoTSpskRUEfDytfkNNJgmF65RxKfyCPCjv9Cc3Jpy","9LPVq319qkU8knHJzEynfbKuzMnFLs6HW6tp7E8bSXqn","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"valid-plus-noise-2-nested","7UqSPdQJpGtQ1fh4kDMTXYMdg7DyKvwbvmhA7Ptk1VCL","9cU2p4uab4FH2nD8FMf3TbXEET3LZCo5ZRmKR2RiYhfN","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"dup-receiver-last-valid-extra","8cXTAviAbeBpLbBKsD5x3qK5HFmr5U3hkp3qM4djqdF5","5kxFEgxkxaqughaYSgA5hsVKmgy15sPmqipPjgiKavhn","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"dup-block-last-number-extra","2eU4qdFJQaJJmCi5VBKpejTkeeP8v82Gfn8ELR59bB8j","2ok9HXVhBgoJMZ83b1vr3pWc1QrFWpDuT6EWVHsDUHe6","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"dup-amount-last-valid-extra","89QPWoPyHzNjnoshRMV5qqdbavMxznPG67Do9ZwfNAma","Esxsjdirs1ABM9ZckrEtzPJB9voLff8bCcu6QzKrT75J","","","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"unicode-escaped-key-receiver-extra","2FwKGj9SB6osuBXzxhng8jpMiHe2UPyGJNVWrp2Jte8K","CKhkvin2zm2k4Trhf2J7HYPwLDFFyqPEm3VqNaqzcBr9","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
+"required-keys-late-order-heavy-noise","33CJPiVBXdZTuGQpYEK5EquV5Ft1CQQSvL1tB5fR6zJN","HrRdxkHZDzwEyY7vpEELpqwZ2ieL4AdoiDBzFyVLdx3u","0","[""0"",""0""]","true","false","false","Withdraw path started with zero-unused return"
