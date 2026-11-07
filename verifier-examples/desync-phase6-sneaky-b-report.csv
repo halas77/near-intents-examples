@@ -1,0 +1,4 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p6-block-boundary-triple","2DuUX7AFrSBEQeqFekuRRVTbDHhpZjKV1qsiKXGPQVCm","BhPyTXGQY2VNZMC3NJfM4HLgwTZSwmg9Me49hiTvNVAM","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p6-proto-constructor-noise","DeH2zS1kszyk8EyuLJRLarPcDYZhRcTDrQnr2H1aUP1y","4X1C86nvniWQz2DkasrG2hWhZNBd1q8vjDk4A7AmDjhk","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p6-token-shape-and-msg-shape-mix","wSCimuLx9Lf6BiLZAu4Gb25NjErMERVpgQ87b1HD2mz","CxnyE7BykqnyZD856dFD1393WyhFWRMa2GJoG51Z1f1G","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

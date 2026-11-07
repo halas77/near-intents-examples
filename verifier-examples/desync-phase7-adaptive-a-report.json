@@ -1,0 +1,42 @@
+[
+  {
+    "name": "p7a-valid-newline-valid-three-leg",
+    "intentHash": "DeAWS8ZSY3yX6wpGempwXe2ZYuAmHMxwD1YyymgpAFb6",
+    "txHash": "DBaUGEEUa8zjkZjdJU86Z2QcZoW73QuZU1EhQDemRsoe",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7a-valid-tab-valid-three-leg",
+    "intentHash": "Fa51jDiRE3Gso3JR7j7NrcUBcgJXD7WmpytKj3SArsJC",
+    "txHash": "3qUk7xcBgNCiLzt2Xd9SDWsrwUYa6nD1n4gsaLKZDLcz",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7a-valid-plus-overflow-plus-valid",
+    "intentHash": "C2GPma1Cxr3sL8ZnX8v9gsBwPpaX3ktHowkndfkWhQbB",
+    "txHash": "GpeWeigPjYY5nW2EB2DDzgduFWnkrqjVkUw7YYnNXvKA",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7a-duplicate-amount-conflict-middle",
+    "intentHash": "9Trxa2jo62Xhg21GDLxhkEUDfSLeUUfvVnHTe6jcc3t4",
+    "txHash": "DGCxBcBk1qX79eXCHS9REp4wQFzs3sA7RTpFgpMuG7P7",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

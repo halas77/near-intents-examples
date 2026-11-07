@@ -1,0 +1,86 @@
+[
+  {
+    "name": "p7b-token-shape-valid-sandwich",
+    "intents": [
+      {
+        "name": "leg-a-one-token-valid",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1"],
+        "memo": "p7b-1a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b1a\"}"
+      },
+      {
+        "name": "leg-b-default-token-valid",
+        "memo": "p7b-1b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b1b\"}"
+      },
+      {
+        "name": "leg-c-one-token-valid",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1"],
+        "memo": "p7b-1c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":0,\"tag\":\"p7b1c\"}"
+      }
+    ]
+  },
+  {
+    "name": "p7b-zero-and-small-amount-native-mix",
+    "intents": [
+      {
+        "name": "leg-a-zero-native",
+        "memo": "p7b-2a",
+        "rawMsg": "{\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b2a\"}"
+      },
+      {
+        "name": "leg-b-small-native",
+        "memo": "p7b-2b",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b2b\"}"
+      },
+      {
+        "name": "leg-c-baseline-native",
+        "memo": "p7b-2c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b2c\"}"
+      }
+    ]
+  },
+  {
+    "name": "p7b-amount-native-string-forms",
+    "intents": [
+      {
+        "name": "leg-a-leading-zeros",
+        "memo": "p7b-3a",
+        "rawMsg": "{\"amount_native\":\"0002\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b3a\"}"
+      },
+      {
+        "name": "leg-b-plus-sign",
+        "memo": "p7b-3b",
+        "rawMsg": "{\"amount_native\":\"+2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b3b\"}"
+      },
+      {
+        "name": "leg-c-space-trim-attempt",
+        "memo": "p7b-3c",
+        "rawMsg": "{\"amount_native\":\" 2 \" ,\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b3c\"}"
+      }
+    ]
+  },
+  {
+    "name": "p7b-receiver-case-dup-shadow",
+    "intents": [
+      {
+        "name": "leg-a-valid",
+        "memo": "p7b-4a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p7b4a\"}"
+      },
+      {
+        "name": "leg-b-shadow-key-uppercase",
+        "memo": "p7b-4b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"RECEIVER_ID\":\"evil\",\"block_number\":100,\"tag\":\"p7b4b\"}"
+      },
+      {
+        "name": "leg-c-valid-u64max",
+        "memo": "p7b-4c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p7b4c\"}"
+      }
+    ]
+  }
+]

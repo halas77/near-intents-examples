@@ -1,0 +1,5 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p7a-valid-newline-valid-three-leg","DeAWS8ZSY3yX6wpGempwXe2ZYuAmHMxwD1YyymgpAFb6","DBaUGEEUa8zjkZjdJU86Z2QcZoW73QuZU1EhQDemRsoe","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7a-valid-tab-valid-three-leg","Fa51jDiRE3Gso3JR7j7NrcUBcgJXD7WmpytKj3SArsJC","3qUk7xcBgNCiLzt2Xd9SDWsrwUYa6nD1n4gsaLKZDLcz","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7a-valid-plus-overflow-plus-valid","C2GPma1Cxr3sL8ZnX8v9gsBwPpaX3ktHowkndfkWhQbB","GpeWeigPjYY5nW2EB2DDzgduFWnkrqjVkUw7YYnNXvKA","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7a-duplicate-amount-conflict-middle","9Trxa2jo62Xhg21GDLxhkEUDfSLeUUfvVnHTe6jcc3t4","DGCxBcBk1qX79eXCHS9REp4wQFzs3sA7RTpFgpMuG7P7","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "p6-memo-collision-valid-panic-valid",
+    "intentHash": "Gqyxde22fcyrJfvNcD43t7AG9Ci9RozoWXSykWkvDN5H",
+    "txHash": "4q83RpDhQstttS7RE2HDMiMsVhzM78vagBN2rkVMnqWU",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p6-array-msg-smuggle-mid",
+    "intentHash": "ErbwM3oZm3Mby6KoHiYZ21W4Qbd99Pb6BThpgv9xLuHw",
+    "txHash": "9TkE4qi3jE9Jm6295B4HPKs9LNz7szFwchoej2nEF2sW",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p6-receiver-canonicalization-duel",
+    "intentHash": "EU8txJywShWWdd4u9ZKxdqMymindeh8GgJwKNeQh38Hs",
+    "txHash": "6CfzpvmjXLHXVT8eqkojzahTtxxdtJbg1PAPrvdrem4o",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

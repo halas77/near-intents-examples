@@ -1,0 +1,32 @@
+[
+  {
+    "name": "p6-block-boundary-triple",
+    "intentHash": "2DuUX7AFrSBEQeqFekuRRVTbDHhpZjKV1qsiKXGPQVCm",
+    "txHash": "BhPyTXGQY2VNZMC3NJfM4HLgwTZSwmg9Me49hiTvNVAM",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p6-proto-constructor-noise",
+    "intentHash": "DeH2zS1kszyk8EyuLJRLarPcDYZhRcTDrQnr2H1aUP1y",
+    "txHash": "4X1C86nvniWQz2DkasrG2hWhZNBd1q8vjDk4A7AmDjhk",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p6-token-shape-and-msg-shape-mix",
+    "intentHash": "wSCimuLx9Lf6BiLZAu4Gb25NjErMERVpgQ87b1HD2mz",
+    "txHash": "CxnyE7BykqnyZD856dFD1393WyhFWRMa2GJoG51Z1f1G",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

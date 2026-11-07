@@ -1,0 +1,42 @@
+[
+  {
+    "name": "p7b-token-shape-valid-sandwich",
+    "intentHash": "3m9vnW7ta5a1iFocYMRW1QLrg8zouabcNT9Hx4QkpTcj",
+    "txHash": "HGqmcqJWJBiaXpGdnBvtV9yTwEBz7ugauHzihumhnkvY",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7b-zero-and-small-amount-native-mix",
+    "intentHash": "EU1EqwNFGZPbN8VXiADWCdvSiqLA3a4uf8bmuLHNULba",
+    "txHash": "3RmmFkKJfhBQJxvDgmwBmNTX7v87v3nAMVAmPFWeVNLE",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7b-amount-native-string-forms",
+    "intentHash": "J1zRFZmXy858QgdZYR6KAtpX1wZvuCdskJSjXGXJ6ptC",
+    "txHash": "5PpcDq3yrxuQcUu5C7QZ3QL5bLF1M2Q4BYiYQmY41ccL",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p7b-receiver-case-dup-shadow",
+    "intentHash": "B9LV3TWTRq3njxfujEap5NXNcDVzXwPv8XMCoRhBz7D7",
+    "txHash": "EBVMFe67Vse9pdtKMwUZCq253GmqTD9izTHJEiZTipgq",
+    "mtOnTransferUnusedAll": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

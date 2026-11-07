@@ -1,0 +1,4 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p6-memo-collision-valid-panic-valid","Gqyxde22fcyrJfvNcD43t7AG9Ci9RozoWXSykWkvDN5H","4q83RpDhQstttS7RE2HDMiMsVhzM78vagBN2rkVMnqWU","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p6-array-msg-smuggle-mid","ErbwM3oZm3Mby6KoHiYZ21W4Qbd99Pb6BThpgv9xLuHw","9TkE4qi3jE9Jm6295B4HPKs9LNz7szFwchoej2nEF2sW","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p6-receiver-canonicalization-duel","EU8txJywShWWdd4u9ZKxdqMymindeh8GgJwKNeQh38Hs","6CfzpvmjXLHXVT8eqkojzahTtxxdtJbg1PAPrvdrem4o","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
