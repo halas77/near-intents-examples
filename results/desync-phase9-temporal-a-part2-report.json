@@ -1,0 +1,25 @@
+[
+  {
+    "name": "p9a-tip-plus-500k",
+    "intentHash": "EGAKbmEmK6MpB9nQEf5qRCn7npJ8S57NB8RvCtrffNBE",
+    "txHash": "GL7dHTBPic5ZdRfGL6Wmz94UbR1H6T4kM5MyvFVyxidM",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

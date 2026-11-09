@@ -1,0 +1,22 @@
+name,intentHash,txHash,signerAccountId,unused0,unusedRaw,unusedAll,bridgeSuccessDecoded,withdrawStarted,refundApplied,likelyDesync,note
+"p9a-tip-minus-200","","","","","","","","false","false","false","Execution error: Intent settlement failed.
+
+Status: NOT_FOUND_OR_NOT_VALID
+Intent hash: ABoBLKY5cE8WeCo93Nqn5gYV4kRAEfUio8qdAkFX8VRY
+Tx hash: 2iSqpirajXxYVPW4fWKHFkLyatyKik1jdzHnzS919xsP
+
+Details: Intent is published but not settled."
+"p9a-tip-minus-20","","","","","","","","false","false","false","Execution error: Intent settlement failed.
+
+Status: NOT_FOUND_OR_NOT_VALID
+Intent hash: 3Qcw1C9fFwrrAyRe4erd9EavBieuuW3JCs4UP58Mudtq
+Tx hash: HTtNvfqJf9mVPZKuGFkWoe4Rig3oMB1pZgjiyVFvAu5M
+
+Details: Intent is published but not settled."
+"p9a-tip-minus-1","","","","","","","","false","false","false","Execution error: Intent settlement failed.
+
+Status: NOT_FOUND_OR_NOT_VALID
+Intent hash: J8Fj1UtdKfC4gVuoB1HLwtm1EU3DPBmYsqniBT3xViSS
+Tx hash: BZz4mjWcLA1SkU96DQwvgq5vSh7Fe7u6HrBa5kG4wQDi
+
+Details: Intent is published but not settled."

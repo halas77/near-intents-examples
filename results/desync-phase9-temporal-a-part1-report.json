@@ -1,0 +1,163 @@
+[
+  {
+    "name": "p9a-tip-minus-200",
+    "intentHash": "FkKbJ7ShQVcXs2HE4Ndm9THB7bNfLMFB2Rx2tTbHRwaj",
+    "txHash": "ESQCs1kvpheWcpkSTPQ4TCftKDFVjFHeAwZhnPUNtUVL",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-minus-20",
+    "intentHash": "9Pm2wacKNMJUKm9FmP8JVgtoAtqoUWPbcSJ4TtRyKVBw",
+    "txHash": "5hH9nLFbp8SyfT8cKSnaBZc1RBiBEuNoDGpxdxbYCtDM",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-minus-1",
+    "intentHash": "Bu9EZ6YG9i6swGocfmK52od9ypnpNyQeUmf1e4jjMgMF",
+    "txHash": "2xQTbkVoknz2DAcp4eLNCiDaXgpeUAeayuBVGFqwtMdP",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-exact",
+    "intentHash": "4LqwXwgvdiyvLg87GAnHp1UzF5XZ4KN3VYjnnw6uS6ix",
+    "txHash": "AyJRutAqriCQEAqEXC5FE5w1VRXKgxcGzF3hAtK2p2Dt",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-plus-1",
+    "intentHash": "CGzghPbQuuPTWqcibpw7yaDTW4Us5Eq9LgduNqdzxG6D",
+    "txHash": "6b92DAtiSEyrEMTXMxmVM6paQ9FfJknQ5NnhYgjavYMf",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-plus-20",
+    "intentHash": "B67dpr6PoBy2Yeq2AXjSgatzp9n8KmzzZo81vBRWuDJU",
+    "txHash": "EUcZLjhTRMNqircrwqPV15LMh4zoGA6CZWzYC7Se9u54",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p9a-tip-plus-200",
+    "intentHash": "68FjuCjsMKBDWbjHjQsAuBeskg67eduwMt5s7eGcsT4w",
+    "txHash": "Are6Ed8r99J3p5TLJAh8cqqRJ4mcuvvkUXZb9M5dixcc",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

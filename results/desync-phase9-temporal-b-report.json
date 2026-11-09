@@ -1,0 +1,60 @@
+[
+  {
+    "name": "p9b-sandwich-tipminus1-tipplus1-tipminus1",
+    "intentHash": "8DGi7xCnE3Mm9SebsUpjGzDUq8zavpiJLCYry9oE3Kc5",
+    "txHash": "GzUp1NV18uHPqSc6nKSw5yVSvusbyBZeXhwba2Nd6vvW",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p9b-old-current-future-three-leg",
+    "intentHash": "AsTXsnG2nzxu2esohZqnJPxPEyJaEPoQkiT3xPjfGceP",
+    "txHash": "4G4WebkU8jrL8teeggHQ1eJgw8o6bZcu2R9tSCFvyAh5",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p9b-tip-window-with-token-cardinality",
+    "intentHash": "C4igMUt88Cpp6PWFNhKkYWf1fur6NeoXC8F6KS6P9HeZ",
+    "txHash": "Bw967D5vK6HUQV9pKaqDcG8xU8oWyRE8eAxtM7q5geRw",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p9b-same-memo-time-skew",
+    "intentHash": "HQaVyhfyr4Mn4fPzAWeoPqGogLcWvWg8G6o7sWCe4DbB",
+    "txHash": "Cgj4fa4P6KHKfrYi1KDS55NVsfL4Lns3kBVj5qcDjBRF",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

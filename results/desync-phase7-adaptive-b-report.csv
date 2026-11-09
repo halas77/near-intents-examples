@@ -1,0 +1,5 @@
+name,intentHash,txHash,unused0,unusedRaw,unusedAll,withdrawStarted,refundApplied,likelyDesync,note
+"p7b-token-shape-valid-sandwich","7zmRh8yYtBkqUuVQEXj7wG4PN3xCLhnfxbJNJgVvb5xg","GUa12FKP486WqFwEn2656FW8Z8n5u5adH6SiL1ZjKgMj","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7b-zero-and-small-amount-native-mix","7kJgvZTiDnAE3qtuSotyUeYr2uCy8iURJHNRJnrus2dz","AmetUPmnt9Qw7CVstEQ9RmczNLieTCGbL3pLH9AEs2hz","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7b-amount-native-string-forms","AqVgpgNspZWPp1F1p17oXNwUQGyyKyAtZZzESgxZCfVP","dJDcHa3xEuaWad9CJR9HbVZaWt1NJPaEG5jLvYQE2hY","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p7b-receiver-case-dup-shadow","FRPjzFYHr5GXnxkR5Va68TrUXUBNuS3HJvt4CRRv1iUn","83dTMkk7RLYSJmBH8ojKh6f8sTVpajFuwuKxc3DyCTLH","","","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

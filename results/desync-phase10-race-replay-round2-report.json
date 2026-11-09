@@ -1,0 +1,70 @@
+[
+  {
+    "name": "p10r-dup-token-first-position-stress",
+    "intentHash": "HzDwcFZPVBrKmwFiqRY45wR8mpX5LaPSKsaSNfm5VST5",
+    "txHash": "CVKhWxUAU4MeLrx6W8VyR5bGWahw4vy32P1ynE5jciQG",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]",
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p10r-one-two-one-token-cardinality-sandwich",
+    "intentHash": "CBPvSAC4E8ddakfjY5K7J1658ezD22YiRhLb5acqvWKP",
+    "txHash": "9Lfj6K9nPotKm3uuptiKCqSBziY6QWgw4w8wmm5em7q7",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p10r-tip-window-with-token-cardinality",
+    "intentHash": "FH37zu4Q4erRUj6M7hP7JceTb3aKh1xGkTYFHWfNhn4D",
+    "txHash": "A22ZeRb5unUX6iVdAKNzpXx1dDNt6U3tLy8Q1hvjns5v",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "p9a-tip-minus-200",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: Intent settlement failed.\n\nStatus: NOT_FOUND_OR_NOT_VALID\nIntent hash: ABoBLKY5cE8WeCo93Nqn5gYV4kRAEfUio8qdAkFX8VRY\nTx hash: 2iSqpirajXxYVPW4fWKHFkLyatyKik1jdzHnzS919xsP\n\nDetails: Intent is published but not settled."
+  },
+  {
+    "name": "p9a-tip-minus-20",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: Intent settlement failed.\n\nStatus: NOT_FOUND_OR_NOT_VALID\nIntent hash: 3Qcw1C9fFwrrAyRe4erd9EavBieuuW3JCs4UP58Mudtq\nTx hash: HTtNvfqJf9mVPZKuGFkWoe4Rig3oMB1pZgjiyVFvAu5M\n\nDetails: Intent is published but not settled."
+  },
+  {
+    "name": "p9a-tip-minus-1",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: Intent settlement failed.\n\nStatus: NOT_FOUND_OR_NOT_VALID\nIntent hash: J8Fj1UtdKfC4gVuoB1HLwtm1EU3DPBmYsqniBT3xViSS\nTx hash: BZz4mjWcLA1SkU96DQwvgq5vSh7Fe7u6HrBa5kG4wQDi\n\nDetails: Intent is published but not settled."
+  }
+]

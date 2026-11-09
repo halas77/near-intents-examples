@@ -37,12 +37,25 @@ interface TxOutcome {
   };
 }
 
+interface LegTrace {
+  memo: string;
+  transferReceiptId: string;
+  bridgeReceiptId?: string;
+  unused?: string[];
+  unused0?: string;
+  nonZeroUnused0: boolean;
+}
+
 interface CaseResult {
   name: string;
   intentHash?: string;
   txHash?: string;
+  signerAccountId?: string;
   mtOnTransferUnused?: string[];
   mtOnTransferUnusedAll?: string[][];
+  bridgeSuccessDecoded?: string[];
+  legTraces?: LegTrace[];
+  correlatedLikelyDesync?: boolean;
   withdrawStarted: boolean;
   refundApplied: boolean;
   likelyDesync: boolean;
@@ -56,6 +69,7 @@ interface HunterCaseIntent {
   tokenIds?: string[];
   amounts?: string[];
   memo?: string | null;
+  minGas?: string;
 }
 
 interface HunterCase {
@@ -128,8 +142,97 @@ async function fetchTxOutcome(
   return json;
 }
 
-function parseUnusedFromBridgeReceipts(outcome: TxOutcome): string[][] {
-  const values: string[][] = [];
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchTxOutcomeWithRetry(
+  txHash: string,
+  accountId: string,
+  attempts = 4,
+): Promise<TxOutcome> {
+  let lastError: unknown;
+
+  for (let i = 1; i <= attempts; i++) {
+    try {
+      return await fetchTxOutcome(txHash, accountId);
+    } catch (error) {
+      lastError = error;
+      if (i < attempts) {
+        await sleep(1200 * i);
+      }
+    }
+  }
+
+  throw new Error(
+    `RPC tx query failed after ${attempts} attempts for ${txHash}: ${String(lastError)}`,
+  );
+}
+
+function toNumericString(value: unknown): string | null {
+  if (typeof value === 'string') {
+    return /^\d+$/.test(value) ? value : null;
+  }
+  if (typeof value === 'number') {
+    if (!Number.isSafeInteger(value) || value < 0) return null;
+    return String(value);
+  }
+  return null;
+}
+
+function extractUnusedArraysFromParsed(
+  value: unknown,
+  path = '',
+): Array<{ path: string; values: string[] }> {
+  const found: Array<{ path: string; values: string[] }> = [];
+
+  if (Array.isArray(value)) {
+    const normalized = value.map((v) => toNumericString(v));
+    if (normalized.every((v) => v !== null)) {
+      found.push({ path: path || '$', values: normalized as string[] });
+    }
+
+    value.forEach((v, i) => {
+      found.push(...extractUnusedArraysFromParsed(v, `${path}[${i}]`));
+    });
+    return found;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return found;
+  }
+
+  for (const [k, v] of Object.entries(value as UnknownObject)) {
+    const nextPath = path ? `${path}.${k}` : k;
+    const keyLooksRelevant = /unused|remain|refund/i.test(k);
+
+    if (keyLooksRelevant && Array.isArray(v)) {
+      const normalized = v.map((x) => toNumericString(x));
+      if (normalized.every((x) => x !== null)) {
+        found.push({ path: nextPath, values: normalized as string[] });
+      }
+    }
+
+    found.push(...extractUnusedArraysFromParsed(v, nextPath));
+  }
+
+  return found;
+}
+
+function parseUnusedFromBridgeReceipts(outcome: TxOutcome): {
+  unusedArrays: string[][];
+  decodedSuccessValues: string[];
+  bridgeUnusedByReceipt: Array<{
+    receiptId: string;
+    unusedArrays: string[][];
+  }>;
+} {
+  const unusedArrays: string[][] = [];
+  const decodedSuccessValues: string[] = [];
+  const bridgeUnusedByReceipt: Array<{
+    receiptId: string;
+    unusedArrays: string[][];
+  }> = [];
 
   for (const receipt of outcome.result.receipts_outcome) {
     if (receipt.outcome.executor_id !== 'bridge-refuel.hot.tg') continue;
@@ -137,22 +240,101 @@ function parseUnusedFromBridgeReceipts(outcome: TxOutcome): string[][] {
       receipt.outcome.status.SuccessValue,
     );
     if (!decoded) continue;
+
+    decodedSuccessValues.push(decoded);
+
     try {
       const parsed = JSON.parse(decoded);
-      if (Array.isArray(parsed) && parsed.every((v) => typeof v === 'string')) {
-        values.push(parsed);
-      }
+      const extracted = extractUnusedArraysFromParsed(parsed)
+        .filter((item) => item.values.length > 0)
+        .map((item) => item.values);
+      unusedArrays.push(...extracted);
+      bridgeUnusedByReceipt.push({
+        receiptId: receipt.id,
+        unusedArrays: extracted,
+      });
     } catch {
       // Ignore non-JSON success values.
+      bridgeUnusedByReceipt.push({ receiptId: receipt.id, unusedArrays: [] });
     }
   }
 
-  return values;
+  const unique = Array.from(
+    new Set(unusedArrays.map((a) => JSON.stringify(a))),
+  );
+
+  return {
+    unusedArrays: unique.map((s) => JSON.parse(s) as string[]),
+    decodedSuccessValues,
+    bridgeUnusedByReceipt,
+  };
+}
+
+function parseEventJsonLog(log: string): UnknownObject | null {
+  if (!log.startsWith('EVENT_JSON:')) return null;
+  const payload = log.slice('EVENT_JSON:'.length);
+  try {
+    const parsed = JSON.parse(payload);
+    if (!parsed || typeof parsed !== 'object') return null;
+    return parsed as UnknownObject;
+  } catch {
+    return null;
+  }
+}
+
+function buildLegTraces(
+  outcome: TxOutcome,
+  receiverId: string,
+  bridgeUnusedByReceipt: Array<{ receiptId: string; unusedArrays: string[][] }>,
+): LegTrace[] {
+  const transferLegs: Array<{ memo: string; transferReceiptId: string }> = [];
+
+  for (const receipt of outcome.result.receipts_outcome) {
+    if (receipt.outcome.executor_id !== 'v2_1.omni.hot.tg') continue;
+
+    for (const log of receipt.outcome.logs) {
+      const parsed = parseEventJsonLog(log);
+      if (!parsed) continue;
+
+      if (parsed.event !== 'mt_transfer' || !Array.isArray(parsed.data))
+        continue;
+
+      for (const item of parsed.data) {
+        if (!item || typeof item !== 'object') continue;
+        const row = item as UnknownObject;
+        if (row.new_owner_id !== receiverId) continue;
+        const memo = typeof row.memo === 'string' ? row.memo : '(no-memo)';
+        transferLegs.push({ memo, transferReceiptId: receipt.id });
+      }
+    }
+  }
+
+  return transferLegs.map((leg, i) => {
+    const bridge = bridgeUnusedByReceipt[i];
+    const unused = bridge?.unusedArrays[0];
+    const unused0 = unused?.[0] ?? '0';
+    let nonZeroUnused0 = false;
+    try {
+      nonZeroUnused0 = BigInt(unused0) > 0n;
+    } catch {
+      nonZeroUnused0 = false;
+    }
+
+    return {
+      memo: leg.memo,
+      transferReceiptId: leg.transferReceiptId,
+      bridgeReceiptId: bridge?.receiptId,
+      unused,
+      unused0,
+      nonZeroUnused0,
+    };
+  });
 }
 
 function analyzeOutcome(
   outcome: TxOutcome,
   mtOnTransferUnusedAll: string[][],
+  receiverId: string,
 ): {
   withdrawStarted: boolean;
   refundApplied: boolean;
@@ -167,7 +349,7 @@ function analyzeOutcome(
     ({ executor, log }) =>
       executor === 'v2_1.omni.hot.tg' &&
       log.includes('"event":"mt_burn"') &&
-      log.includes('"owner_id":"bridge-refuel.hot.tg"'),
+      log.includes(`"owner_id":"${receiverId}"`),
   );
 
   const refundApplied = allLogs.some(
@@ -291,6 +473,8 @@ function parseCustomIntent(
     token_ids?: unknown;
     amounts?: unknown;
     memo?: unknown;
+    min_gas?: unknown;
+    minGas?: unknown;
   };
 
   const intent: HunterCaseIntent = {
@@ -315,6 +499,13 @@ function parseCustomIntent(
     intent.memo = maybeIntent.memo;
   } else if (maybeIntent.memo !== undefined) {
     throw new Error(`intents[${index}].memo must be string or null`);
+  }
+
+  const minGasCandidate = maybeIntent.min_gas ?? maybeIntent.minGas;
+  if (typeof minGasCandidate === 'string') {
+    intent.minGas = minGasCandidate;
+  } else if (minGasCandidate !== undefined) {
+    throw new Error(`intents[${index}].min_gas must be string`);
   }
 
   if (typeof maybeIntent.rawMsg === 'string') {
@@ -432,9 +623,13 @@ function toCsv(results: CaseResult[]): string {
     'name',
     'intentHash',
     'txHash',
+    'signerAccountId',
     'unused0',
     'unusedRaw',
     'unusedAll',
+    'bridgeSuccessDecoded',
+    'correlatedLikelyDesync',
+    'legTraces',
     'withdrawStarted',
     'refundApplied',
     'likelyDesync',
@@ -450,9 +645,13 @@ function toCsv(results: CaseResult[]): string {
       r.name,
       r.intentHash ?? '',
       r.txHash ?? '',
+      r.signerAccountId ?? '',
       unused0,
       unusedRaw,
       r.mtOnTransferUnusedAll ? JSON.stringify(r.mtOnTransferUnusedAll) : '',
+      r.bridgeSuccessDecoded ? JSON.stringify(r.bridgeSuccessDecoded) : '',
+      String(r.correlatedLikelyDesync ?? false),
+      r.legTraces ? JSON.stringify(r.legTraces) : '',
       String(r.withdrawStarted),
       String(r.refundApplied),
       String(r.likelyDesync),
@@ -553,7 +752,7 @@ async function runCase(
           tokenIds,
           amounts,
           msgString: getIntentMsgString(intent, testCase.name),
-          minGas: config.minGas,
+          minGas: intent.minGas ?? config.minGas,
           memo: intent.memo,
         });
       })
@@ -574,18 +773,44 @@ async function runCase(
     signal: AbortSignal.timeout(180_000),
   });
 
-  const outcome = await fetchTxOutcome(settled.hash, settled.accountId);
-  const mtOnTransferUnusedAll = parseUnusedFromBridgeReceipts(outcome);
+  const outcome = await fetchTxOutcomeWithRetry(
+    settled.hash,
+    settled.accountId,
+  );
+  const bridgeReturn = parseUnusedFromBridgeReceipts(outcome);
+  const mtOnTransferUnusedAll = bridgeReturn.unusedArrays;
   const mtOnTransferUnused = mtOnTransferUnusedAll[0];
-  const analysis = analyzeOutcome(outcome, mtOnTransferUnusedAll);
+  const legTraces = buildLegTraces(
+    outcome,
+    config.receiverId,
+    bridgeReturn.bridgeUnusedByReceipt,
+  );
+  const correlatedLikelyDesync = legTraces.some((leg) => leg.nonZeroUnused0);
+  const analysis = analyzeOutcome(
+    outcome,
+    mtOnTransferUnusedAll,
+    config.receiverId,
+  );
+
+  const likelyDesync = analysis.likelyDesync || correlatedLikelyDesync;
+  const note = correlatedLikelyDesync
+    ? 'Potential correlated desync: transfer leg observed with unused[0] > 0'
+    : analysis.note;
 
   return {
     name: testCase.name,
     intentHash,
     txHash: settled.hash,
+    signerAccountId: settled.accountId,
     mtOnTransferUnused,
     mtOnTransferUnusedAll,
-    ...analysis,
+    bridgeSuccessDecoded: bridgeReturn.decodedSuccessValues,
+    legTraces,
+    correlatedLikelyDesync,
+    withdrawStarted: analysis.withdrawStarted,
+    refundApplied: analysis.refundApplied,
+    likelyDesync,
+    note,
   };
 }
 
@@ -636,7 +861,7 @@ async function main() {
       if (c.intents?.length) {
         c.intents.forEach((intent, i) => {
           console.log(
-            `  intent[${i}] tokenIds=${JSON.stringify(intent.tokenIds ?? tokenIds)} amounts=${JSON.stringify(intent.amounts ?? amounts)}`,
+            `  intent[${i}] tokenIds=${JSON.stringify(intent.tokenIds ?? tokenIds)} amounts=${JSON.stringify(intent.amounts ?? amounts)} minGas=${intent.minGas ?? DEFAULT_MIN_GAS}`,
           );
           console.log(`  msg[${i}] ${getIntentMsgString(intent, c.name)}`);
         });
@@ -674,6 +899,13 @@ async function main() {
       if (result.mtOnTransferUnusedAll?.length) {
         console.log('mt_on_transfer_all:', result.mtOnTransferUnusedAll);
       }
+      if (result.bridgeSuccessDecoded?.length) {
+        console.log('bridge_success_decoded:', result.bridgeSuccessDecoded);
+      }
+      if (result.legTraces?.length) {
+        console.log('leg_traces      :', result.legTraces);
+      }
+      console.log('corrDesync      :', result.correlatedLikelyDesync ?? false);
       console.log('withdrawStarted :', result.withdrawStarted);
       console.log('refundApplied   :', result.refundApplied);
       console.log('likelyDesync    :', result.likelyDesync);

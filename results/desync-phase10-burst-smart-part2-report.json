@@ -1,0 +1,38 @@
+[
+  {
+    "name": "p10-valid-plus-structured-array-plus-valid",
+    "intentHash": "J8KPr1eAuRBTsMJ4QAzGsTWcnYrmipfS9dLLEcYk8AoU",
+    "txHash": "2TN7ExzYhdVfVzisgnCw2ThQ3KoxhBSPNPeoJ65QFozo",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p10-amount-native-coercion-trio",
+    "intentHash": "6T14n5AEExCrUsgBYHGfBsx3aoqfdyzKvQyDELLCafhH",
+    "txHash": "2EUohDMWv2QeEowuBVaCLJhNSTWAiHyvYvyFo8Ye7T3S",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p10-block-edges-near-zero",
+    "intentHash": "67GZdDmq3hFPkb1KsxkAcRfK2FDGdZBcfLwGFTgyG2RX",
+    "txHash": "7sDsvcsyGcdPA1BKXZz3XhNfTNyMN91TpawzAbDQTLtV",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

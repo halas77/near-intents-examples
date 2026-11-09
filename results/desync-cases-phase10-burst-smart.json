@@ -1,0 +1,127 @@
+[
+  {
+    "name": "p10-identical-triple-same-memo",
+    "intents": [
+      {
+        "memo": "p10-collision",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10a\"}"
+      },
+      {
+        "memo": "p10-collision",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10a\"}"
+      },
+      {
+        "memo": "p10-collision",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10a\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10-semantic-equal-different-json-shapes",
+    "intents": [
+      {
+        "memo": "p10-b1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100}"
+      },
+      {
+        "memo": "p10-b2",
+        "rawMsg": "{\n  \"block_number\":100,\n  \"receiver_id\":\"__BASE58_RECEIVER__\",\n  \"amount_native\":\"2\"\n}"
+      },
+      {
+        "memo": "p10-b3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"noise\":{\"a\":1,\"b\":2}}"
+      }
+    ]
+  },
+  {
+    "name": "p10-dup-token-first-position-stress",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1999", "1"],
+        "memo": "p10-c1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10c1\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1", "1999"],
+        "memo": "p10-c2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10c2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10-one-two-one-token-cardinality-sandwich",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p10-d1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":99,\"tag\":\"p10d1\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p10-d2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10d2\"}"
+      },
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["3000"],
+        "memo": "p10-d3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p10d3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10-valid-plus-structured-array-plus-valid",
+    "intents": [
+      {
+        "memo": "p10-e1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10e1\"}"
+      },
+      {
+        "memo": "p10-e2",
+        "rawMsg": "[{\"receiver_id\":\"__BASE58_RECEIVER__\"},{\"amount_native\":\"2\"},{\"block_number\":100}]"
+      },
+      {
+        "memo": "p10-e3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10e3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10-amount-native-coercion-trio",
+    "intents": [
+      {
+        "memo": "p10-f1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10f1\"}"
+      },
+      {
+        "memo": "p10-f2",
+        "rawMsg": "{\"amount_native\":\"02\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10f2\"}"
+      },
+      {
+        "memo": "p10-f3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"shadow\":\"same\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10-block-edges-near-zero",
+    "intents": [
+      {
+        "memo": "p10-g1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":0,\"tag\":\"p10g1\"}"
+      },
+      {
+        "memo": "p10-g2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":1,\"tag\":\"p10g2\"}"
+      },
+      {
+        "memo": "p10-g3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":2,\"tag\":\"p10g3\"}"
+      }
+    ]
+  }
+]

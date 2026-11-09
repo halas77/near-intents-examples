@@ -1,0 +1,5 @@
+name,intentHash,txHash,signerAccountId,unused0,unusedRaw,unusedAll,bridgeSuccessDecoded,withdrawStarted,refundApplied,likelyDesync,note
+"p9b-sandwich-tipminus1-tipplus1-tipminus1","8DGi7xCnE3Mm9SebsUpjGzDUq8zavpiJLCYry9oE3Kc5","GzUp1NV18uHPqSc6nKSw5yVSvusbyBZeXhwba2Nd6vvW","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p9b-old-current-future-three-leg","AsTXsnG2nzxu2esohZqnJPxPEyJaEPoQkiT3xPjfGceP","4G4WebkU8jrL8teeggHQ1eJgw8o6bZcu2R9tSCFvyAh5","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p9b-tip-window-with-token-cardinality","C4igMUt88Cpp6PWFNhKkYWf1fur6NeoXC8F6KS6P9HeZ","Bw967D5vK6HUQV9pKaqDcG8xU8oWyRE8eAxtM7q5geRw","intents.near","0","[""0""]","[[""0""]]","[""[\""0\""]"",""[\""0\""]""]","true","true","false","Withdraw started and refund logs exist (inspect ordering carefully)"
+"p9b-same-memo-time-skew","HQaVyhfyr4Mn4fPzAWeoPqGogLcWvWg8G6o7sWCe4DbB","Cgj4fa4P6KHKfrYi1KDS55NVsfL4Lns3kBVj5qcDjBRF","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

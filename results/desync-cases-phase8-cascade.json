@@ -1,0 +1,159 @@
+[
+  {
+    "name": "p8-dup-tokenid-single-intent",
+    "intents": [
+      {
+        "name": "leg-dup-tokenid",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1", "1999"],
+        "memo": "p8-1a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8dup\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-token-order-swap-across-legs",
+    "intents": [
+      {
+        "name": "leg-a-order-1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p8-2a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8swap1\"}"
+      },
+      {
+        "name": "leg-b-order-2",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["3000", "2000"],
+        "memo": "p8-2b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8swap2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-valid-noop-whitespace-receiver-duel",
+    "intents": [
+      {
+        "name": "leg-a-valid",
+        "memo": "p8-3a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8w1\"}"
+      },
+      {
+        "name": "leg-b-receiver-carriage-return",
+        "memo": "p8-3b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\\r\",\"block_number\":100,\"tag\":\"p8w2\"}"
+      },
+      {
+        "name": "leg-c-receiver-leading-space",
+        "memo": "p8-3c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\" __BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8w3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-same-memo-different-msg",
+    "intents": [
+      {
+        "name": "leg-a-memo-collision",
+        "memo": "p8-collide",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":0,\"tag\":\"p8m1\"}"
+      },
+      {
+        "name": "leg-b-memo-collision",
+        "memo": "p8-collide",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p8m2\"}"
+      },
+      {
+        "name": "leg-c-memo-collision",
+        "memo": "p8-collide",
+        "rawMsg": "{\"amount_native\":\"2\",\"rece\\u0069ver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8m3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-amount-native-extremes",
+    "intents": [
+      {
+        "name": "leg-a-native-1",
+        "memo": "p8-5a",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8n1\"}"
+      },
+      {
+        "name": "leg-b-native-2",
+        "memo": "p8-5b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8n2\"}"
+      },
+      {
+        "name": "leg-c-native-3",
+        "memo": "p8-5c",
+        "rawMsg": "{\"amount_native\":\"3\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8n3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-dup-keys-first-small-last-huge",
+    "intents": [
+      {
+        "name": "leg-a-valid",
+        "memo": "p8-6a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8d1\"}"
+      },
+      {
+        "name": "leg-b-dup-amount",
+        "memo": "p8-6b",
+        "rawMsg": "{\"amount_native\":\"2\",\"amount_native\":\"999999999999999999\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8d2\"}"
+      },
+      {
+        "name": "leg-c-valid",
+        "memo": "p8-6c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8d3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-array-object-overload-sandwich",
+    "intents": [
+      {
+        "name": "leg-a-valid",
+        "memo": "p8-7a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8o1\"}"
+      },
+      {
+        "name": "leg-b-array-msg",
+        "memo": "p8-7b",
+        "rawMsg": "[{\"amount_native\":\"2\"},{\"receiver_id\":\"__BASE58_RECEIVER__\"},{\"block_number\":100}]"
+      },
+      {
+        "name": "leg-c-valid",
+        "memo": "p8-7c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8o3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8-mixed-token-cardinality-cascade",
+    "intents": [
+      {
+        "name": "leg-a-two-token",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p8-8a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8c1\"}"
+      },
+      {
+        "name": "leg-b-one-token",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p8-8b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8c2\"}"
+      },
+      {
+        "name": "leg-c-two-token-reverse",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["3000", "2000"],
+        "memo": "p8-8c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8c3\"}"
+      }
+    ]
+  }
+]

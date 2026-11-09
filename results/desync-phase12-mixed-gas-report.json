@@ -1,0 +1,102 @@
+[
+  {
+    "name": "p12g-control-single-default",
+    "intentHash": "69U7ACuLPir6QxxLV9oPKrZbtNRXWmXtsZ8EfXgtpzJB",
+    "txHash": "B11iJGxgdBK37E9rY1epKBtdjy2pD8PNHJKYn2ywJwiF",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p12g-single-low-gas",
+    "intentHash": "CpdmijvwRWdeWCEM4VzV6cBkWLAeUBxe6kK9jNhGLqYx",
+    "txHash": "6G92BMC39qzXDGhbmfTaWjoQiZhoGDeaMoSnbWK1aEfJ",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p12g-single-high-gas",
+    "intentHash": "7Vhmu1hUx5Wx74JSEY7uRBW3EU59vD6Gp84fXnmYgPPr",
+    "txHash": "2zCDFipL8LuXCndh3rsUkmuHcyDAYRcgTYAKr7geuqSW",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p12g-mixed-low-then-default",
+    "intentHash": "3H15ikPRrdZMMDtToonxyMTBvBo5Y5GVV53U1GBVrAW1",
+    "txHash": "2KkNu8YsAmBHWSjDjfpeTo5pTRASYGjaAp8M6Bk21dSB",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]",
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p12g-mixed-high-then-low",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: Failed to publish intent.\n\nCode: INSUFFICIENT_BALANCE\nPublish params: {\"quote_hashes\":[],\"signed_datas\":[{\"standard\":\"nep413\",\"payload\":{\"recipient\":\"intents.near\",\"nonce\":\"Vij2xgAlKBKzwHNxeVlM5hgnE6eYDiX2sK50sGDhf0c=\",\"message\":\"{\\\"deadline\\\":\\\"2026-11-09T06:23:08.727Z\\\",\\\"intents\\\":[{\\\"intent\\\":\\\"mt_withdraw\\\",\\\"token\\\":\\\"v2_1.omni.hot.tg\\\",\\\"receiver_id\\\":\\\"bridge-refuel.hot.tg\\\",\\\"token_ids\\\":[\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"10_A2ewyUyDp6qsue1jqZsGypkCxRJ\\\"],\\\"amounts\\\":[\\\"2000\\\",\\\"3000\\\"],\\\"msg\\\":\\\"{\\\\\\\"amount_native\\\\\\\":\\\\\\\"2\\\\\\\",\\\\\\\"receiver_id\\\\\\\":\\\\\\\"2aEi7QMoRCvshYvrT779cXaDk1hC\\\\\\\",\\\\\\\"block_number\\\\\\\":100,\\\\\\\"tag\\\\\\\":\\\\\\\"p12g-x1\\\\\\\"}\\\",\\\"memo\\\":\\\"p12g-x1\\\",\\\"min_gas\\\":\\\"50000000\\\",\\\"storage_deposit\\\":null},{\\\"intent\\\":\\\"mt_withdraw\\\",\\\"token\\\":\\\"v2_1.omni.hot.tg\\\",\\\"receiver_id\\\":\\\"bridge-refuel.hot.tg\\\",\\\"token_ids\\\":[\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"10_A2ewyUyDp6qsue1jqZsGypkCxRJ\\\"],\\\"amounts\\\":[\\\"2000\\\",\\\"3000\\\"],\\\"msg\\\":\\\"{\\\\\\\"amount_native\\\\\\\":\\\\\\\"2\\\\\\\",\\\\\\\"receiver_id\\\\\\\":\\\\\\\"2aEi7QMoRCvshYvrT779cXaDk1hC\\\\\\\",\\\\\\\"block_number\\\\\\\":100,\\\\\\\"tag\\\\\\\":\\\\\\\"p12g-x2\\\\\\\"}\\\",\\\"memo\\\":\\\"p12g-x2\\\",\\\"min_gas\\\":\\\"1\\\",\\\"storage_deposit\\\":null}],\\\"signer_id\\\":\\\"roughrobe4214.near\\\"}\"},\"public_key\":\"ed25519:Hs5q57h5bLG7ey6FEAK6VW7aK28dRszpfXiVLHbVV65p\",\"signature\":\"ed25519:3wtYXWbvQCCpQDQEexM8ofDiPTEAtDg9xXRf9XUuy9krmoB4pniZLYd28UPR34kr1usn7Su8bcDY1UkcHyUHuWTF\"}]}\n\nDetails: error simulating intents: wasm execution failed with error: HostError(GuestPanic { panic_msg: \"insufficient balance or overflow\" })"
+  }
+]

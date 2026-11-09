@@ -1,0 +1,102 @@
+[
+  {
+    "name": "p11n-baseline-control-amount_native_2",
+    "intents": [
+      {
+        "memo": "p11n-c1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-c1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-native-lower-amount_native_1",
+    "intents": [
+      {
+        "memo": "p11n-l1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-l1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-native-minimal-amount_native_0",
+    "intents": [
+      {
+        "memo": "p11n-l0",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-l0\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-native-higher-amount_native_3",
+    "intents": [
+      {
+        "memo": "p11n-h3",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"3\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-h3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-single-token-slack-huge",
+    "intents": [
+      {
+        "memo": "p11n-s1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1000000"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-s1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-dup-token-slack-first-leg",
+    "intents": [
+      {
+        "memo": "p11n-d1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["999999", "1"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-d1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-multi-leg-mixed-native-pressure",
+    "intents": [
+      {
+        "memo": "p11n-m1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1000000"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-m1\"}"
+      },
+      {
+        "memo": "p11n-m2",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-m2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p11n-multi-leg-zero-then-control",
+    "intents": [
+      {
+        "memo": "p11n-z1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-z1\"}"
+      },
+      {
+        "memo": "p11n-z2",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "56_2w93GqMcEmQFDru84j3HZZWt557r"],
+        "amounts": ["2000", "1000000000000000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p11n-z2\"}"
+      }
+    ]
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "p10-identical-triple-same-memo",
+    "intentHash": "9dV2McG5dTvL7uPCFuZEdALebBnC5ocvkxdKDAGUJX2z",
+    "txHash": "rCqPMqQdVi8Hb3St6evpv8y4NByvahvP7pa2MagA6Xp",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p10-semantic-equal-different-json-shapes",
+    "intentHash": "4RSpi3o2uv2aSLnrh6p1MmMpooQoVneq5CoWMDxVjvzx",
+    "txHash": "E8ujUn8m71xmeDCPoFKf1pAntVD6VxR47GGnMxfXGVXq",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p10-dup-token-first-position-stress",
+    "intentHash": "D67myXU7xPsGQh6W2y29QVieEcDVgPxY9LNKMmpfEQgb",
+    "txHash": "8qXGKmuCvUnRH3wq42Ri6kUnqqH6VF1W5TMpiRfsHyZL",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]",
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p10-one-two-one-token-cardinality-sandwich",
+    "intentHash": "9xiuUv5gzZNr98yptMRfogZYfpoC7BbVTJ1EWeCxYaJY",
+    "txHash": "5RSC9jEspPCGPAXBzSgp7r9wiB5fqtKmXTa9oqUYBW78",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  }
+]

@@ -1,0 +1,91 @@
+[
+  {
+    "name": "p8e-one-token-only",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p8e-1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-second-token-only",
+    "intents": [
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["3000"],
+        "memo": "p8e-2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-imbalanced-amounts-a",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["1", "3000"],
+        "memo": "p8e-3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-imbalanced-amounts-b",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "1"],
+        "memo": "p8e-4",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e4\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-duplicate-token-a",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1000", "1000"],
+        "memo": "p8e-5",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e5\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-duplicate-token-b",
+    "intents": [
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["1500", "1500"],
+        "memo": "p8e-6",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e6\"}"
+      }
+    ]
+  },
+  {
+    "name": "p8e-valid-multi-leg-cardinality",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p8e-7a",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e7a\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p8e-7b",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e7b\"}"
+      },
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["3000"],
+        "memo": "p8e-7c",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p8e7c\"}"
+      }
+    ]
+  }
+]

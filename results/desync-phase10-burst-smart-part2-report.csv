@@ -1,0 +1,4 @@
+name,intentHash,txHash,signerAccountId,unused0,unusedRaw,unusedAll,bridgeSuccessDecoded,withdrawStarted,refundApplied,likelyDesync,note
+"p10-valid-plus-structured-array-plus-valid","J8KPr1eAuRBTsMJ4QAzGsTWcnYrmipfS9dLLEcYk8AoU","2TN7ExzYhdVfVzisgnCw2ThQ3KoxhBSPNPeoJ65QFozo","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p10-amount-native-coercion-trio","6T14n5AEExCrUsgBYHGfBsx3aoqfdyzKvQyDELLCafhH","2EUohDMWv2QeEowuBVaCLJhNSTWAiHyvYvyFo8Ye7T3S","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"
+"p10-block-edges-near-zero","67GZdDmq3hFPkb1KsxkAcRfK2FDGdZBcfLwGFTgyG2RX","7sDsvcsyGcdPA1BKXZz3XhNfTNyMN91TpawzAbDQTLtV","intents.near","","","[]","[]","false","true","false","Early refund path (likely mt_on_transfer panic/failure)"

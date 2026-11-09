@@ -1,0 +1,88 @@
+[
+  {
+    "name": "p13-control-small-single",
+    "intents": [
+      {
+        "memo": "p13-c1",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-c1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p13-native-zero-small-single",
+    "intents": [
+      {
+        "memo": "p13-z1",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-z1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p13-low-gas-small-single",
+    "intents": [
+      {
+        "memo": "p13-g1",
+        "min_gas": "1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-g1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p13-dup-token-small-split",
+    "intents": [
+      {
+        "memo": "p13-d1",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["499", "1"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-d1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p13-multi-leg-low-then-default",
+    "intents": [
+      {
+        "memo": "p13-m1",
+        "min_gas": "1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-m1\"}"
+      },
+      {
+        "memo": "p13-m2",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-m2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p13-multi-leg-zero-then-one-native",
+    "intents": [
+      {
+        "memo": "p13-n1",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-n1\"}"
+      },
+      {
+        "memo": "p13-n2",
+        "min_gas": "1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["500", "1000"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p13-n2\"}"
+      }
+    ]
+  }
+]

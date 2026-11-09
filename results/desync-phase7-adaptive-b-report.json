@@ -1,8 +1,8 @@
 [
   {
     "name": "p7b-token-shape-valid-sandwich",
-    "intentHash": "3m9vnW7ta5a1iFocYMRW1QLrg8zouabcNT9Hx4QkpTcj",
-    "txHash": "HGqmcqJWJBiaXpGdnBvtV9yTwEBz7ugauHzihumhnkvY",
+    "intentHash": "7zmRh8yYtBkqUuVQEXj7wG4PN3xCLhnfxbJNJgVvb5xg",
+    "txHash": "GUa12FKP486WqFwEn2656FW8Z8n5u5adH6SiL1ZjKgMj",
     "mtOnTransferUnusedAll": [],
     "withdrawStarted": false,
     "refundApplied": true,
@@ -11,8 +11,8 @@
   },
   {
     "name": "p7b-zero-and-small-amount-native-mix",
-    "intentHash": "EU1EqwNFGZPbN8VXiADWCdvSiqLA3a4uf8bmuLHNULba",
-    "txHash": "3RmmFkKJfhBQJxvDgmwBmNTX7v87v3nAMVAmPFWeVNLE",
+    "intentHash": "7kJgvZTiDnAE3qtuSotyUeYr2uCy8iURJHNRJnrus2dz",
+    "txHash": "AmetUPmnt9Qw7CVstEQ9RmczNLieTCGbL3pLH9AEs2hz",
     "mtOnTransferUnusedAll": [],
     "withdrawStarted": false,
     "refundApplied": true,
@@ -21,8 +21,8 @@
   },
   {
     "name": "p7b-amount-native-string-forms",
-    "intentHash": "J1zRFZmXy858QgdZYR6KAtpX1wZvuCdskJSjXGXJ6ptC",
-    "txHash": "5PpcDq3yrxuQcUu5C7QZ3QL5bLF1M2Q4BYiYQmY41ccL",
+    "intentHash": "AqVgpgNspZWPp1F1p17oXNwUQGyyKyAtZZzESgxZCfVP",
+    "txHash": "dJDcHa3xEuaWad9CJR9HbVZaWt1NJPaEG5jLvYQE2hY",
     "mtOnTransferUnusedAll": [],
     "withdrawStarted": false,
     "refundApplied": true,
@@ -31,8 +31,8 @@
   },
   {
     "name": "p7b-receiver-case-dup-shadow",
-    "intentHash": "B9LV3TWTRq3njxfujEap5NXNcDVzXwPv8XMCoRhBz7D7",
-    "txHash": "EBVMFe67Vse9pdtKMwUZCq253GmqTD9izTHJEiZTipgq",
+    "intentHash": "FRPjzFYHr5GXnxkR5Va68TrUXUBNuS3HJvt4CRRv1iUn",
+    "txHash": "83dTMkk7RLYSJmBH8ojKh6f8sTVpajFuwuKxc3DyCTLH",
     "mtOnTransferUnusedAll": [],
     "withdrawStarted": false,
     "refundApplied": true,

@@ -1,0 +1,158 @@
+[
+  {
+    "name": "p8e-one-token-only",
+    "intentHash": "Eckakc9dtdVM7t69jrCSrixH2oufMUo9q9HYFUQAUPp1",
+    "txHash": "5tFGqxj3PkT3VALsn9RieAGHNDZfKaNpXgH3bVMJpKSH",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-second-token-only",
+    "intentHash": "CdGK1w2o9JD4Df6rz5fvnpGLxfa6wRTFigA4eihCbsXq",
+    "txHash": "GkHaC1khVwv7Kh5xvyo9XAYFGE9pDb3HmUr7x5JN53pb",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-imbalanced-amounts-a",
+    "intentHash": "4oG8LG2J2Gx39LcXZtWCVumCWfzNEuyX3FdFkn8D1RDq",
+    "txHash": "12yt8NByxr2V3CU2JoLihyhBW7f1Q5WvRTkV5vAHzkba",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-imbalanced-amounts-b",
+    "intentHash": "3QLGMPgMhc6MYNktVVyZn14eSNNE8oWN6jjimUyLpoot",
+    "txHash": "2ySKeyC4B8C8VupFqjB7rfGu8WJLFtu31EAeFBWUBD4i",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-duplicate-token-a",
+    "intentHash": "J3SLr9KMYyUV7BShZ6idEtxhh67rwTCNUyds4rmGwr8F",
+    "txHash": "AvM2dTyT76U5XwhpFqVReGtmRMRQhanrpwZ2CkxuUtUe",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-duplicate-token-b",
+    "intentHash": "7eN8mPHtYujo3gehxSoFDc66Nidbo4q57jZvfZze2Q1d",
+    "txHash": "6APsU2wDy2Lg53kwvLrKSGg9eYZmBkyz5xD3cVn71a7L",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p8e-valid-multi-leg-cardinality",
+    "intentHash": "3TJXmiCiAwQPWr5s25JzHK2PFDkyZAG9fvU5QgzvXSSa",
+    "txHash": "23fq5oRjSvwGH43bzPjiCGVjox7knqQpZvCqP6FDT6sH",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  }
+]

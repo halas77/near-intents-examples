@@ -1,0 +1,65 @@
+[
+  {
+    "name": "p10r-dup-token-first-position-stress",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1999", "1"],
+        "memo": "p10r-a1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10ra1\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["1", "1999"],
+        "memo": "p10r-a2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10ra2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10r-one-two-one-token-cardinality-sandwich",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p10r-b1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":99,\"tag\":\"p10rb1\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p10r-b2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p10rb2\"}"
+      },
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["3000"],
+        "memo": "p10r-b3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p10rb3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p10r-tip-window-with-token-cardinality",
+    "intents": [
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["2000"],
+        "memo": "p10r-c1",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":223725694,\"tag\":\"p10rc1\"}"
+      },
+      {
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["2000", "3000"],
+        "memo": "p10r-c2",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":223725697,\"tag\":\"p10rc2\"}"
+      },
+      {
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["3000"],
+        "memo": "p10r-c3",
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":223725700,\"tag\":\"p10rc3\"}"
+      }
+    ]
+  }
+]
