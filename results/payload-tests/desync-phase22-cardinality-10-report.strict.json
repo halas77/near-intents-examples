@@ -1,0 +1,69 @@
+[
+  {
+    "name": "p22-cardinality-base-valid",
+    "intentHash": "BGs6WkfnmPW6mJQ8BaC61fYDDkr8B8nBHhYuLwR2tKqF",
+    "txHash": "3fFQNQmSGdnBeajVpMxBWgFbsCUmFhxsr7vcLd35k6JY",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p22-card-base",
+        "transferReceiptId": "AH8gbrLyw1QQnBNEG11ygn8LAeYsG1P2Db6xFduM4efm",
+        "bridgeReceiptId": "5nBUhdYnmxDhNWhWC2sr78afsnRP7MitDUdVHXVARUXh",
+        "unused": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

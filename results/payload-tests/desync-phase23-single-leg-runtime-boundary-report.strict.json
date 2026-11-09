@@ -1,0 +1,367 @@
+[
+  {
+    "name": "p23-single-two-token-low-native",
+    "intentHash": "A7JjwLhq2FYuYce2dEAHfnzpTy212UY8N13rhDnmW6ef",
+    "txHash": "DTmDaJKCWygwT1fgo8E33qmKg9RUiU7Hqp2sJksZa9Yc",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-low-native",
+        "transferReceiptId": "4qVxLkHb5yyjYBD9KWxHcfF9nMT4ao6gD5hVx6DnPvkx",
+        "bridgeReceiptId": "vic2amBsJLDU2THoSS3qFnpHp8eHswgr8i5PmBentuj",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-two-token-high-native",
+    "intentHash": "CxpuZJp18Y6ritchDyiueehvVNU6dhguJwwMs9DLCFaP",
+    "txHash": "LVNAnST93638B83HCLob11fDq2o8PPMNSUwG1GstWN1",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-high-native",
+        "transferReceiptId": "5ev9Dgi8xfDfBCFh8ay1oGtHVvmmnkHDpwNS3kcmqUZJ",
+        "bridgeReceiptId": "BCsqRM1583EkgCjCF9xkwACR7c3ag35jTigM3RzZV6Ph",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-two-token-zero-native",
+    "intentHash": "ESif8x1Bb5VMyyCrnJ8uG61rKTU4bfcyp3adWwKtTEaF",
+    "txHash": "9o86jEUKo1LfX2SPJiUqqZg4XYxxoPN4QHH1u9U1LS8C",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-zero-native",
+        "transferReceiptId": "FqNfKoGUaUV49gKDQhr8G8rUUPRMLbBKHwSnzgh6X1Qk",
+        "bridgeReceiptId": "AVsPVEY1GUQexHkcDaGWeVBDT8HyWJ5uEKK4A72kJvcq",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-ten-token-cap-valid",
+    "intentHash": "4i6eZHgPwxEJW9mYUsnxv9oPPzkUiJ4q8dP55nb1tRQf",
+    "txHash": "5EcztiZFEHTZ8FXszxtfpRE2WzrHVPM9hvw2Z7c5mwdk",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-ten-cap",
+        "transferReceiptId": "3UY6PtZzTfysjhMpZV3za3i5EtDzbeMkA4FS13o4M5QA",
+        "bridgeReceiptId": "59nLhbQqkUZCfgnm44vBsmexjTv59ZME9crG6iezhDdq",
+        "unused": [
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-two-token-min-gas-zero",
+    "intentHash": "3Mj3QuwZpKh6AbfRXEcKq5a3VRiMaEoP8p6STZXUHj7S",
+    "txHash": "26fz8K4J2Q8qPwYnXNeVd8gSS1C8tSa3WUyPLTyiuZRX",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-gas0",
+        "transferReceiptId": "98hUyHnTkRqZG3h9ho67N3oxspMSNfrzmkQx2UXcmvvs",
+        "bridgeReceiptId": "E5D8udqC57TJ6SDEy7FXqn4Tzyit14UyWV97SCoJSoXH",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-two-token-min-gas-one",
+    "intentHash": "BDGfRCVcREM4xemw9P87QTU6zX8yjohAwa1DYc9cpri5",
+    "txHash": "HpUFRZJFzPnm3mfYnbZX3GFCVLJtfPJ8zGWSa2ZwV1n5",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-gas1",
+        "transferReceiptId": "CuUQZGh2jPKyHa3CAx65pQ2isqkgbFXJygyR8T3u6ajp",
+        "bridgeReceiptId": "FiBVzCp942UgCedJjp9yNDiTB6L2Xp6R2WYUHLNfABok",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-one-token-long-memo-valid",
+    "intentHash": "Fo1dx1n9o7RrTq1hdGA12U7UYBCmM7FroA1dWPi1nndV",
+    "txHash": "74t58o6FL1QRHJCQ1bMvsi2FBqNbncjyxVHcMVWsSxEV",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-long-memo-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "transferReceiptId": "5V4MNrxZdpUYZ5xByPJPqM8CbGJaza657nuQ9zFdYCoR",
+        "bridgeReceiptId": "7kAGDLuTsragbafUc8GyuaZ7DA3FrQ82gBcfza7snFjp",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p23-single-two-token-large-amounts",
+    "intentHash": "ExicjXoHZNo8iBaeg8MEJbh2Ef8mWP7JzMSZC8PewXo",
+    "txHash": "4RP1181MsPH2jGX14EqPRAtK7Pi8wgpecx8RTzMYym3J",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p23-two-large",
+        "transferReceiptId": "BTtNHcPcJRH1utmVNxUGD8rnxdXmi7AEM8KZJzA4KWVS",
+        "bridgeReceiptId": "8gGQUyuxXd7KC8wg1MWPVm3qaMKMJjTzjAJucW6yMtcT",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

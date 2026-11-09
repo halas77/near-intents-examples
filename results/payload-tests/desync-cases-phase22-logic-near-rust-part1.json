@@ -1,0 +1,74 @@
+[
+  {
+    "name": "p22-float-block-number",
+    "intents": [
+      {
+        "memo": "p22-float-block",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100.5,\"tag\":\"p22-float-block\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-block-number-string-typeflip",
+    "intents": [
+      {
+        "memo": "p22-block-str",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"100\",\"tag\":\"p22-block-str\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-amount-native-scientific",
+    "intents": [
+      {
+        "memo": "p22-sci",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1e0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-sci\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-amount-native-negative-zero",
+    "intents": [
+      {
+        "memo": "p22-neg-zero",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"-0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-neg-zero\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-amount-native-leading-space",
+    "intents": [
+      {
+        "memo": "p22-leading-space",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\" 1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-leading-space\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-amount-native-leading-zeros",
+    "intents": [
+      {
+        "memo": "p22-leading-zeros",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"0000000000000000000001\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-leading-zeros\"}"
+      }
+    ]
+  }
+]

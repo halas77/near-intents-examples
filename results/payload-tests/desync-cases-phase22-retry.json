@@ -1,0 +1,26 @@
+[
+  {
+    "name": "p22-block-number-string-typeflip-retry",
+    "intents": [
+      {
+        "memo": "p22-block-str-retry",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"100\",\"tag\":\"p22-block-str-retry\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-valid-min-gas-one-retry",
+    "intents": [
+      {
+        "memo": "p22-min-gas-1-retry",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-min-gas-1-retry\"}"
+      }
+    ]
+  }
+]

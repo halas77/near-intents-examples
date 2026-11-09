@@ -1,0 +1,9 @@
+[
+  {
+    "name": "p22-cardinality-base-valid",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: Failed to publish intent.\n\nCode: UNKNOWN_ERROR\nPublish params: {\"quote_hashes\":[],\"signed_datas\":[{\"standard\":\"nep413\",\"payload\":{\"recipient\":\"intents.near\",\"nonce\":\"Vij2xgAlKBKzwNW2SoxV5hjdJX5c0Dh8OJA9oeRzVo4=\",\"message\":\"{\\\"deadline\\\":\\\"2026-11-09T09:11:42.591Z\\\",\\\"intents\\\":[{\\\"intent\\\":\\\"mt_withdraw\\\",\\\"token\\\":\\\"v2_1.omni.hot.tg\\\",\\\"receiver_id\\\":\\\"bridge-refuel.hot.tg\\\",\\\"token_ids\\\":[\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\",\\\"137_qiStmoQJDQPTebaPjgx5VBxZv6L\\\"],\\\"amounts\\\":[\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\",\\\"1\\\"],\\\"msg\\\":\\\"{\\\\\\\"amount_native\\\\\\\":\\\\\\\"1\\\\\\\",\\\\\\\"receiver_id\\\\\\\":\\\\\\\"2aEi7QMoRCvshYvrT779cXaDk1hC\\\\\\\",\\\\\\\"block_number\\\\\\\":100,\\\\\\\"tag\\\\\\\":\\\\\\\"p22-card-base\\\\\\\"}\\\",\\\"memo\\\":\\\"p22-card-base\\\",\\\"min_gas\\\":\\\"1000\\\",\\\"storage_deposit\\\":null}],\\\"signer_id\\\":\\\"roughrobe4214.near\\\"}\"},\"public_key\":\"ed25519:Hs5q57h5bLG7ey6FEAK6VW7aK28dRszpfXiVLHbVV65p\",\"signature\":\"ed25519:2eZwmARPkCyfV7iegjYf91yi5ftom9eDDKWGuy5K1prvy5TAPBg8fAQaWc6XAaJYCzrQkGS9Xwqb7LfFdvEVvUbY\"}]}\n\nDetails: error simulating intents: wasm execution failed with error: HostError(GuestPanic { panic_msg: \"too many tokens: max batch size is 10, got 11\" })"
+  }
+]

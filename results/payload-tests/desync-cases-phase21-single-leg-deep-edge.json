@@ -1,0 +1,122 @@
+[
+  {
+    "name": "p21-single-boundary-u64-max",
+    "intents": [
+      {
+        "memo": "p21-u64-max",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p21-u64-max\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-u64-overflow-plus-one",
+    "intents": [
+      {
+        "memo": "p21-u64-over",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551616,\"tag\":\"p21-u64-over\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-amount-native-u128-overflow",
+    "intents": [
+      {
+        "memo": "p21-u128-over",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"340282366920938463463374607431768211456\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-u128-over\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-amount-native-unicode-fullwidth",
+    "intents": [
+      {
+        "memo": "p21-unicode-digit",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"２\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-fullwidth\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-amount-native-trailing-nbsp",
+    "intents": [
+      {
+        "memo": "p21-nbsp",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"2 \",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-nbsp\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-receiver-invalid-base58-zero-char",
+    "intents": [
+      {
+        "memo": "p21-b58-zero",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__0\",\"block_number\":100,\"tag\":\"p21-b58-zero\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-duplicate-key-zero-width-shadow",
+    "intents": [
+      {
+        "memo": "p21-dup-zw",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"amount_native‍\":\"999\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-dup-zw\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-min-gas-1-valid-shape",
+    "intents": [
+      {
+        "memo": "p21-gas-1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-gas-1\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-min-gas-zero-valid-shape",
+    "intents": [
+      {
+        "memo": "p21-gas-0",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "0",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-gas-0\"}"
+      }
+    ]
+  },
+  {
+    "name": "p21-single-deep-structure-pressure",
+    "intents": [
+      {
+        "memo": "p21-deep",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p21-deep\",\"meta\":{\"lvl1\":{\"lvl2\":{\"lvl3\":{\"lvl4\":{\"lvl5\":{\"mode\":\"stress\",\"arr\":[\"x\",\"x\",\"x\",\"x\",\"x\",\"x\",\"x\",\"x\"]}}}}}}}"
+      }
+    ]
+  }
+]

@@ -1,0 +1,244 @@
+[
+  {
+    "name": "p20-shared-memo-valid-overflow-valid",
+    "intentHash": "6dQHfq3niSRA45McRrZJFDj95x3g4jhzGoVQ9DwmqubQ",
+    "txHash": "9NDGDtDopS7YaPEp6Ue1CVL87C1QTyapMhAf9XMA2ZAr",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p20-shared-a",
+        "transferReceiptId": "BwZTRXy8otgYbJ28ceE8aMVFvYkTAY3W5qxbPe4bGZCh",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-shared-a",
+        "transferReceiptId": "AT2XokoFSWu4JgGz3YB3qfL5o1SRPTQnqqLiKokRu65",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-shared-a",
+        "transferReceiptId": "GNJKAsnRgG7oPfxbnXPEKqFwqVvexD7QdRdu66jvFAJ3",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:C7nGDKK4ZW7B29h24Zg4vkcejJ59fz2kczs8MhGtohWz:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}",
+      "bridge-refuel.hot.tg:ChKAMn6uy5BpupqBr3c6Wyk7QZQN4mEJEczzEHkaQYTM:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}",
+      "bridge-refuel.hot.tg:3Ci6pjryUV9tNcVBMshBP3P6yuuquD1qGfzsbxqxXFZG:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p20-log-pressure-jumbo-msg",
+    "intentHash": "DAaM4fBD86EdUgHTRASuY5Z23C7U68UfaG7jX8VjEEFn",
+    "txHash": "AaqSggXzezbmuU1MWqp1U9RiD46YoEPyBd21664hdiXT",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "6fsX6BTrGcxseWuoXDRTeqV6A37mZuczNsiVvUKZV4ps",
+        "bridgeReceiptId": "GVKwyAhXULEQ9eCqjKcCSTizkfmrHEVg6SKst9Fy5rhH",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p20-duplicate-amount-tail-object",
+    "intentHash": "4A7un81WBpStVEsxFjqw87S7PJ4fG2bRpPzy4bwJdHFs",
+    "txHash": "B5RQSjLpLYbDyxdmtFHRBN7JFGoEPqX9QvFuDnS8hqSA",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "CSm2FkbfpQE4hY69eVnWmkHNoydBXX3yQUgVAGfr77j2",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:GfAjDiwA4avAvuRB5s3TLH3fj4djfixh7DoaTjLJV5ot:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"duplicate field `amount_native`\\\", line: 1, column: 36)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p20-number-format-ambiguity-pack",
+    "intentHash": "7naeQ4ghCx2Mu74rJQnyjd5D2iJn5RxC1J1Ty8G5G3n8",
+    "txHash": "HtkE4WjKcTKb1vqhMvRAfDusc8rUk2MdXtHmgXGjKzKk",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p20-numfmt",
+        "transferReceiptId": "4zpKkcewQR8UshgFvf4DMsAbKj14j9UcPnJhDHWcMKAy",
+        "bridgeReceiptId": "9yCSNW6Uu8geJDjTiXe1Hgm1r67BD78NoiLcbrRj34mM",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-numfmt",
+        "transferReceiptId": "BuLRcnWucFH1VCjEhbFmqHEfAja3RgyGgGrbu4oauizi",
+        "bridgeReceiptId": "4EvqcuAfAYKxc3f2juWvM34VX3SJwqbQ6ZmuApgK6AA9",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-numfmt",
+        "transferReceiptId": "DYK8FgNWpzDWwPzZFZdJod7CHs2YYGgp4yMqaqeFmpdg",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": true,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:GVgrW8npfxRNxvZKCferXbvqtsXz5iwK5H21C5ECQKyq:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid digit found in string\\\", line: 1, column: 21)\"}}}}"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": true,
+    "note": "Potential desync: withdraw continued while panic/error signals + refund were observed"
+  },
+  {
+    "name": "p20-receiver-shadow-zero-width",
+    "intentHash": "78uaC4zcH3WSYuKU17Toyumx4KVNk4YMJchi4rZAr21i",
+    "txHash": "GXYXECpXxSiRfQMLt8qMHdNwcAYRzVXJ1F6MeXZkDntR",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "MsrxiPuDVZCKGDdZHxVb5AJHExpnzq8VjFYHpLJ1ruq",
+        "bridgeReceiptId": "3g47gFCJEjgLUEzobFAc5JjqyTUBW5ga27fixbSXWDp6",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p20-token-cardinality-2-1-2",
+    "intentHash": "ApHe3QkbnABq79mNi7L94ESLKKMr73NLakoAVWoc2KU",
+    "txHash": "H9f1C91WjxufiC4XXUD9d1T9uJnNMbxa1PXCCKKhMuT8",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p20-card",
+        "transferReceiptId": "4xT58TELwG35BrkfF9PbzXmreWDaUvwA1d1VajBKJmap",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-card",
+        "transferReceiptId": "26iV6yZudyQueXrLNvJDitJKoxGY1pBsQ8Mr5xWz6ivj",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p20-card",
+        "transferReceiptId": "7E2VM9a1UnpB73YdubLs3a4H95r6vChLRXRgcnNNsw8P",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:AjYLCc4fuxGeqvjHiHgCm9zDubwe8Ltwj4AV1VeGXPtP:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}",
+      "bridge-refuel.hot.tg:5DVnoiUCiEdTGP3JyZai3DvhYPa3NkHTsBNp52mZRCje:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}",
+      "bridge-refuel.hot.tg:4mGCxNzjSmkAuEYrqYegYM9RqAZr7Hd6W44tz9i9Cnaj:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

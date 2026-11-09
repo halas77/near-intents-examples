@@ -1,0 +1,71 @@
+[
+  {
+    "name": "p22-block-number-string-typeflip-retry",
+    "intentHash": "GLHz57Hb71cqs1Uoydv9ZdJJNHa315cuiXpReDLSzznf",
+    "txHash": "7tyGGhJDoAiNai9gZaQvp5SWpUH1gzc4LcpEDT1cXSgJ",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-block-str-retry",
+        "transferReceiptId": "7k9Pt73z868E1AeoZPNn4hGJqJLLvajyZCkVKNq1vQQr",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:FRXxRzszTwqfLcwPiFqo6BkzDW42A7b14LqnA3J7TYEf:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid type: string \\\\\\\"100\\\\\\\", expected u64\\\", line: 1, column: 86)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-valid-min-gas-one-retry",
+    "intentHash": "892UEudaZGfnMYMw489dKR3UjFT8b2GsgTh41MaNH4cw",
+    "txHash": "ARjQFQ9JSG9f3BnXBHxHRtfWzy6WoX2fSbHkCwA4M2h6",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p22-min-gas-1-retry",
+        "transferReceiptId": "AeTZWNcQFnwmqa88it8uZ1UJGS2Tw7XyLfRmRr8D1c42",
+        "bridgeReceiptId": "FjUNbWbf8m2JAvpW4WB4ZGToLuTpY28TPvPjUYBZR6pZ",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

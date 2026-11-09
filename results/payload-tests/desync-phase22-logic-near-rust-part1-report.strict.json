@@ -1,0 +1,187 @@
+[
+  {
+    "name": "p22-float-block-number",
+    "intentHash": "2LEPiBCSwsjfE7QZZhNhM9ntNkKtnRVrCymVkpBXzJGq",
+    "txHash": "ANZYMRZ7c8dzCy1zTSN1gifbEvYTVfYTNAvEFoWj2JZ7",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-float-block",
+        "transferReceiptId": "6YZKXaAw8rBdPkEiHoAqFup9SzZnZBHFRZTUkQfXQ6An",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:3z3SzGTzdVxYALyKgyiADg9gMyE5oEV3dGxQyGoVYomN:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid type: floating point `100.5`, expected u64\\\", line: 1, column: 86)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-block-number-string-typeflip",
+    "intentHash": "D3Hwj7ufHQt4ns84sg3kEJvwPC7WHCGKtHf3UUDxnz31",
+    "txHash": "DUugu6U6wk24YHVYPy5tubhkcGhbt7jft5gzqkgiVqD1",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-block-str",
+        "transferReceiptId": "feG74kRDEyuCcxFPVY71w5HiZYBUXwZ3b45WDemy5yQ",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:2KtbTMsKKdkE1V8GdjsD1aCSjtpwkB1ngQ3rdEx6Rjpa:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid type: string \\\\\\\"100\\\\\\\", expected u64\\\", line: 1, column: 86)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-amount-native-scientific",
+    "intentHash": "6vDL5fpnps9edkSGsVxEAYZiPnqtBDE3SsBeRpoGGD1s",
+    "txHash": "EjWs17dN6MVwjQLaWM9USunsw4oZW9AYTLpcBC6wKbve",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-sci",
+        "transferReceiptId": "BEuufPYbQeuvjxw5uUDp1Jj3FfoJGoiqAXCLiQbC19Tb",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:8jTqxQhFSM6KeoRHD1VtN8E5MNHwYC2amYmMx43fkuPW:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid digit found in string\\\", line: 1, column: 22)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-amount-native-negative-zero",
+    "intentHash": "6NuMK7haU62QKJfyjQagdEP6WetCgCq6sqGNSHN84J8G",
+    "txHash": "a59fRoAd8c6ViDmZQ4poHQ2v8B9PCcQvP5T5s3ZwMe7",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-neg-zero",
+        "transferReceiptId": "HcbJUN6TeZztgCMXQAXx3Hs6JQuZuWHeTSXu394sF3C9",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:Hq8sZMabjoksC4kpYpiAvwhK4Zi2UbQqhg7Q4eSJnzCP:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid digit found in string\\\", line: 1, column: 21)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-amount-native-leading-space",
+    "intentHash": "CdkXVM2sNNsRsHbhXASpYBVgZNmk6YgaQguh6CR5WuSe",
+    "txHash": "E4kQZupV1ck49nq7kGYtshmfp93VHoJMLMesZVaZbiig",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p22-leading-space",
+        "transferReceiptId": "7yTtf8G6xWm4JUv2AHNoCe1oYPh4FDApNEA849kudPb7",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:DJopLFKWXz6thVDWaBGPkbUZM5V4opX1Ln2Ch6pxJTGw:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid digit found in string\\\", line: 1, column: 21)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p22-amount-native-leading-zeros",
+    "intentHash": "FwxgTxn7biUxQmjDARG99AMj2mpLvWTw7AkW2swEvsag",
+    "txHash": "72gZbKwUgAqSFRE1XpYbUs3LLTvJy9SqfuoAWdq4hUsN",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p22-leading-zeros",
+        "transferReceiptId": "Eznf9hykBJyJhwpCNcy7dGYKhn32TdXUGDofaPRzHkMf",
+        "bridgeReceiptId": "5yVu78AVxek9E8tksjMrnRiTPkyURVQNqfbuKL3Ae3mm",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "legCount": 1,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "doubleOutcomeObserved": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

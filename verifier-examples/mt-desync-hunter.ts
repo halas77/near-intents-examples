@@ -55,10 +55,12 @@ interface CaseResult {
   mtOnTransferUnusedAll?: string[][];
   bridgeSuccessDecoded?: string[];
   legTraces?: LegTrace[];
+  legCount?: number;
   correlatedLikelyDesync?: boolean;
   callbackErrorObserved?: boolean;
   panicOrErrorObserved?: boolean;
   withdrawContinuedAfterError?: boolean;
+  doubleOutcomeObserved?: boolean;
   failureReceipts?: string[];
   withdrawStarted: boolean;
   refundApplied: boolean;
@@ -390,12 +392,14 @@ function analyzeOutcome(
   mtOnTransferUnusedAll: string[][],
   receiverId: string,
   executionSignals: ExecutionSignals,
+  legCount: number,
 ): {
   withdrawStarted: boolean;
   refundApplied: boolean;
   likelyDesync: boolean;
   note: string;
   withdrawContinuedAfterError: boolean;
+  doubleOutcomeObserved: boolean;
 } {
   const allLogs = outcome.result.receipts_outcome.flatMap((r) =>
     r.outcome.logs.map((l) => ({ executor: r.outcome.executor_id, log: l })),
@@ -424,21 +428,30 @@ function analyzeOutcome(
     }
   });
 
+  const contradictionSignal =
+    nonZeroUnused0 ||
+    executionSignals.callbackErrorObserved ||
+    executionSignals.panicOrErrorObserved;
+
   const withdrawContinuedAfterError =
     withdrawStarted &&
     refundApplied &&
     (executionSignals.callbackErrorObserved ||
       executionSignals.panicOrErrorObserved);
 
-  const likelyDesync =
-    (withdrawStarted && nonZeroUnused0) || withdrawContinuedAfterError;
+  const doubleOutcomeObserved =
+    withdrawStarted && refundApplied && contradictionSignal;
+
+  const isSingleLeg = legCount === 1;
+  const likelyDesync = doubleOutcomeObserved && isSingleLeg;
 
   let note = 'No contradiction observed';
-  if (withdrawStarted && nonZeroUnused0) {
-    note = 'Potential desync: withdraw_started && mt_on_transfer_unused[0] > 0';
-  } else if (withdrawContinuedAfterError) {
+  if (doubleOutcomeObserved && !isSingleLeg) {
     note =
-      'Potential desync: withdraw continued while panic/error signals + refund were observed';
+      'Ambiguous multi-leg batch: withdraw+refund observed, but not provably same leg';
+  } else if (likelyDesync) {
+    note =
+      'High-confidence potential desync: single-leg case with withdraw + refund + (unused>0 or panic/error)';
   } else if (withdrawStarted && !refundApplied && !nonZeroUnused0) {
     note = 'Withdraw path started with zero-unused return';
   } else if (!withdrawStarted && refundApplied) {
@@ -454,6 +467,7 @@ function analyzeOutcome(
     likelyDesync,
     note,
     withdrawContinuedAfterError,
+    doubleOutcomeObserved,
   };
 }
 
@@ -701,9 +715,11 @@ function toCsv(results: CaseResult[]): string {
     'unusedAll',
     'bridgeSuccessDecoded',
     'correlatedLikelyDesync',
+    'legCount',
     'callbackErrorObserved',
     'panicOrErrorObserved',
     'withdrawContinuedAfterError',
+    'doubleOutcomeObserved',
     'failureReceipts',
     'legTraces',
     'withdrawStarted',
@@ -727,9 +743,11 @@ function toCsv(results: CaseResult[]): string {
       r.mtOnTransferUnusedAll ? JSON.stringify(r.mtOnTransferUnusedAll) : '',
       r.bridgeSuccessDecoded ? JSON.stringify(r.bridgeSuccessDecoded) : '',
       String(r.correlatedLikelyDesync ?? false),
+      String(r.legCount ?? 0),
       String(r.callbackErrorObserved ?? false),
       String(r.panicOrErrorObserved ?? false),
       String(r.withdrawContinuedAfterError ?? false),
+      String(r.doubleOutcomeObserved ?? false),
       r.failureReceipts ? JSON.stringify(r.failureReceipts) : '',
       r.legTraces ? JSON.stringify(r.legTraces) : '',
       String(r.withdrawStarted),
@@ -872,12 +890,14 @@ async function runCase(
     mtOnTransferUnusedAll,
     config.receiverId,
     executionSignals,
+    legTraces.length,
   );
 
-  const likelyDesync = analysis.likelyDesync || correlatedLikelyDesync;
-  const note = correlatedLikelyDesync
-    ? 'Potential correlated desync: transfer leg observed with unused[0] > 0'
-    : analysis.note;
+  const likelyDesync = analysis.likelyDesync;
+  const note =
+    !analysis.likelyDesync && correlatedLikelyDesync
+      ? 'Unused[0] > 0 observed, but strict criterion not met (requires single-leg withdraw+refund contradiction)'
+      : analysis.note;
 
   return {
     name: testCase.name,
@@ -889,9 +909,11 @@ async function runCase(
     bridgeSuccessDecoded: bridgeReturn.decodedSuccessValues,
     legTraces,
     correlatedLikelyDesync,
+    legCount: legTraces.length,
     callbackErrorObserved: executionSignals.callbackErrorObserved,
     panicOrErrorObserved: executionSignals.panicOrErrorObserved,
     withdrawContinuedAfterError: analysis.withdrawContinuedAfterError,
+    doubleOutcomeObserved: analysis.doubleOutcomeObserved,
     failureReceipts: executionSignals.failureReceipts,
     withdrawStarted: analysis.withdrawStarted,
     refundApplied: analysis.refundApplied,
@@ -992,12 +1014,14 @@ async function main() {
         console.log('leg_traces      :', result.legTraces);
       }
       console.log('corrDesync      :', result.correlatedLikelyDesync ?? false);
+      console.log('legCount        :', result.legCount ?? 0);
       console.log('callbackError   :', result.callbackErrorObserved ?? false);
       console.log('panicOrError    :', result.panicOrErrorObserved ?? false);
       console.log(
         'continueOnError :',
         result.withdrawContinuedAfterError ?? false,
       );
+      console.log('doubleOutcome  :', result.doubleOutcomeObserved ?? false);
       if (result.failureReceipts?.length) {
         console.log('failureReceipts :', result.failureReceipts);
       }
@@ -1020,7 +1044,7 @@ async function main() {
   console.log('\n=== Summary ===');
   for (const r of results) {
     console.log(
-      `${r.name.padEnd(24)} | desync=${String(r.likelyDesync).padEnd(5)} | unused0=${r.mtOnTransferUnused?.[0] ?? '-'} | withdraw=${r.withdrawStarted} | refund=${r.refundApplied} | continueOnError=${r.withdrawContinuedAfterError ?? false}`,
+      `${r.name.padEnd(24)} | desync=${String(r.likelyDesync).padEnd(5)} | legs=${String(r.legCount ?? 0).padEnd(2)} | unused0=${r.mtOnTransferUnused?.[0] ?? '-'} | withdraw=${r.withdrawStarted} | refund=${r.refundApplied} | continueOnError=${r.withdrawContinuedAfterError ?? false}`,
     );
   }
 

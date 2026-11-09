@@ -1,0 +1,12 @@
+[
+  {
+    "name": "p22-cardinality-base-valid",
+    "intents": [
+      {
+        "memo": "p22-card-base",
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-card-base\"}"
+      }
+    ]
+  }
+]

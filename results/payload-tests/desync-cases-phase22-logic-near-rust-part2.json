@@ -1,0 +1,74 @@
+[
+  {
+    "name": "p22-receiver-base58-invalid-O-char",
+    "intents": [
+      {
+        "memo": "p22-b58-O",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__O\",\"block_number\":100,\"tag\":\"p22-b58-O\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-duplicate-amount-native-keys",
+    "intents": [
+      {
+        "memo": "p22-dup-amount",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-dup-amount\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-object-instead-of-amount-native",
+    "intents": [
+      {
+        "memo": "p22-obj-amount",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":{\"value\":\"1\"},\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-obj-amount\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-empty-token-lists",
+    "intents": [
+      {
+        "memo": "p22-empty-tokens",
+        "token_ids": [],
+        "amounts": [],
+        "min_gas": "1000",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-empty-tokens\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-valid-min-gas-zero",
+    "intents": [
+      {
+        "memo": "p22-min-gas-0",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "0",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-min-gas-0\"}"
+      }
+    ]
+  },
+  {
+    "name": "p22-valid-min-gas-one",
+    "intents": [
+      {
+        "memo": "p22-min-gas-1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "min_gas": "1",
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p22-min-gas-1\"}"
+      }
+    ]
+  }
+]
