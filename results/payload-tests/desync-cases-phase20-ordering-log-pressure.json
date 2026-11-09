@@ -1,0 +1,83 @@
+[
+  {
+    "name": "p20-shared-memo-valid-overflow-valid",
+    "intents": [
+      {
+        "memo": "p20-shared-a",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-a1\"}"
+      },
+      {
+        "memo": "p20-shared-a",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2001\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-a2-overflow\"}"
+      },
+      {
+        "memo": "p20-shared-a",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p20-a3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p20-log-pressure-jumbo-msg",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-jumbo\",\"memo_pad\":\"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"}"
+  },
+  {
+    "name": "p20-duplicate-amount-tail-object",
+    "rawMsg": "{\"amount_native\":\"2\",\"amount_native\":{\"n\":\"2\"},\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-dup-obj\"}"
+  },
+  {
+    "name": "p20-number-format-ambiguity-pack",
+    "intents": [
+      {
+        "memo": "p20-numfmt",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"0002\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-n1-leading-zero\"}"
+      },
+      {
+        "memo": "p20-numfmt",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"2 \",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-n2-trailing-space\"}"
+      },
+      {
+        "memo": "p20-numfmt",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"+2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-n3-plus\"}"
+      }
+    ]
+  },
+  {
+    "name": "p20-receiver-shadow-zero-width",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\\u200b\":\"evil.receiver\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-zw-shadow\"}"
+  },
+  {
+    "name": "p20-token-cardinality-2-1-2",
+    "intents": [
+      {
+        "memo": "p20-card",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-c1\"}"
+      },
+      {
+        "memo": "p20-card",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p20-c2\"}"
+      },
+      {
+        "memo": "p20-card",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p20-c3\"}"
+      }
+    ]
+  }
+]

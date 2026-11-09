@@ -1,0 +1,291 @@
+[
+  {
+    "name": "p19-trident-valid-neg1-valid",
+    "intentHash": "CWyHvGRRwmdfhPDv6Ds8GVjJaWB2yysTjCiVPFDA121B",
+    "txHash": "M3A1kYqrnpPAfNtPzV8T2hncNfv5SafWeaXHpT6mpwr",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p19-neg-shared",
+        "transferReceiptId": "6fbe39wgdeS6ZSCjfZGNQz6yLUehZxfnGkmzAgEe77hQ",
+        "bridgeReceiptId": "86snTZB3mGKTscHtwJ2MQ5WKggue2SwfkkUcD8uCJ1BE",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-neg-shared",
+        "transferReceiptId": "2Yzsx4amByZkHdFoUxQHVeUTSjTuRnr1vZ6ceFLi3nMT",
+        "bridgeReceiptId": "opL2zd5yP2jLcVNKZ4ovZANXeKDHfswWy6sf9kXUdj8",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-neg-shared",
+        "transferReceiptId": "3KwSLtTUSchvU7BJmrNHhWZPnKp5gnbaMty3Lwz8cX2D",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": true,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:5jFtAEzLw9w1NGDh6GCwYN4zmVULmAHKzPoUBZxUfhz2:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid value: integer `-1`, expected u64\\\", line: 1, column: 83)\"}}}}"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": true,
+    "note": "Potential desync: withdraw continued while panic/error signals + refund were observed"
+  },
+  {
+    "name": "p19-trident-valid-null-valid-amount",
+    "intentHash": "6hhxE77w14Dg93X7AbR1FuuNc1cktTqR51Gu9n5hGYJE",
+    "txHash": "vL9ZkMMDto9rVbHhJzj1j7Qk9vEhjq5try5SWyKTtEt",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p19-null-shared",
+        "transferReceiptId": "6eMFE9StK55RzkhpDrdzjekCVUo2L1npEijz9211a24L",
+        "bridgeReceiptId": "AVxJokrxw5o7rC6h8296FVguu5J4ZFApAaMWVJY2Tvdd",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-null-shared",
+        "transferReceiptId": "2xPEoM9msPN6aamT6ik7R3vWFWwaoNa87f1vnGdGEjsQ",
+        "bridgeReceiptId": "7G3VtDkDJuBJWzfw9y6X3nxj7C1G9jmJtyqxFmEdRnnx",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-null-shared",
+        "transferReceiptId": "A4UXuc4udhaZBjnV66v5kduc7TpSDXEFE8g9XFvmAVoP",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": true,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:5hhfYLMTfo9qKu16mfn6BVKdYmfpzw6heG8UFifjdxvV:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:111:65:\\ncalled `Option::unwrap()` on a `None` value\"}}}}"
+    ],
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": true,
+    "note": "Potential desync: withdraw continued while panic/error signals + refund were observed"
+  },
+  {
+    "name": "p19-trident-valid-object-valid-amount",
+    "intentHash": "C3VCcFE8aDbmYmhZL6dWU6n9npFhfixMT5DVNiHwgWYn",
+    "txHash": "Fw6cgECbJ8iMCqU88u2LvrTgd49MJ7r3j74uqtQzLQi1",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p19-obj-shared",
+        "transferReceiptId": "8CbntYUBPPrULkFZJncESrfQeASECPCT6XJHfQSp7qj6",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-obj-shared",
+        "transferReceiptId": "DTcMGe6u196scyjrfLKnEqxXBRDBdmh21Bns1ZJp7Khn",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-obj-shared",
+        "transferReceiptId": "65S4q72Wf5AZn81DQPwXYWZfcZrTatQQ5iLUStEjrFyv",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:C6nktERZ1sRJyzzoVHWXpAd75S6JvXFR9dcCx5eAmGSg:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}",
+      "bridge-refuel.hot.tg:2pBPwcBQCndJ4ZJL8m8NoL4NvcZg1PN8DT8CrL4MVxKM:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"invalid type: map, expected a string\\\", line: 1, column: 17)\"}}}}",
+      "bridge-refuel.hot.tg:FiWdksUpYRv9KnfJYwsr9DimgM45JByDpW452WFvLkx2:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Exceeded the prepaid gas.\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p19-dup-tail-null-amount",
+    "intentHash": "8twUmEXnizpLfMJ3hcQ5eQs7uvsKzCBSji9GfjoZ64Qr",
+    "txHash": "FfGADY8F55w514SMWUcv88YPybtF8yoCce7TCZFv7dNg",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "47FzCwgMdfgAMRgjhLXdLqrCj1XXzPktdbWWvoqmg8aP",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": true,
+    "panicOrErrorObserved": true,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [
+      "bridge-refuel.hot.tg:FrKVhyCCULk5UgHCVVJ8KMgnXZ1NjVTCzC5iaNi4qSEL:{\"ActionError\":{\"index\":0,\"kind\":{\"FunctionCallError\":{\"ExecutionError\":\"Smart contract panicked: panicked at src/lib.rs:101:86:\\ncalled `Result::unwrap()` on an `Err` value: Error(\\\"duplicate field `amount_native`\\\", line: 1, column: 36)\"}}}}"
+    ],
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p19-min-gas-straddle-shared-memo",
+    "intentHash": "4hkQuZaAK9hwKbN1kYw367niCyv4KExpu5giGyL5m1Hu",
+    "txHash": "Cg9gr6nGh4eRkXRnL9mKxCNT8KpoATGX8AoyzYcMmwAX",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p19-gas-shared",
+        "transferReceiptId": "5gvwfRN6WrVAzFsA6gor8StCXfzAiVqf3YqBEMV93bG5",
+        "bridgeReceiptId": "8Xpa6LZVi8tKumGQ7eBncWyrxwxzuRqRAVyzZtNB6unc",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-gas-shared",
+        "transferReceiptId": "5ohqJPYjrTTaobnPgq2u7ccj3QvJTXr7J1wuJhJ7gXV9",
+        "bridgeReceiptId": "6kixA9XpdiVB1MZ6MZiwtRwKNf4oBhRzCuSaVBDKKkmw",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p19-gas-shared",
+        "transferReceiptId": "J9ic5M2g2StYtpS878kc5NSNsH8wWPTTdyZzhihWJbq7",
+        "bridgeReceiptId": "6SMuJ324JStEPLdjRT8z8kRjSaNQEf1np3fnHjDuDgNA",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p19-duplicate-token-ids-balance-race",
+    "intentHash": "GuiDiw56hNRyn4fJdrydtNaZEtHbYp2u1nLhuAvtWLTw",
+    "txHash": "CETPYX414Cd8ULtQiXHuH4GSpVmRSgNnRQbhunViAt2Z",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0",
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\",\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p19-dup-token",
+        "transferReceiptId": "FgoLtyNKjtgnrDanQ2dsnUhPAzQ3Vnq8GYqmx4dnLjqp",
+        "bridgeReceiptId": "5nYaC9Q7AMV7qDddzhyivv3DurqGYYzpZVNTw7iN8Cp9",
+        "unused": [
+          "0",
+          "0",
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "callbackErrorObserved": false,
+    "panicOrErrorObserved": false,
+    "withdrawContinuedAfterError": false,
+    "failureReceipts": [],
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

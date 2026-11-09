@@ -56,10 +56,20 @@ interface CaseResult {
   bridgeSuccessDecoded?: string[];
   legTraces?: LegTrace[];
   correlatedLikelyDesync?: boolean;
+  callbackErrorObserved?: boolean;
+  panicOrErrorObserved?: boolean;
+  withdrawContinuedAfterError?: boolean;
+  failureReceipts?: string[];
   withdrawStarted: boolean;
   refundApplied: boolean;
   likelyDesync: boolean;
   note: string;
+}
+
+interface ExecutionSignals {
+  callbackErrorObserved: boolean;
+  panicOrErrorObserved: boolean;
+  failureReceipts: string[];
 }
 
 interface HunterCaseIntent {
@@ -331,15 +341,61 @@ function buildLegTraces(
   });
 }
 
+function inspectExecutionSignals(
+  outcome: TxOutcome,
+  callbackExecutorId: string,
+): ExecutionSignals {
+  const failureReceipts: string[] = [];
+  let callbackErrorObserved = false;
+  let panicOrErrorObserved = false;
+
+  for (const receipt of outcome.result.receipts_outcome) {
+    const failure = receipt.outcome.status.Failure;
+    const failureText = failure
+      ? (JSON.stringify(failure) ?? String(failure))
+      : '';
+    if (failureText) {
+      failureReceipts.push(
+        `${receipt.outcome.executor_id}:${receipt.id}:${failureText}`,
+      );
+    }
+
+    const joinedLogs = receipt.outcome.logs.join(' | ');
+    const errorSignalText = `${joinedLogs} ${failureText}`;
+    const hasErrorSignal =
+      /(panic|panicked|overflow|abort|invalid|malformed|failed|error)/i.test(
+        errorSignalText,
+      );
+
+    if (hasErrorSignal) {
+      panicOrErrorObserved = true;
+    }
+
+    if (receipt.outcome.executor_id === callbackExecutorId) {
+      if (failureText || hasErrorSignal) {
+        callbackErrorObserved = true;
+      }
+    }
+  }
+
+  return {
+    callbackErrorObserved,
+    panicOrErrorObserved,
+    failureReceipts,
+  };
+}
+
 function analyzeOutcome(
   outcome: TxOutcome,
   mtOnTransferUnusedAll: string[][],
   receiverId: string,
+  executionSignals: ExecutionSignals,
 ): {
   withdrawStarted: boolean;
   refundApplied: boolean;
   likelyDesync: boolean;
   note: string;
+  withdrawContinuedAfterError: boolean;
 } {
   const allLogs = outcome.result.receipts_outcome.flatMap((r) =>
     r.outcome.logs.map((l) => ({ executor: r.outcome.executor_id, log: l })),
@@ -368,11 +424,21 @@ function analyzeOutcome(
     }
   });
 
-  const likelyDesync = withdrawStarted && nonZeroUnused0;
+  const withdrawContinuedAfterError =
+    withdrawStarted &&
+    refundApplied &&
+    (executionSignals.callbackErrorObserved ||
+      executionSignals.panicOrErrorObserved);
+
+  const likelyDesync =
+    (withdrawStarted && nonZeroUnused0) || withdrawContinuedAfterError;
 
   let note = 'No contradiction observed';
-  if (likelyDesync) {
+  if (withdrawStarted && nonZeroUnused0) {
     note = 'Potential desync: withdraw_started && mt_on_transfer_unused[0] > 0';
+  } else if (withdrawContinuedAfterError) {
+    note =
+      'Potential desync: withdraw continued while panic/error signals + refund were observed';
   } else if (withdrawStarted && !refundApplied && !nonZeroUnused0) {
     note = 'Withdraw path started with zero-unused return';
   } else if (!withdrawStarted && refundApplied) {
@@ -382,7 +448,13 @@ function analyzeOutcome(
       'Withdraw started and refund logs exist (inspect ordering carefully)';
   }
 
-  return { withdrawStarted, refundApplied, likelyDesync, note };
+  return {
+    withdrawStarted,
+    refundApplied,
+    likelyDesync,
+    note,
+    withdrawContinuedAfterError,
+  };
 }
 
 function substituteReceiverPlaceholder(
@@ -629,6 +701,10 @@ function toCsv(results: CaseResult[]): string {
     'unusedAll',
     'bridgeSuccessDecoded',
     'correlatedLikelyDesync',
+    'callbackErrorObserved',
+    'panicOrErrorObserved',
+    'withdrawContinuedAfterError',
+    'failureReceipts',
     'legTraces',
     'withdrawStarted',
     'refundApplied',
@@ -651,6 +727,10 @@ function toCsv(results: CaseResult[]): string {
       r.mtOnTransferUnusedAll ? JSON.stringify(r.mtOnTransferUnusedAll) : '',
       r.bridgeSuccessDecoded ? JSON.stringify(r.bridgeSuccessDecoded) : '',
       String(r.correlatedLikelyDesync ?? false),
+      String(r.callbackErrorObserved ?? false),
+      String(r.panicOrErrorObserved ?? false),
+      String(r.withdrawContinuedAfterError ?? false),
+      r.failureReceipts ? JSON.stringify(r.failureReceipts) : '',
       r.legTraces ? JSON.stringify(r.legTraces) : '',
       String(r.withdrawStarted),
       String(r.refundApplied),
@@ -786,10 +866,12 @@ async function runCase(
     bridgeReturn.bridgeUnusedByReceipt,
   );
   const correlatedLikelyDesync = legTraces.some((leg) => leg.nonZeroUnused0);
+  const executionSignals = inspectExecutionSignals(outcome, config.receiverId);
   const analysis = analyzeOutcome(
     outcome,
     mtOnTransferUnusedAll,
     config.receiverId,
+    executionSignals,
   );
 
   const likelyDesync = analysis.likelyDesync || correlatedLikelyDesync;
@@ -807,6 +889,10 @@ async function runCase(
     bridgeSuccessDecoded: bridgeReturn.decodedSuccessValues,
     legTraces,
     correlatedLikelyDesync,
+    callbackErrorObserved: executionSignals.callbackErrorObserved,
+    panicOrErrorObserved: executionSignals.panicOrErrorObserved,
+    withdrawContinuedAfterError: analysis.withdrawContinuedAfterError,
+    failureReceipts: executionSignals.failureReceipts,
     withdrawStarted: analysis.withdrawStarted,
     refundApplied: analysis.refundApplied,
     likelyDesync,
@@ -906,6 +992,15 @@ async function main() {
         console.log('leg_traces      :', result.legTraces);
       }
       console.log('corrDesync      :', result.correlatedLikelyDesync ?? false);
+      console.log('callbackError   :', result.callbackErrorObserved ?? false);
+      console.log('panicOrError    :', result.panicOrErrorObserved ?? false);
+      console.log(
+        'continueOnError :',
+        result.withdrawContinuedAfterError ?? false,
+      );
+      if (result.failureReceipts?.length) {
+        console.log('failureReceipts :', result.failureReceipts);
+      }
       console.log('withdrawStarted :', result.withdrawStarted);
       console.log('refundApplied   :', result.refundApplied);
       console.log('likelyDesync    :', result.likelyDesync);
@@ -925,7 +1020,7 @@ async function main() {
   console.log('\n=== Summary ===');
   for (const r of results) {
     console.log(
-      `${r.name.padEnd(24)} | desync=${String(r.likelyDesync).padEnd(5)} | unused0=${r.mtOnTransferUnused?.[0] ?? '-'} | withdraw=${r.withdrawStarted} | refund=${r.refundApplied}`,
+      `${r.name.padEnd(24)} | desync=${String(r.likelyDesync).padEnd(5)} | unused0=${r.mtOnTransferUnused?.[0] ?? '-'} | withdraw=${r.withdrawStarted} | refund=${r.refundApplied} | continueOnError=${r.withdrawContinuedAfterError ?? false}`,
     );
   }
 
