@@ -1,0 +1,309 @@
+[
+  {
+    "name": "p14-control-small-200",
+    "intentHash": "9734r6UqVN1y3tK5vcFg5gXc6iaTajFJgMaQ48s8RSEr",
+    "txHash": "cFRVmJh7265JHTunEEo5vqcFMWTprsP2VjK4w9gRXSQ",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "Geh2mpER3fmWJG2LUpcURfw4L7ALjTH9GgNrAErdtaKG",
+        "bridgeReceiptId": "Hu4tu8nWNLFmNGg1dhQSyo3wRMJY12CiZKwrNNwmxzSH",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p14-dup-receiver-shadow-newline",
+    "intentHash": "HPkLXYkTuoXsFhDHFTkMpSPmBCKnP39965qkfjN2MGdp",
+    "txHash": "Anbs7TtNjmTSQkLAxecrRsnKm2NH7DVLB3L78ymfhPJL",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "5uLfterMfwH7pun7dzqRwD2m3dMobGp91PG4qujZEeZ2",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p14-dup-amount-native-0-then-2",
+    "intentHash": "7pF7iFZ3BSMKU4kPyZBoNViZadDo3aKbX9u7upFcw19U",
+    "txHash": "uHSVSvezFHSs8p2GphjpTBiHUN1S6hP5bCeEPkuwgoh",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "VhXGkqhXTGQYfL9N1D2SY9f6TXpXkYS8SZgXEsx9hVc",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p14-dup-amount-native-2-then-0",
+    "intentHash": "HxzKJzPNoiswVDBoZbddKw4j6n37QfUo2TULzqjx9C1f",
+    "txHash": "2LRcJpFXKVpyNzazDKsrc7BaV7NWYiV4rBC1A6sN4MCi",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "BMDvQoBzysbFpd3uAYbFjam6iMJSE7ChKHy3pd8Ky9Wp",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p14-unicode-key-shadow-receiver",
+    "intentHash": "AJs75Wv2D4bLs5wLSYoCBErUgbouSBrqpySa6SN74vMv",
+    "txHash": "9enJJFFEJFRFw8o9sJ9WNKeu8kwPDXwQET3KXCLqSCqN",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "(no-memo)",
+        "transferReceiptId": "HH9ogUskj6jtGMrScC2rUFKSTHJxfVpuNTRsKfFwgrdw",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p14-same-memo-two-legs-different-tags",
+    "intentHash": "2251ffC8ur2BY71MX3DhBsgwGL33kRdi4Z5BDAQrAo7p",
+    "txHash": "Cc7BKWsziD46vj8fvSExJ1A12z8L9E9HETGyAajt3BTm",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]",
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p14same-memo",
+        "transferReceiptId": "6c4vu51oEaG57U5aMXgCasjR39wS4gSyEc8A7FrcaVKo",
+        "bridgeReceiptId": "7LYPvsKwu3K7a5FD3TnynNMisqXsYzJqrdureexnGFai",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p14same-memo",
+        "transferReceiptId": "GvjDYf51YTdkBRd16UX9qJC21vbvioDte5gQqHw8Ft3T",
+        "bridgeReceiptId": "H3qZfAy5KJPnXkhpJ9QSZPcyJd5s1koL86m6WWPo9zu9",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p14-same-tag-two-legs-different-memo",
+    "intentHash": "ExFmhDtzvpwtgMikYQWWQk4apioED9PmK4gksc8WXggU",
+    "txHash": "Koj7qejAGJMjqSaUopszdstpMhviz8DjyKN4VJgKC8f",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p14x1",
+        "transferReceiptId": "DTJkw4GoS4mpwJ2L3Vckhf1i8ZpCCmj7eT33uSS9hU9v",
+        "bridgeReceiptId": "4yYxFwgeoTTiF7RWBX8kzCnnnxuepDtwrk7UDU6aHpuS",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p14x2",
+        "transferReceiptId": "5ikMKnCmkxMoofWnz2mmbrsZgjYVFV3LAG3YdXygMqe6",
+        "bridgeReceiptId": "FBWAFW1m3B23EbJhQgw5vKpjx6SzrTxPcN2hoq5bvRbY",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p14-block-number-boundary-strings",
+    "intentHash": "tj7sdhpCofrfPmfHwVn3rTAJtrdfrcTNXRbiQY13hov",
+    "txHash": "AiwfaCptsV78Segecrrtyck5ySmqDXCqHdmXHdcutxvS",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p14b1",
+        "transferReceiptId": "3PKvjeL2rNTnYANxvrta3FMP9Q5sj3mrfKHXVTJPVPxA",
+        "bridgeReceiptId": "CThehSpvSEtX35x4SKZh8amJqe2Hv3WhP9VNLtgsGwfV",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p14b2",
+        "transferReceiptId": "E1WfKuv1HxyJZwDb4oEsi3vbNj5r9L4XQQ52rvvESnK1",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p14-key-order-canonicalization-probe",
+    "intentHash": "7kw7gN9w1VWWbEfWt9DLcSRTYMH1bNBz76YbkPWqTi9y",
+    "txHash": "EXRf7665F2KV2xWKLKCutvQMqymURYJ2pJKZmd3QGMaG",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]",
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p14o1",
+        "transferReceiptId": "9T2EymMZtTcL51Hjeq8yf9Rzm11bR9YosqDwJCmatciK",
+        "bridgeReceiptId": "HuaLJ1SDY4iuFTB8XTvcvycjvQQyZXjbtp1ogZympsxo",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p14o2",
+        "transferReceiptId": "BcVtgUK2nt5BfQxMyu4E7kVhhUCWuPhfCkRXqAXChzFh",
+        "bridgeReceiptId": "8eiQWxjoARsLJEyEVqy124bpB4FZvbmAHomh7vfxCQDZ",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  }
+]

@@ -1,0 +1,99 @@
+[
+  {
+    "name": "p14-control-small-200",
+    "msg": {
+      "amount_native": "2",
+      "receiver_id": "__BASE58_RECEIVER__",
+      "block_number": 100,
+      "tag": "p14c1"
+    }
+  },
+  {
+    "name": "p14-dup-receiver-shadow-newline",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"__BASE58_RECEIVER__\\n\",\"block_number\":100,\"tag\":\"p14r1\"}"
+  },
+  {
+    "name": "p14-dup-amount-native-0-then-2",
+    "rawMsg": "{\"amount_native\":\"0\",\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14a1\"}"
+  },
+  {
+    "name": "p14-dup-amount-native-2-then-0",
+    "rawMsg": "{\"amount_native\":\"2\",\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14a2\"}"
+  },
+  {
+    "name": "p14-unicode-key-shadow-receiver",
+    "rawMsg": "{\"amount_native\":\"2\",\"receiv\\u0065r_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"bad_receiver\",\"block_number\":100,\"tag\":\"p14u1\"}"
+  },
+  {
+    "name": "p14-same-memo-two-legs-different-tags",
+    "intents": [
+      {
+        "memo": "p14same-memo",
+        "min_gas": "1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14m1a\"}"
+      },
+      {
+        "memo": "p14same-memo",
+        "min_gas": "50000000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"3\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14m1b\"}"
+      }
+    ]
+  },
+  {
+    "name": "p14-same-tag-two-legs-different-memo",
+    "intents": [
+      {
+        "memo": "p14x1",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14same-tag\"}"
+      },
+      {
+        "memo": "p14x2",
+        "min_gas": "1000",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14same-tag\"}"
+      }
+    ]
+  },
+  {
+    "name": "p14-block-number-boundary-strings",
+    "intents": [
+      {
+        "memo": "p14b1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"18446744073709551615\",\"tag\":\"p14b1\"}"
+      },
+      {
+        "memo": "p14b2",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p14b2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p14-key-order-canonicalization-probe",
+    "intents": [
+      {
+        "memo": "p14o1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"tag\":\"p14o\",\"block_number\":100,\"receiver_id\":\"__BASE58_RECEIVER__\",\"amount_native\":\"2\"}"
+      },
+      {
+        "memo": "p14o2",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p14o\"}"
+      }
+    ]
+  }
+]

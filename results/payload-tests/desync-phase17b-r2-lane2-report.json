@@ -1,0 +1,188 @@
+[
+  {
+    "name": "p17-wr-mix-receiver-shadow-tail",
+    "intentHash": "FBUH5EnqVEZPP8XR6iTY62M1xMHoRXBFYB1ZqLruuXdK",
+    "txHash": "6Tt9aQ92VMUnheD8eJukr5oakENdhKwFdjwQRa8tYuAK",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p17-wr-a",
+        "transferReceiptId": "8LMhSo4JZazfujHGTckRJpAGS2EfeVmhuftepgm7bwEW",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-a",
+        "transferReceiptId": "CVfd9zaW6mAAkMFUPDm7ZtTB3fzVpE5ibS22yfeqH8zW",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-a",
+        "transferReceiptId": "AdekKccDDkWekdc3EU5an3nLRkyQQmU88J11CkvXMT9g",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  },
+  {
+    "name": "p17-wr-mix-boundary-string-number-tail",
+    "intentHash": "8xgJngBxWm4B7g489P36udT6ABKqitGiK4zgk2Hcq7Qy",
+    "txHash": "D5vRxQtR75P3sA44X1qYsbL1WHRcSZsojjW2gGmPqFDR",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p17-wr-b",
+        "transferReceiptId": "GLcqZQ9YdmtGGsi5r8h2AdmThehfLspZD3KDLbD6hA5E",
+        "bridgeReceiptId": "4fJcUwfhAzR5a22PV5EUJtW4qrZ4cAtGsjRpqwZVki1p",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-b",
+        "transferReceiptId": "5VuNbMjdp2coFEGbbhctxTw9UgYpbhmq8CVYuEdZxPFK",
+        "bridgeReceiptId": "Bjfdv7XfPFDTTfMiL3VSrZhaB1do8UbJ8Eg8BnvV9bER",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-b",
+        "transferReceiptId": "7wwRnQgmrBfLRLJPq6NJgdTrpnprJpu2oFYdb81dSgZT",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p17-wr-mix-amount-shadow-middle",
+    "intentHash": "4R6AyK2F4bWaEodFHexrHUjtHiVo8BSM43MhDxX8iqe1",
+    "txHash": "4xrwfcJC8dAvtNf8QPF8D3CiYNSGDDAAB1TFJKENP7VV",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p17-wr-c",
+        "transferReceiptId": "26e9uqQ1tLxgaTcwjf9DWwd2bL2Yb5PaPuqNLuSASC2Z",
+        "bridgeReceiptId": "GRmobGfbGshY31EW161MgjzX2ZEatbi2BfEuFrxFbpU7",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-c",
+        "transferReceiptId": "D9qJmvX26hTKMY7uJhDGcWdbVKFiHsQmiBL8orxhxyXd",
+        "bridgeReceiptId": "12YXQj4H2nTyYCCpENehYH85HrANqVGj6YaVuhcGfSiG",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-c",
+        "transferReceiptId": "26QTfRw6GLoowNbkJp3Yk4DRF15Q8UtjNRYZtYhCxctH",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p17-wr-mix-121-cardinality-sharedmemo",
+    "intentHash": "AzsKxyYjwqZZRSjtvNjraDy4Gbdqh25Siai6NSHLG8kA",
+    "txHash": "J34fKtiaoomja13hv6jc4Wq7vKxEzLwPRFxRiuW2kbRs",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p17-wr-d",
+        "transferReceiptId": "1SyWLPmeJS89dTB44LYUsS36zfeT11hCJkXJf4CbVro",
+        "bridgeReceiptId": "Ao6pw8us72AKRJfngZAKE2EL7U9P4mh5LT56F22LgmTv",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-d",
+        "transferReceiptId": "GQy3L4pyHHTd4rtTMpnRyKYenJfBhhubirFgS1jP11mH",
+        "bridgeReceiptId": "6NoRQS9t33EbKhCw5v3Ba4CZoabPrnGspfzAFXUg8s61",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p17-wr-d",
+        "transferReceiptId": "ES8HQ8RvcoX6mrySaDh4dXXsrFyiMeKS6BPfuXyPMugh",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  }
+]

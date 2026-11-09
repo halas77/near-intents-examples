@@ -1,0 +1,117 @@
+$ tsx verifier-examples/mt-desync-hunter.ts --submit
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+=== Desync hunter configuration ===
+mtContract     : v2_1.omni.hot.tg
+receiverId     : bridge-refuel.hot.tg
+tokenIds       : [ [32m'137_qiStmoQJDQPTebaPjgx5VBxZv6L'[39m, [32m'10_A2ewyUyDp6qsue1jqZsGypkCxRJ'[39m ]
+amounts        : [ [32m'2000'[39m, [32m'3000'[39m ]
+minGas         : 1000
+cases          : [
+  [32m'p16b-l3-121-cardinality-chaos'[39m,
+  [32m'p16b-l3-string-vs-number-boundary'[39m,
+  [32m'p16b-l3-control'[39m
+]
+mode           : LIVE --submit
+customCases    : yes (3)
+failOnFind     : [33mfalse[39m
+===================================
+
+
+>>> Running case: p16b-l3-121-cardinality-chaos
+intentHash      : 3YtRHxfdDJh1dA8GQh5XVQ84oJ8t1tKGh5S6dzigcuY8
+txHash          : RsHi26A9FCfMnMCwoYwhUug9Bwm96EKPtnYN6Aru35k
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m, [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'2zYiPYb3fNg5yzWNqVbTkEegJT7vW9ZMgVFCkCUEWAoF'[39m,
+    bridgeReceiptId: [32m'9Nf8a3CA1YrNx23efbxdBEswU8BXUH2MtXcFtyEG3RRS'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'7ALwS4EUKhJjeaVGmsciVBbvHbP1QcZRWixq25dvckGv'[39m,
+    bridgeReceiptId: [32m'4wJuy632nZa83AWSteYpDLyCAoJdfTc88iuX5hfJPoWq'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'2CQqypSJzPFVvJxyKf8DFn3Dwvvtqavi2Ap1m6B935HC'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+>>> Running case: p16b-l3-string-vs-number-boundary
+intentHash      : GmoQYjVMRYawMJkGoPrZ6vmcXHPErdkGad9BbddcjTLr
+txHash          : 2V3W5bEcmn9b9JGm1GJUxamrbXNHP2EimS6utNkMZsfZ
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'FYzwAAGmyA2ow5KotHrTe2TztcUDwANZ44JrmSSdnALS'[39m,
+    bridgeReceiptId: [32m'AMk6gSnEtrJtEzu8dye8FPoZ4zwiwHms7jz8k7JgL39w'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'9fkBqk2VYqtbNGePBKfWxam3cLApSx4TvG6LYs2zhwbp'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+>>> Running case: p16b-l3-control
+intentHash      : 4REwe4AooWKtezs4FWF4mvQUw7qVaPDgQZqsv6DQthn1
+txHash          : 9tu1WSqvpxCRd5sLWRumifo9kg2bw7bmEZP72u6P58Ux
+mt_on_transfer  : [ [32m'0'[39m, [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m, [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0","0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'4NHPduxUnuFYfMSJMghc4BuTBRH3TJgTfRiwY2ypP7KS'[39m,
+    bridgeReceiptId: [32m'Ekv8VBDpfRN5hm75aAcDMy1J6gv2wm9UVM1o1rS62nTY'[39m,
+    unused: [ [32m'0'[39m, [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mfalse[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw path started with zero-unused return
+
+=== Summary ===
+p16b-l3-121-cardinality-chaos | desync=false | unused0=0 | withdraw=true | refund=true
+p16b-l3-string-vs-number-boundary | desync=false | unused0=0 | withdraw=true | refund=true
+p16b-l3-control          | desync=false | unused0=0 | withdraw=true | refund=false
+
+Potential desync findings: [33m0[39m
+Saved JSON report: results/payload-tests/desync-phase16c-r1-lane3-report.json
+Saved CSV report: results/payload-tests/desync-phase16c-r1-lane3-report.csv

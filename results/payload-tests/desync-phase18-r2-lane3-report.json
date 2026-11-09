@@ -1,0 +1,70 @@
+[
+  {
+    "name": "p18-leading-zero-amount-and-block",
+    "intentHash": "EoaahWNmk8N3eXPg4XRERb3wMj8KHyoarvMFMPmh7uSc",
+    "txHash": "4BNRgo7Etoo7HotceFHfL2SvtKRgiY64s7Ysxv4gL2BH",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p18-a",
+        "transferReceiptId": "5BMDHU9Yj5q2DkfAtwtwdA3suyKQDxA72puyhpKroqb3",
+        "bridgeReceiptId": "GW2mfHiNumAd6yFYeEND2XXnJxSLpMXorcRcEGBKDUAo",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p18-a",
+        "transferReceiptId": "6XkrkQPfetdb3QhGxqYPyBLewFyPBHXh9ynwUb5yXJkm",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p18-sci-notation-style-strings",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for DWRVCmtfofL7MqgdFXMjCMLVaR8cH89J1BnJJkpf8C2S: Error: RPC tx query failed for DWRVCmtfofL7MqgdFXMjCMLVaR8cH89J1BnJJkpf8C2S"
+  },
+  {
+    "name": "p18-decimal-and-plus-sign-strings",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for Bs62xnMkYBnHqigRSPhrh8z1miV1KBYJdDdq1t283dL6: Error: RPC tx query failed for Bs62xnMkYBnHqigRSPhrh8z1miV1KBYJdDdq1t283dL6"
+  },
+  {
+    "name": "p18-whitespace-and-negative-block",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for HWY6yvb2H4itFnQxX77mbDUZF4uTCpo9F2AHxqtpBVEr: Error: RPC tx query failed for HWY6yvb2H4itFnQxX77mbDUZF4uTCpo9F2AHxqtpBVEr"
+  },
+  {
+    "name": "p18-mixed-121-numeric-ambiguity",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for 7mMe9jTHuUqHq1qMq9dxjKTcVBY6a97pir43G7LitLd5: Error: RPC tx query failed for 7mMe9jTHuUqHq1qMq9dxjKTcVBY6a97pir43G7LitLd5"
+  }
+]

@@ -1,0 +1,103 @@
+[
+  {
+    "name": "p17-wr-mix-receiver-shadow-tail",
+    "intents": [
+      {
+        "memo": "p17-wr-a",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p17-a1\"}"
+      },
+      {
+        "memo": "p17-wr-a",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"__BASE58_RECEIVER__\\n\",\"block_number\":100,\"tag\":\"p17-a2\"}"
+      },
+      {
+        "memo": "p17-wr-a",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p17-a3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p17-wr-mix-boundary-string-number-tail",
+    "intents": [
+      {
+        "memo": "p17-wr-b",
+        "min_gas": "1",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":\"18446744073709551615\",\"tag\":\"p17-b1\"}"
+      },
+      {
+        "memo": "p17-wr-b",
+        "min_gas": "50000000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":18446744073709551615,\"tag\":\"p17-b2\"}"
+      },
+      {
+        "memo": "p17-wr-b",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":102,\"tag\":\"p17-b3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p17-wr-mix-amount-shadow-middle",
+    "intents": [
+      {
+        "memo": "p17-wr-c",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p17-c1\"}"
+      },
+      {
+        "memo": "p17-wr-c",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p17-c2\"}"
+      },
+      {
+        "memo": "p17-wr-c",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p17-c3\"}"
+      }
+    ]
+  },
+  {
+    "name": "p17-wr-mix-121-cardinality-sharedmemo",
+    "intents": [
+      {
+        "memo": "p17-wr-d",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":99,\"tag\":\"p17-d1\"}"
+      },
+      {
+        "memo": "p17-wr-d",
+        "min_gas": "1000",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"amount_native\":\"0\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p17-d2\"}"
+      },
+      {
+        "memo": "p17-wr-d",
+        "min_gas": "1000",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p17-d3\"}"
+      }
+    ]
+  }
+]

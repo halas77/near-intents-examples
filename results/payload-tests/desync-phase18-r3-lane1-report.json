@@ -1,0 +1,37 @@
+[
+  {
+    "name": "p18-leading-zero-amount-and-block",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for 9ht24NaeAwueF47pQ2qn2pq1Qp9fzy5ezozLcZXx43Lz: Error: RPC tx query failed for 9ht24NaeAwueF47pQ2qn2pq1Qp9fzy5ezozLcZXx43Lz"
+  },
+  {
+    "name": "p18-sci-notation-style-strings",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for CSbAAxSvP5JoKTMUdWB9bebKArEFpfPhrtK4WMy8zPAX: Error: RPC tx query failed for CSbAAxSvP5JoKTMUdWB9bebKArEFpfPhrtK4WMy8zPAX"
+  },
+  {
+    "name": "p18-decimal-and-plus-sign-strings",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for 45Mx4vmzXcFXKiY2eyu2m9z9WiBur9P9XGu6Md8Gj8Z7: Error: RPC tx query failed for 45Mx4vmzXcFXKiY2eyu2m9z9WiBur9P9XGu6Md8Gj8Z7"
+  },
+  {
+    "name": "p18-whitespace-and-negative-block",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for BG5b7XkMZYbueG2x3MheYnL2e5eWrTDueHU28uWagbi4: Error: RPC tx query failed for BG5b7XkMZYbueG2x3MheYnL2e5eWrTDueHU28uWagbi4"
+  },
+  {
+    "name": "p18-mixed-121-numeric-ambiguity",
+    "withdrawStarted": false,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Execution error: RPC tx query failed after 4 attempts for 8y1fAAADtQorER3PRc4BPijh5YbfftfUSb99fqHKCrwM: Error: RPC tx query failed for 8y1fAAADtQorER3PRc4BPijh5YbfftfUSb99fqHKCrwM"
+  }
+]

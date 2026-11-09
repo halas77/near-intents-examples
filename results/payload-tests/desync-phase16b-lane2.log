@@ -1,0 +1,115 @@
+$ tsx verifier-examples/mt-desync-hunter.ts --submit
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+=== Desync hunter configuration ===
+mtContract     : v2_1.omni.hot.tg
+receiverId     : bridge-refuel.hot.tg
+tokenIds       : [ [32m'137_qiStmoQJDQPTebaPjgx5VBxZv6L'[39m, [32m'10_A2ewyUyDp6qsue1jqZsGypkCxRJ'[39m ]
+amounts        : [ [32m'200'[39m, [32m'200'[39m ]
+minGas         : 1000
+cases          : [
+  [32m'p16b-l2-receiver-shadow'[39m,
+  [32m'p16b-l2-shared-tag-different-memos'[39m,
+  [32m'p16b-l2-unicode-receiver-key'[39m
+]
+mode           : LIVE --submit
+customCases    : yes (3)
+failOnFind     : [33mfalse[39m
+===================================
+
+
+>>> Running case: p16b-l2-receiver-shadow
+intentHash      : 8cGqdx4VV9XPvwa6mbCVn9nok7bxsH6mGwe7L2X5a1aN
+txHash          : 8cBaGvUa97DwH2Dy2UVj2J9ndHqbiYa5F8wrwg88TdY3
+mt_on_transfer  : [ [32m'0'[39m, [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m, [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0","0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'AXpeRb9sfJk7YsT1fVa7n78V5gWVfhgTTVK7itEtinYh'[39m,
+    bridgeReceiptId: [32m'DXpTD2eM2Assa8onFhmAoCiKeCHqfBnHfCMnbFvZkdFc'[39m,
+    unused: [ [32m'0'[39m, [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'664R7houJd96rWzfWWK6kfrve5tT7agEk54ufjAHtGoC'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+>>> Running case: p16b-l2-shared-tag-different-memos
+intentHash      : DeCcdk6tkngHbXVUKEsasmXpSPwnwL5nYTExcoqCsb4K
+txHash          : 4onV8JAgpkbsVZUgcnTHnRFRHnopzGvAm7FDVoTLBxfo
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m, [32m'["0"]'[39m, [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p16b-m2-1'[39m,
+    transferReceiptId: [32m'2Nm3PaPMssgefRPvMb9E7PdxMeyEYB1AgCWXjCgx9HU5'[39m,
+    bridgeReceiptId: [32m'J25QvbbQHVivbMPiiuQmTUonpS1Hv39zWfb1UTvG55Bb'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-m2-2'[39m,
+    transferReceiptId: [32m'4S8Ge889twPXkZNstsxt1Nn4cCLo5gXzriaASC67oTVy'[39m,
+    bridgeReceiptId: [32m'CjXJdqi3GA4fwGWZ8mzK4zderrVEuhLvh7WJLpzM3ayt'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p16b-m2-3'[39m,
+    transferReceiptId: [32m'B1Dr8wwUxnGxZP3cwE7qELb7wdwWk7ZbyymwetkZDugX'[39m,
+    bridgeReceiptId: [32m'BEB5udPSRu4A9jnz6MN4zjJikna8pv1mUFMajbwvP4Fv'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mfalse[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw path started with zero-unused return
+
+>>> Running case: p16b-l2-unicode-receiver-key
+intentHash      : EBHAedyY8k4kxTTAgRcCfrN9H4bXM4bWQ13vY1Rq2pRV
+txHash          : 3o8jfbsvThS1sR2S3tAgExtAz2NVaM6UvxbxJenjFyRP
+mt_on_transfer  : (unavailable)
+leg_traces      : [
+  {
+    memo: [32m'p16b-global-memo'[39m,
+    transferReceiptId: [32m'9ghhypVT2kfXRJWxKmMW727Lkm5NpiZb3xEnXztKjvs8'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mfalse[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Early refund path (likely mt_on_transfer panic/failure)
+
+=== Summary ===
+p16b-l2-receiver-shadow  | desync=false | unused0=0 | withdraw=true | refund=true
+p16b-l2-shared-tag-different-memos | desync=false | unused0=0 | withdraw=true | refund=false
+p16b-l2-unicode-receiver-key | desync=false | unused0=- | withdraw=false | refund=true
+
+Potential desync findings: [33m0[39m
+Saved JSON report: results/payload-tests/desync-phase16b-lane2-report.json
+Saved CSV report: results/payload-tests/desync-phase16b-lane2-report.csv

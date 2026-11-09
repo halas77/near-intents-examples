@@ -1,0 +1,179 @@
+$ tsx verifier-examples/mt-desync-hunter.ts --submit
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+=== Desync hunter configuration ===
+mtContract     : v2_1.omni.hot.tg
+receiverId     : bridge-refuel.hot.tg
+tokenIds       : [ [32m'137_qiStmoQJDQPTebaPjgx5VBxZv6L'[39m, [32m'10_A2ewyUyDp6qsue1jqZsGypkCxRJ'[39m ]
+amounts        : [ [32m'2000'[39m, [32m'3000'[39m ]
+minGas         : 1000
+cases          : [
+  [32m'p17-wr-mix-receiver-shadow-tail'[39m,
+  [32m'p17-wr-mix-boundary-string-number-tail'[39m,
+  [32m'p17-wr-mix-amount-shadow-middle'[39m,
+  [32m'p17-wr-mix-121-cardinality-sharedmemo'[39m
+]
+mode           : LIVE --submit
+customCases    : yes (4)
+failOnFind     : [33mfalse[39m
+===================================
+
+
+>>> Running case: p17-wr-mix-receiver-shadow-tail
+intentHash      : A1KuibVj8pf1rDdUjZPkYZAo7tD24XYWQmEQexojhnHo
+txHash          : 5AF8FnD7hjpTn6grPumWqxBDzmc6gjEWCMgtUYGcjSTY
+mt_on_transfer  : (unavailable)
+leg_traces      : [
+  {
+    memo: [32m'p17-wr-a'[39m,
+    transferReceiptId: [32m'EcUXYZGsdjAkXZz4m96yFkbbbGQx2WDCUiwbrAexRpi8'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-a'[39m,
+    transferReceiptId: [32m'CFH5w3sKrbYkkAfKy8kdw8bgPPy3ncjoKdiWVy9JD4E2'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-a'[39m,
+    transferReceiptId: [32m'E9Nfoo9cBK9dt9c66a7ACosP6fA5o3rsEikV8sCG6fJP'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mfalse[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Early refund path (likely mt_on_transfer panic/failure)
+
+>>> Running case: p17-wr-mix-boundary-string-number-tail
+intentHash      : 3q5ydmPgbaDCYe2PLRCVJEh11LXtK5X4UsmEGqgVMy6k
+txHash          : HgVfUamZAR7q8z6iMmMsqHfAi8YfuE6o5qNzYMZnMpPH
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m, [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p17-wr-b'[39m,
+    transferReceiptId: [32m'Hen5dbLnyGD7yvyc9Lro3v864ePB3P742cSvuTWZD8E7'[39m,
+    bridgeReceiptId: [32m'H9yGWxoExpqfDRAEiYeyrCzrE9PgUKqA2j66UrrSWqRo'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-b'[39m,
+    transferReceiptId: [32m'CBT8iZp5sF35vueSBauNCLDmtXY3ekEHy4hQPXUvVejK'[39m,
+    bridgeReceiptId: [32m'AZ7rWXcY5JA6HGrw1F2uvxaJiPE3Skoc7Q4U8DBUaNKt'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-b'[39m,
+    transferReceiptId: [32m'FJNvn3icPdHswBHMZSugwBGMZHpYJKDWit8Z7EZDKpR'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+>>> Running case: p17-wr-mix-amount-shadow-middle
+intentHash      : Dz7L6isUJcPy9vHQbZStKs8JHhaQq2YuUPdmpFb5F9LY
+txHash          : DZz6Si8KHDWzpMS9QN5ykixdHzkqyjbdiqSzQXbqESzA
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m, [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p17-wr-c'[39m,
+    transferReceiptId: [32m'GFTpaFHcK3nCkCzbaT57PbS7EpxF91f1Fq8MM5xe57EB'[39m,
+    bridgeReceiptId: [32m'H6PYz7BwSjgFGPwphdrj2xiVFiw5qfmwwugEqGWohdVo'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-c'[39m,
+    transferReceiptId: [32m'6cia42BesEbaB4Dv2Zi7KRUcCCenZBzEZL3d5rU7WszA'[39m,
+    bridgeReceiptId: [32m'BsqpGqry6SqxtHVWz97o1BvJHbbBwJb4ZCgCBpHjKkUN'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-c'[39m,
+    transferReceiptId: [32m'BPBexUXYsJm9rz7FaoJSnbqoea1CBzM5kApbw7TJQ5iF'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+>>> Running case: p17-wr-mix-121-cardinality-sharedmemo
+intentHash      : 8e59cdhUn9JvXPq799Yji2WuEUHjdQREKFMdSMeM3kSD
+txHash          : 3f3gorGzYp9YdbJ8qx8PjHXsVbMLkj17V54bpipVCeSo
+mt_on_transfer  : [ [32m'0'[39m ]
+mt_on_transfer_all: [ [ [32m'0'[39m ] ]
+bridge_success_decoded: [ [32m'["0"]'[39m, [32m'["0"]'[39m ]
+leg_traces      : [
+  {
+    memo: [32m'p17-wr-d'[39m,
+    transferReceiptId: [32m'4MkEBkYNjAsqpiHgphXjdoiB9BFLEnUxHu2ct1L6iJmC'[39m,
+    bridgeReceiptId: [32m'5ADBDXao4oUS13dYsyZt7RqBrdiwxFL968b2L2LbU5h8'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-d'[39m,
+    transferReceiptId: [32m'7MQtJYjFbTSTiYQp19KEuwD4iMSWBRoQ4MPurJycoJb5'[39m,
+    bridgeReceiptId: [32m'AxCcukkrHnmv5UMPZwxPDEJ449GWH2dzfWJ6RHGDU1eo'[39m,
+    unused: [ [32m'0'[39m ],
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  },
+  {
+    memo: [32m'p17-wr-d'[39m,
+    transferReceiptId: [32m'6hwEZm1Eeo3vhynVM8cvPYhG4YzMHMowApL6dvqxbwym'[39m,
+    bridgeReceiptId: [90mundefined[39m,
+    unused: [90mundefined[39m,
+    unused0: [32m'0'[39m,
+    nonZeroUnused0: [33mfalse[39m
+  }
+]
+corrDesync      : [33mfalse[39m
+withdrawStarted : [33mtrue[39m
+refundApplied   : [33mtrue[39m
+likelyDesync    : [33mfalse[39m
+note            : Withdraw started and refund logs exist (inspect ordering carefully)
+
+=== Summary ===
+p17-wr-mix-receiver-shadow-tail | desync=false | unused0=- | withdraw=false | refund=true
+p17-wr-mix-boundary-string-number-tail | desync=false | unused0=0 | withdraw=true | refund=true
+p17-wr-mix-amount-shadow-middle | desync=false | unused0=0 | withdraw=true | refund=true
+p17-wr-mix-121-cardinality-sharedmemo | desync=false | unused0=0 | withdraw=true | refund=true
+
+Potential desync findings: [33m0[39m
+Saved JSON report: results/payload-tests/desync-phase17b-r3-lane3-report.json
+Saved CSV report: results/payload-tests/desync-phase17b-r3-lane3-report.csv

@@ -1,0 +1,56 @@
+[
+  {
+    "name": "p16b-l2-receiver-shadow",
+    "intents": [
+      {
+        "memo": "p16b-global-memo",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"__BASE58_RECEIVER__\\n\",\"block_number\":100,\"tag\":\"p16b-l2-a1\"}"
+      },
+      {
+        "memo": "p16b-global-memo",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L", "10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200", "200"],
+        "rawMsg": "{\"amount_native\":\"2\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p16b-l2-a2\"}"
+      }
+    ]
+  },
+  {
+    "name": "p16b-l2-shared-tag-different-memos",
+    "intents": [
+      {
+        "memo": "p16b-m2-1",
+        "min_gas": "1000",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":100,\"tag\":\"p16b-shared-tag\"}"
+      },
+      {
+        "memo": "p16b-m2-2",
+        "min_gas": "1",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":101,\"tag\":\"p16b-shared-tag\"}"
+      },
+      {
+        "memo": "p16b-m2-3",
+        "min_gas": "50000000",
+        "token_ids": ["10_A2ewyUyDp6qsue1jqZsGypkCxRJ"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiver_id\":\"__BASE58_RECEIVER__\",\"block_number\":102,\"tag\":\"p16b-shared-tag\"}"
+      }
+    ]
+  },
+  {
+    "name": "p16b-l2-unicode-receiver-key",
+    "intents": [
+      {
+        "memo": "p16b-global-memo",
+        "token_ids": ["137_qiStmoQJDQPTebaPjgx5VBxZv6L"],
+        "amounts": ["200"],
+        "rawMsg": "{\"amount_native\":\"1\",\"receiv\\u0065r_id\":\"__BASE58_RECEIVER__\",\"receiver_id\":\"bad_receiver\",\"block_number\":100,\"tag\":\"p16b-l2-c1\"}"
+      }
+    ]
+  }
+]

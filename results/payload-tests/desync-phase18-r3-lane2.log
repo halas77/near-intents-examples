@@ -1,0 +1,66 @@
+$ tsx verifier-examples/mt-desync-hunter.ts --submit
+bigint: Failed to load bindings, pure JS will be used (try npm run rebuild?)
+=== Desync hunter configuration ===
+mtContract     : v2_1.omni.hot.tg
+receiverId     : bridge-refuel.hot.tg
+tokenIds       : [ [32m'137_qiStmoQJDQPTebaPjgx5VBxZv6L'[39m, [32m'10_A2ewyUyDp6qsue1jqZsGypkCxRJ'[39m ]
+amounts        : [ [32m'2000'[39m, [32m'3000'[39m ]
+minGas         : 1000
+cases          : [
+  [32m'p18-leading-zero-amount-and-block'[39m,
+  [32m'p18-sci-notation-style-strings'[39m,
+  [32m'p18-decimal-and-plus-sign-strings'[39m,
+  [32m'p18-whitespace-and-negative-block'[39m,
+  [32m'p18-mixed-121-numeric-ambiguity'[39m
+]
+mode           : LIVE --submit
+customCases    : yes (5)
+failOnFind     : [33mfalse[39m
+===================================
+
+
+>>> Running case: p18-leading-zero-amount-and-block
+error: Error: RPC tx query failed after 4 attempts for 9B1WbcqYg2f3bUYDVmj3oUcSASBX2Jw6B5W69dsx7P39: Error: RPC tx query failed for 9B1WbcqYg2f3bUYDVmj3oUcSASBX2Jw6B5W69dsx7P39
+    at fetchTxOutcomeWithRetry [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:167:9[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at async runCase [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:776:19[90m)[39m
+    at async main [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:884:22[90m)[39m
+
+>>> Running case: p18-sci-notation-style-strings
+error: Error: RPC tx query failed after 4 attempts for 4fwjhmpK8NtroS4HMCNZC19dgzt2gK71FmnDcSDxuEdC: Error: RPC tx query failed for 4fwjhmpK8NtroS4HMCNZC19dgzt2gK71FmnDcSDxuEdC
+    at fetchTxOutcomeWithRetry [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:167:9[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at async runCase [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:776:19[90m)[39m
+    at async main [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:884:22[90m)[39m
+
+>>> Running case: p18-decimal-and-plus-sign-strings
+error: Error: RPC tx query failed after 4 attempts for 2ob5rME9i9Zk72d5nyrHmMUX9tpkhaiqZqVdyTic5Ka7: Error: RPC tx query failed for 2ob5rME9i9Zk72d5nyrHmMUX9tpkhaiqZqVdyTic5Ka7
+    at fetchTxOutcomeWithRetry [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:167:9[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at async runCase [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:776:19[90m)[39m
+    at async main [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:884:22[90m)[39m
+
+>>> Running case: p18-whitespace-and-negative-block
+error: Error: RPC tx query failed after 4 attempts for 7ovUyim6yqggR8hio1H5sToG1fxXezkomHC3p3LwrV2M: Error: RPC tx query failed for 7ovUyim6yqggR8hio1H5sToG1fxXezkomHC3p3LwrV2M
+    at fetchTxOutcomeWithRetry [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:167:9[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at async runCase [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:776:19[90m)[39m
+    at async main [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:884:22[90m)[39m
+
+>>> Running case: p18-mixed-121-numeric-ambiguity
+error: Error: RPC tx query failed after 4 attempts for 3AAKX27Bquw2qaEEvJNUWNzJ1bZWssQzuS7jcuj9r7HJ: Error: RPC tx query failed for 3AAKX27Bquw2qaEEvJNUWNzJ1bZWssQzuS7jcuj9r7HJ
+    at fetchTxOutcomeWithRetry [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:167:9[90m)[39m
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at async runCase [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:776:19[90m)[39m
+    at async main [90m(/home/kfi-dev/Documents/web3/bb/near-intents-examples/[39mverifier-examples/mt-desync-hunter.ts:884:22[90m)[39m
+
+=== Summary ===
+p18-leading-zero-amount-and-block | desync=false | unused0=- | withdraw=false | refund=false
+p18-sci-notation-style-strings | desync=false | unused0=- | withdraw=false | refund=false
+p18-decimal-and-plus-sign-strings | desync=false | unused0=- | withdraw=false | refund=false
+p18-whitespace-and-negative-block | desync=false | unused0=- | withdraw=false | refund=false
+p18-mixed-121-numeric-ambiguity | desync=false | unused0=- | withdraw=false | refund=false
+
+Potential desync findings: [33m0[39m
+Saved JSON report: results/payload-tests/desync-phase18-r3-lane2-report.json
+Saved CSV report: results/payload-tests/desync-phase18-r3-lane2-report.csv

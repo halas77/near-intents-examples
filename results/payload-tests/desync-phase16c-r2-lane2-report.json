@@ -1,0 +1,122 @@
+[
+  {
+    "name": "p16b-l2-receiver-shadow",
+    "intentHash": "4y5TgRt4cFoN4ZVACvHZGAHZ6nUXdycx3isshQBhg6Fs",
+    "txHash": "3gyvwgYrY2jUR4sMqxD7A6e3YKJgAqAfMwPrLUVwbrTa",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0",
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0",
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\",\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p16b-global-memo",
+        "transferReceiptId": "EPsLLoLnMe2fsWrrLY47NvHdtJ6XFyZSqvvckwof8MTb",
+        "bridgeReceiptId": "4zVtYuYqjYBSvjDLt2XqQZxuYFPUf795hG75rCrtW2qH",
+        "unused": [
+          "0",
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p16b-global-memo",
+        "transferReceiptId": "FotmdnKLFRWAsaxBawQ97SrtVHQBVf4s1LzkZnyMbTj5",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Withdraw started and refund logs exist (inspect ordering carefully)"
+  },
+  {
+    "name": "p16b-l2-shared-tag-different-memos",
+    "intentHash": "3kfuQPTfaH9n7K32XrMSbfsWvqDafM84zD9Qs2SLon7j",
+    "txHash": "4XSktwz4pAYcEoprM3npAr363KipfofKG7t8T71oDaL7",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnused": [
+      "0"
+    ],
+    "mtOnTransferUnusedAll": [
+      [
+        "0"
+      ]
+    ],
+    "bridgeSuccessDecoded": [
+      "[\"0\"]",
+      "[\"0\"]",
+      "[\"0\"]"
+    ],
+    "legTraces": [
+      {
+        "memo": "p16b-m2-1",
+        "transferReceiptId": "45YYmeMoVp9RcFNhZ7BRf7FgpWEA61qRDHoUoHn1B4W6",
+        "bridgeReceiptId": "2sbp6N5HfsXH3nqZabU5VTL5Ffd8Gw8YKDHMoYSaSYAE",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p16b-m2-2",
+        "transferReceiptId": "EX5t48gBx42i6DGVBHWySihfXmgeMWmkqsnSbFohZZVK",
+        "bridgeReceiptId": "FVeP5DBBXnMWvfY5MJ5sZc1uHFmkxe511HxMYBGExzra",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      },
+      {
+        "memo": "p16b-m2-3",
+        "transferReceiptId": "DS44ai7JnFsYRdFF9YoeiKSgVrr5NHbiUpaDrF9GF5cb",
+        "bridgeReceiptId": "4DmgmZoAWpxaigF5dQhWa8VSeYxTpZQPjVPKvYRCP75y",
+        "unused": [
+          "0"
+        ],
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": true,
+    "refundApplied": false,
+    "likelyDesync": false,
+    "note": "Withdraw path started with zero-unused return"
+  },
+  {
+    "name": "p16b-l2-unicode-receiver-key",
+    "intentHash": "3Rutsw5vFmPp3FDhehA3CJ3PKGPAqNu1VyYtfeMRaxYY",
+    "txHash": "rHBjz33CUXHBSj3Bzit6diC9FdoDxGYzQbRYgfhbNJw",
+    "signerAccountId": "intents.near",
+    "mtOnTransferUnusedAll": [],
+    "bridgeSuccessDecoded": [],
+    "legTraces": [
+      {
+        "memo": "p16b-global-memo",
+        "transferReceiptId": "Dx5NPU3G3xFX8RYXi1Zp29EQdszVGqT7QUY66JTnU8mM",
+        "unused0": "0",
+        "nonZeroUnused0": false
+      }
+    ],
+    "correlatedLikelyDesync": false,
+    "withdrawStarted": false,
+    "refundApplied": true,
+    "likelyDesync": false,
+    "note": "Early refund path (likely mt_on_transfer panic/failure)"
+  }
+]

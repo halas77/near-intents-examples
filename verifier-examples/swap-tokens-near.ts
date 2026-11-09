@@ -192,11 +192,11 @@ export const submitSwap = async ({
 };
 
 // ── Configuration ──────────────────────────────────────────────────────────────
-const fromTokenId = 'nep245:v2_1.omni.hot.tg:10_A2ewyUyDp6qsue1jqZsGypkCxRJ';
+const fromTokenId = 'nep141:wrap.near';
 
-const toTokenId = 'nep245:v2_1.omni.hot.tg:56_2w93GqMcEmQFDru84j3HZZWt557r';
+const toTokenId = 'nep245:v2_1.omni.hot.tg:137_qiStmoQJDQPTebaPjgx5VBxZv6L';
 
-const amount = '0.5';
+const amount = '0.2';
 
 const quoteOnly = false;
 
